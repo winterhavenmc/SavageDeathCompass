@@ -3,7 +3,7 @@ version: ${project.version}
 author: ${project.author}
 main: com.winterhavenmc.deathcompass.PluginMain
 api-version: 1.16
-softdepend: [Multiverse-Core]
+softdepend: [ Iris, Multiverse-Core, My_Worlds ]
 
 commands:
   deathcompass:
