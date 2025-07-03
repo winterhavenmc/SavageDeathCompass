@@ -39,8 +39,8 @@ import org.bukkit.plugin.java.JavaPlugin;
  *
  * @author Tim Savage
  */
-public final class PluginMain extends JavaPlugin {
-
+public final class PluginMain extends JavaPlugin
+{
 	public MessageBuilder<MessageId, Macro> messageBuilder;
 	public SoundConfiguration soundConfig;
 	public WorldManager worldManager;
@@ -49,8 +49,8 @@ public final class PluginMain extends JavaPlugin {
 
 
 	@Override
-	public void onEnable() {
-
+	public void onEnable()
+	{
 		// Save a copy of the default config.yml if file does not already exist
 		saveDefaultConfig();
 
@@ -84,7 +84,8 @@ public final class PluginMain extends JavaPlugin {
 
 
 	@Override
-	public void onDisable() {
+	public void onDisable()
+	{
 		dataStore.close();
 	}
 
