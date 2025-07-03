@@ -82,7 +82,7 @@ MESSAGES:
   #########################
   COMMAND_STATUS_HEADER:
     enabled: true
-    string: "\n&3&m                  =&r&3[&b SavageDeathCompass &3]&m=                  "
+    string: "\n&3&m                   =&r&3[&b SavageDeathCompass &3]&m=                   "
 
   COMMAND_STATUS_FOOTER:
     enabled: true
