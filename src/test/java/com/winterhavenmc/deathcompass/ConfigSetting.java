@@ -1,7 +1,7 @@
 package com.winterhavenmc.deathcompass;
 
-public enum ConfigSetting {
-
+public enum ConfigSetting
+{
 	LANGUAGE("en-US"),
 	ENABLED_WORLDS("[]"),
 	DISABLED_WORLDS("[disabled_world1, disabled_world2]"),
