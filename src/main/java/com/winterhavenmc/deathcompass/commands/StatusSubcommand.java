@@ -18,6 +18,7 @@
 package com.winterhavenmc.deathcompass.commands;
 
 import com.winterhavenmc.deathcompass.PluginMain;
+import com.winterhavenmc.deathcompass.messages.Macro;
 import com.winterhavenmc.deathcompass.messages.MessageId;
 import com.winterhavenmc.deathcompass.sounds.SoundId;
 
@@ -61,24 +62,44 @@ final class StatusSubcommand extends AbstractSubcommand
 			return true;
 		}
 
-		showVersion(sender);
-		showDebug(sender);
-		showLanguage(sender);
-		showDestroyOnDrop(sender);
-		showTargetDelay(sender);
-		showEnabledWorlds(sender);
+		displayHeader(sender);
+		displayPluginVersion(sender);
+		displayDebug(sender);
+		displayLanguage(sender);
+		displaySoundEffects(sender);
+		displayDestroyOnDrop(sender);
+		displayPreventStorage(sender);
+		displayTargetDelay(sender);
+		displayEnabledWorlds(sender);
+		displayFooter(sender);
+
 		return true;
 	}
 
 
-	private void showVersion(final CommandSender sender)
+	private void displayHeader(final CommandSender sender)
 	{
-		sender.sendMessage(ChatColor.DARK_AQUA + "[" + plugin.getName() + "] "
-				+ ChatColor.AQUA + "Version: " + ChatColor.RESET + plugin.getDescription().getVersion());
+		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_HEADER)
+				.setMacro(Macro.PLUGIN, plugin.getDescription().getName())
+				.send();
 	}
 
+	private void displayFooter(final CommandSender sender)
+	{
+		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_FOOTER)
+				.setMacro(Macro.PLUGIN, plugin.getDescription().getName())
+				.setMacro(Macro.URL, "https://github.com/winterhavenmc/SavageDeathCompass/")
+				.send();
+	}
 
-	private void showDebug(final CommandSender sender)
+	private void displayPluginVersion(final CommandSender sender)
+	{
+		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_PLUGIN_VERSION)
+				.setMacro(Macro.VERSION, plugin.getDescription().getVersion())
+				.send();
+	}
+
+	private void displayDebug(final CommandSender sender)
 	{
 		if (plugin.getConfig().getBoolean("debug"))
 		{
@@ -87,33 +108,47 @@ final class StatusSubcommand extends AbstractSubcommand
 		}
 	}
 
-
-	private void showLanguage(final CommandSender sender)
+	private void displayLanguage(final CommandSender sender)
 	{
-		sender.sendMessage(ChatColor.GREEN + "Language: "
-				+ ChatColor.RESET + plugin.getConfig().getString("language"));
+		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_LANGUAGE)
+				.setMacro(Macro.LANGUAGE, plugin.getConfig().getString("language"))
+				.send();
+	}
+
+	private void displaySoundEffects(final CommandSender sender)
+	{
+		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_SOUND_EFFECTS)
+				.setMacro(Macro.SOUND_EFFECTS, plugin.getConfig().getBoolean("sound-effects"))
+				.send();
+	}
+
+	private void displayDestroyOnDrop(final CommandSender sender)
+	{
+		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_DESTROY_ON_DROP)
+				.setMacro(Macro.DESTROY_ON_DROP, plugin.getConfig().getString("destroy-on-drop"))
+				.send();
 	}
 
 
-	private void showDestroyOnDrop(final CommandSender sender)
+	private void displayPreventStorage(final CommandSender sender)
 	{
-		sender.sendMessage(ChatColor.GREEN + "Destroy On Drop: "
-				+ ChatColor.RESET + plugin.getConfig().getString("destroy-on-drop"));
+		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_PREVENT_STORAGE)
+				.setMacro(Macro.PREVENT_STORAGE, plugin.getConfig().getBoolean("prevent-storage"))
+				.send();
 	}
 
-
-	private void showTargetDelay(final CommandSender sender)
+	private void displayTargetDelay(final CommandSender sender)
 	{
-		sender.sendMessage(ChatColor.GREEN + "Set Compass Target Delay: "
-				+ ChatColor.RESET + plugin.getConfig().getString("target-delay"));
+		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_TARGET_DELAY)
+				.setMacro(Macro.TARGET_DELAY, plugin.getConfig().getString("target-delay") + " ticks")
+				.send();
 	}
 
-
-	private void showEnabledWorlds(final CommandSender sender)
+	private void displayEnabledWorlds(final CommandSender sender)
 	{
-		sender.sendMessage(ChatColor.GREEN + "Enabled Words: "
-				+ ChatColor.RESET + plugin.worldManager.getEnabledWorldNames().toString()
-				+ ChatColor.RESET);
+		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_ENABLED_WORLDS)
+				.setMacro(Macro.ENABLED_WORLDS, plugin.worldManager.getEnabledWorldNames().toString())
+				.send();
 	}
 
 }
