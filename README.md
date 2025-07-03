@@ -26,20 +26,20 @@ This plugin was created as an alternative to the /back on death command. With De
 
 ### Commands:
 
-Command | Description
-------- | -----------
-`/deathcompass status` | Displays version info and configured settings.
-`/deathcompass reload` | Reloads configuration file.
-`/deathcompass help [command]` | Displays short help and usage message.
+| Command                        | Description                                    |
+|--------------------------------|------------------------------------------------|
+| `/deathcompass status`         | Displays version info and configured settings. |
+| `/deathcompass reload`         | Reloads configuration file.                    |
+| `/deathcompass help [command]` | Displays short help and usage message.         |
 
 ### Permissions:
 
-Permission | Description | Default
----------- | ----------- | -------
-`deathcompass.use` | Give player a DeathCompass when respawning after death | true
-`deathcompass.status` | Allow viewing plugin status | op
-`deathcompass.reload` | Allow reloading of configuration file	| op
-`deathcompass.admin` | All admin commands | op
+| Permission            | Description                                            | Default |
+|-----------------------|--------------------------------------------------------|---------|
+| `deathcompass.use`    | Give player a DeathCompass when respawning after death | true    |
+| `deathcompass.status` | Allow viewing plugin status                            | op      |
+| `deathcompass.reload` | Allow reloading of configuration file	                 | op      |
+| `deathcompass.admin`  | All admin commands                                     | op      |
 
 ### Installation:
 
