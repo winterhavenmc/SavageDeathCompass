@@ -19,5 +19,16 @@ package com.winterhavenmc.deathcompass.messages;
 
 public enum Macro
 {
-	// No macros defined; this plugin only uses built-in macros %ITEM%, %PLAYER%, %WORLD%
+	PLAYER,
+	WORLD,
+
+	PLUGIN,
+	URL,
+	VERSION,
+	LANGUAGE,
+	DESTROY_ON_DROP,
+	TARGET_DELAY,
+	ENABLED_WORLDS,
+	PREVENT_STORAGE,
+	SOUND_EFFECTS,
 }
