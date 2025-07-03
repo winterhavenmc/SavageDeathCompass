@@ -7,7 +7,7 @@
 	<version>1.21.0-SNAPSHOT</version>
 	<name>SavageDeathCompass</name>
 
-	<url>https://github.com/tim-savage/SavageDeathCompass</url>
+	<url>https://github.com/winterhavenmc/SavageDeathCompass</url>
 
 	<description>
 		An alternative to /back on death command.
