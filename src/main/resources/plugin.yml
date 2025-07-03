@@ -2,7 +2,7 @@ name: ${project.name}
 version: ${project.version}
 author: ${project.author}
 main: com.winterhavenmc.deathcompass.PluginMain
-api-version: 1.16
+api-version: 1.21
 softdepend: [ Iris, Multiverse-Core, My_Worlds ]
 
 commands:
