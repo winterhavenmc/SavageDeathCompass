@@ -42,8 +42,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Implements event handlers for player events
  */
-public final class PlayerEventListener implements Listener {
-
+public final class PlayerEventListener implements Listener
+{
 	// reference to main class
 	private final PluginMain plugin;
 
@@ -56,8 +56,8 @@ public final class PlayerEventListener implements Listener {
 	 *
 	 * @param plugin reference to main class
 	 */
-	public PlayerEventListener(final PluginMain plugin) {
-
+	public PlayerEventListener(final PluginMain plugin)
+	{
 		// set reference to main class
 		this.plugin = plugin;
 
@@ -72,10 +72,11 @@ public final class PlayerEventListener implements Listener {
 	 * @param event the event handled by this method
 	 */
 	@EventHandler(priority = EventPriority.LOW)
-	public void onPlayerDeath(final PlayerDeathEvent event) {
-
+	public void onPlayerDeath(final PlayerDeathEvent event)
+	{
 		// if destroy-on-drop is enabled in configuration, remove any death compasses from player drops on death
-		if (plugin.getConfig().getBoolean("destroy-on-drop")) {
+		if (plugin.getConfig().getBoolean("destroy-on-drop"))
+		{
 
 			// get death drops as list
 			List<ItemStack> drops = event.getDrops();
@@ -84,12 +85,14 @@ public final class PlayerEventListener implements Listener {
 			ListIterator<ItemStack> iterator = drops.listIterator();
 
 			// create death compass stack for comparison
-			ItemStack deathCompass = plugin.deathCompassFactory.createItem();
+			ItemStack deathCompass = plugin.deathCompassUtility.createItem();
 
 			// loop through all dropped items and remove any stacks that are death compasses
-			while (iterator.hasNext()) {
+			while (iterator.hasNext())
+			{
 				ItemStack stack = iterator.next();
-				if (stack.isSimilar(deathCompass)) {
+				if (stack.isSimilar(deathCompass))
+				{
 					iterator.remove();
 				}
 			}
@@ -98,12 +101,14 @@ public final class PlayerEventListener implements Listener {
 		Player player = event.getEntity();
 
 		// if player world is not enabled in config, do nothing and return
-		if (!plugin.worldManager.isEnabled(player.getWorld())) {
+		if (!plugin.worldManager.isEnabled(player.getWorld()))
+		{
 			return;
 		}
 
 		// if player does not have deathcompass.use permission, do nothing and return
-		if (!player.hasPermission("deathcompass.use")) {
+		if (!player.hasPermission("deathcompass.use"))
+		{
 			return;
 		}
 
@@ -124,17 +129,19 @@ public final class PlayerEventListener implements Listener {
 	 * @param event the event handled by this method
 	 */
 	@EventHandler
-	public void onPlayerRespawn(final PlayerRespawnEvent event) {
-
+	public void onPlayerRespawn(final PlayerRespawnEvent event)
+	{
 		Player player = event.getPlayer();
 
 		// if player world is not enabled, do nothing and return
-		if (!plugin.worldManager.isEnabled(player.getWorld())) {
+		if (!plugin.worldManager.isEnabled(player.getWorld()))
+		{
 			return;
 		}
 
 		// if deathTriggeredRespawn set does not contain user uuid, do nothing and return
-		if (!deathTriggeredRespawn.contains(player.getUniqueId())) {
+		if (!deathTriggeredRespawn.contains(player.getUniqueId()))
+		{
 			return;
 		}
 
@@ -142,7 +149,8 @@ public final class PlayerEventListener implements Listener {
 		deathTriggeredRespawn.remove(player.getUniqueId());
 
 		// if player does not have deathcompass.use permission, do nothing and return
-		if (!player.hasPermission("deathcompass.use")) {
+		if (!player.hasPermission("deathcompass.use"))
+		{
 			return;
 		}
 
@@ -153,7 +161,7 @@ public final class PlayerEventListener implements Listener {
 		setDeathCompassTarget(player);
 
 		// send player respawn message
-		plugin.messageBuilder.build(player, MessageId.ACTION_PLAYER_RESPAWN).send();
+		plugin.messageBuilder.compose(player, MessageId.ACTION_PLAYER_RESPAWN).send();
 	}
 
 
@@ -163,22 +171,24 @@ public final class PlayerEventListener implements Listener {
 	 * @param event the event handled by this method
 	 */
 	@EventHandler
-	public void onPlayerJoin(final PlayerJoinEvent event) {
-
+	public void onPlayerJoin(final PlayerJoinEvent event)
+	{
 		Player player = event.getPlayer();
 
 		// if player world is not enabled, do nothing and return
-		if (!plugin.worldManager.isEnabled(player.getWorld())) {
+		if (!plugin.worldManager.isEnabled(player.getWorld()))
+		{
 			return;
 		}
 
 		// if player does not have deathcompass.use permission, do nothing and return
-		if (!player.hasPermission("deathcompass.use")) {
+		if (!player.hasPermission("deathcompass.use"))
+		{
 			return;
 		}
 
 		// create 1 compass itemstack with configured settings
-		ItemStack deathcompass = plugin.deathCompassFactory.createItem();
+		ItemStack deathcompass = plugin.deathCompassUtility.createItem();
 
 		// get player last death location
 		Location lastDeathLocation = getDeathLocation(player);
@@ -186,7 +196,8 @@ public final class PlayerEventListener implements Listener {
 		// if player does not have at least one death compass in inventory or
 		// saved death location in current world, do nothing and return
 		if (!player.getInventory().containsAtLeast(deathcompass, 1) ||
-				lastDeathLocation == null) {
+				lastDeathLocation == null)
+		{
 			return;
 		}
 
@@ -201,26 +212,29 @@ public final class PlayerEventListener implements Listener {
 	 * @param event the event handled by this method
 	 */
 	@EventHandler
-	public void onChangeWorld(final PlayerChangedWorldEvent event) {
-
+	public void onChangeWorld(final PlayerChangedWorldEvent event)
+	{
 		// get player for event
 		Player player = Objects.requireNonNull(event.getPlayer());
 
 		// if player world is not enabled in config, do nothing and return
-		if (!plugin.worldManager.isEnabled(player.getWorld())) {
+		if (!plugin.worldManager.isEnabled(player.getWorld()))
+		{
 			return;
 		}
 
 		// if player does not have deathcompass.use permission, do nothing and return
-		if (!player.hasPermission("deathcompass.use")) {
+		if (!player.hasPermission("deathcompass.use"))
+		{
 			return;
 		}
 
 		// create DeathCompass itemstack
-		ItemStack deathcompass = plugin.deathCompassFactory.createItem();
+		ItemStack deathcompass = plugin.deathCompassUtility.createItem();
 
 		// if player does not have a death compass in inventory, do nothing and return
-		if (!player.getInventory().containsAtLeast(deathcompass,1)) {
+		if (!player.getInventory().containsAtLeast(deathcompass, 1))
+		{
 			return;
 		}
 
@@ -228,7 +242,8 @@ public final class PlayerEventListener implements Listener {
 		Location lastDeathLocation = getDeathLocation(player);
 
 		// if player does not have a saved death location, do nothing and return
-		if (lastDeathLocation == null) {
+		if (lastDeathLocation == null)
+		{
 			return;
 		}
 
@@ -244,8 +259,8 @@ public final class PlayerEventListener implements Listener {
 	 * @param event the event handled by this method
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void onPlayerInteract(final PlayerInteractEvent event) {
-
+	public void onPlayerInteract(final PlayerInteractEvent event)
+	{
 		// get player
 		final Player player = event.getPlayer();
 
@@ -255,8 +270,9 @@ public final class PlayerEventListener implements Listener {
 		// if block is a DeathChestBlock owned by player, remove death compasses from inventory and reset target
 		if (block != null
 				&& block.hasMetadata("deathchest-owner")
-				&& block.getMetadata("deathchest-owner").get(0).asString()
-					.equals(player.getUniqueId().toString())) {
+				&& block.getMetadata("deathchest-owner").getFirst().asString()
+				.equals(player.getUniqueId().toString()))
+		{
 
 			// remove all death compasses from player inventory
 			removeDeathCompasses(player.getInventory());
@@ -273,18 +289,19 @@ public final class PlayerEventListener implements Listener {
 	 * @param event the event handled by this method
 	 */
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void onItemDrop(final PlayerDropItemEvent event) {
-
+	public void onItemDrop(final PlayerDropItemEvent event)
+	{
 		Player player = event.getPlayer();
 
 		// get itemstack that was dropped
 		ItemStack droppedItemStack = event.getItemDrop().getItemStack();
 
 		// create death compass itemstack for comparison
-		ItemStack dc = plugin.deathCompassFactory.createItem();
+		ItemStack dc = plugin.deathCompassUtility.createItem();
 
 		// if droppedItemStack is not a DeathCompass or destroy-on-drop config is not true, do nothing and return
-		if (!droppedItemStack.isSimilar(dc) || !plugin.getConfig().getBoolean("destroy-on-drop")) {
+		if (!droppedItemStack.isSimilar(dc) || !plugin.getConfig().getBoolean("destroy-on-drop"))
+		{
 			return;
 		}
 
@@ -295,12 +312,13 @@ public final class PlayerEventListener implements Listener {
 		plugin.soundConfig.playSound(player, SoundId.PLAYER_DROP_COMPASS);
 
 		// if inventory does not contain at least 1 death compass, reset compass target
-		if (!player.getInventory().containsAtLeast(dc, 1)) {
+		if (!player.getInventory().containsAtLeast(dc, 1))
+		{
 			resetDeathCompassTarget(player);
 		}
 
 		// send player compass destroyed message
-		plugin.messageBuilder.build(player, MessageId.ACTION_ITEM_DESTROY).send();
+		plugin.messageBuilder.compose(player, MessageId.ACTION_ITEM_DESTROY).send();
 	}
 
 
@@ -309,17 +327,17 @@ public final class PlayerEventListener implements Listener {
 	 *
 	 * @param player the player being given a death compass
 	 */
-	private void giveDeathCompass(final Player player) {
-
+	private void giveDeathCompass(final Player player)
+	{
 		// create DeathCompass itemstack
-		ItemStack deathcompass = plugin.deathCompassFactory.createItem();
+		ItemStack deathcompass = plugin.deathCompassUtility.createItem();
 
 		// add DeathCompass itemstack to player inventory
 		player.getInventory().addItem(deathcompass);
 
 		// log info
-		plugin.getLogger().info(player.getName() + ChatColor.RESET  + " was given a death compass in "
-				+ plugin.worldManager.getWorldName(player) + ChatColor.RESET + ".");
+		plugin.getLogger().info(player.getName() + ChatColor.RESET + " was given a death compass in "
+				+ plugin.worldManager.getWorldName(player.getWorld()) + ChatColor.RESET + ".");
 	}
 
 
@@ -328,8 +346,9 @@ public final class PlayerEventListener implements Listener {
 	 *
 	 * @param inventory the inventory from which to remove all death compasses
 	 */
-	private void removeDeathCompasses(final Inventory inventory) {
-		ItemStack deathcompass = plugin.deathCompassFactory.createItem();
+	private void removeDeathCompasses(final Inventory inventory)
+	{
+		ItemStack deathcompass = plugin.deathCompassUtility.createItem();
 		inventory.removeItem(deathcompass);
 	}
 
@@ -340,12 +359,16 @@ public final class PlayerEventListener implements Listener {
 	 *
 	 * @param player the player whose death location is being set as the compass target
 	 */
-	private void setDeathCompassTarget(final Player player) {
-		new BukkitRunnable() {
+	private void setDeathCompassTarget(final Player player)
+	{
+		new BukkitRunnable()
+		{
 
-			public void run() {
+			public void run()
+			{
 				Location location = getDeathLocation(player);
-				if (location.getWorld() != player.getWorld()) {
+				if (location.getWorld() != player.getWorld())
+				{
 					return;
 				}
 				player.setCompassTarget(location);
@@ -359,8 +382,8 @@ public final class PlayerEventListener implements Listener {
 	 *
 	 * @param player the player whose compass target is being reset
 	 */
-	private void resetDeathCompassTarget(final Player player) {
-
+	private void resetDeathCompassTarget(final Player player)
+	{
 		// set player compass target to world spawn location
 		player.setCompassTarget(player.getWorld().getSpawnLocation());
 	}
@@ -372,8 +395,8 @@ public final class PlayerEventListener implements Listener {
 	 * @param player the player whose death location is being retrieved
 	 * @return location
 	 */
-	private Location getDeathLocation(final Player player) {
-
+	private Location getDeathLocation(final Player player)
+	{
 		// check for null parameter
 		Objects.requireNonNull(player);
 
@@ -387,7 +410,8 @@ public final class PlayerEventListener implements Listener {
 		final Optional<DeathRecord> optionalDeathRecord = plugin.dataStore.selectRecord(player.getUniqueId(), worldUid);
 
 		// if fetched record is not empty, set location
-		if (optionalDeathRecord.isPresent() && optionalDeathRecord.get().getLocation().isPresent()) {
+		if (optionalDeathRecord.isPresent() && optionalDeathRecord.get().getLocation().isPresent())
+		{
 			location = optionalDeathRecord.get().getLocation().get();
 		}
 

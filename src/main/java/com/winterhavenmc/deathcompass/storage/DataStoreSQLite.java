@@ -24,11 +24,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.sql.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.UUID;
 
 
-final class DataStoreSQLite extends DataStoreAbstract implements DataStore, Listener {
-
+final class DataStoreSQLite extends DataStoreAbstract implements DataStore, Listener
+{
 	// reference to main class
 	private final JavaPlugin plugin;
 
@@ -50,8 +53,8 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 	 *
 	 * @param plugin reference to plugin main class
 	 */
-	DataStoreSQLite(final JavaPlugin plugin) {
-
+	DataStoreSQLite(final JavaPlugin plugin)
+	{
 		// reference to main class
 		this.plugin = plugin;
 
@@ -66,11 +69,13 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 	}
 
 	@Override
-	public void initialize() throws SQLException, ClassNotFoundException {
-
+	public void initialize() throws SQLException, ClassNotFoundException
+	{
 		// if data store is already initialized, do nothing and return
-		if (this.isInitialized()) {
-			if (plugin.getConfig().getBoolean("debug")) {
+		if (this.isInitialized())
+		{
+			if (plugin.getConfig().getBoolean("debug"))
+			{
 				plugin.getLogger().info(this + " datastore already initialized.");
 			}
 			return;
@@ -97,39 +102,42 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 	}
 
 
-	private int getSchemaVersion() {
-
+	private int getSchemaVersion()
+	{
 		int version = -1;
 
-		try {
+		try
+		{
 			final Statement statement = connection.createStatement();
 
 			ResultSet rs = statement.executeQuery(Queries.getQuery("GetUserVersion"));
 
-			while (rs.next()) {
+			while (rs.next())
+			{
 				version = rs.getInt(1);
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			plugin.getLogger().warning("Could not get schema version!");
 		}
 		return version;
 	}
 
 
-	private void updateSchema() throws SQLException {
-
+	private void updateSchema() throws SQLException
+	{
 		schemaVersion = getSchemaVersion();
 
 		final Statement statement = connection.createStatement();
 
-		if (schemaVersion == 0) {
+		if (schemaVersion == 0)
+		{
 			int count;
 
 			// check for existing table
 			ResultSet rs = statement.executeQuery(Queries.getQuery("SelectDeathLocationTable"));
-			if (rs.next()) {
-
+			if (rs.next())
+			{
 				// get existing records
 				Collection<DeathRecord> existingRecords = selectAllRecords();
 
@@ -157,15 +165,17 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 
 
 	@Override
-	public synchronized Optional<DeathRecord> selectRecord(final UUID playerUUID, final UUID worldUID) {
-
+	public synchronized Optional<DeathRecord> selectRecord(final UUID playerUUID, final UUID worldUID)
+	{
 		// if key is null return null record
-		if (playerUUID == null) {
+		if (playerUUID == null)
+		{
 			return Optional.empty();
 		}
 
 		// if world uid is null, return null record
-		if (worldUID == null) {
+		if (worldUID == null)
+		{
 			return Optional.empty();
 		}
 
@@ -181,13 +191,15 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 		Optional<DeathRecord> optionalDeathRecord = deathRecordCache.get(playerUUID, worldUID);
 
 		// if a record was returned from cache, return the record; otherwise try datastore
-		if (optionalDeathRecord.isPresent()) {
+		if (optionalDeathRecord.isPresent())
+		{
 			return optionalDeathRecord;
 		}
 
 		DeathRecord deathRecord = null;
 
-		try {
+		try
+		{
 			PreparedStatement preparedStatement = connection.prepareStatement(Queries.getQuery("SelectLocation"));
 
 			preparedStatement.setLong(1, playerUidMsb);
@@ -199,7 +211,8 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 			ResultSet rs = preparedStatement.executeQuery();
 
 			// only zero or one record can match the unique key
-			if (rs.next()) {
+			if (rs.next())
+			{
 
 				// get stored world and coordinates
 				String worldName = rs.getString("worldname");
@@ -210,7 +223,8 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 				// get server world by uid
 				World world = plugin.getServer().getWorld(worldUID);
 
-				if (world == null) {
+				if (world == null)
+				{
 					plugin.getLogger().warning("World " + worldName + " is not loaded!");
 					return Optional.empty();
 				}
@@ -218,21 +232,23 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 				deathRecord = new DeathRecord(playerUUID, worldUID, x, y, z);
 			}
 		}
-		catch (SQLException e) {
-
+		catch (SQLException e)
+		{
 			// output simple error message
 			plugin.getLogger().warning("An error occurred while fetching a record from the SQLite database.");
 			plugin.getLogger().warning(e.getLocalizedMessage());
 
 			// if debugging is enabled, output stack trace
-			if (plugin.getConfig().getBoolean("debug")) {
+			if (plugin.getConfig().getBoolean("debug"))
+			{
 				e.getStackTrace();
 			}
 			return Optional.empty();
 		}
 
 		// if record is not null, put record in cache
-		if (deathRecord != null) {
+		if (deathRecord != null)
+		{
 			deathRecordCache.put(deathRecord);
 		}
 
@@ -242,19 +258,22 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 
 
 	@Override
-	public synchronized Collection<DeathRecord> selectAllRecords() {
-
+	public synchronized Collection<DeathRecord> selectAllRecords()
+	{
 		Collection<DeathRecord> returnSet = new HashSet<>();
 
-		try {
+		try
+		{
 			PreparedStatement preparedStatement = connection.prepareStatement(Queries.getQuery("SelectAllLocations"));
 
 			// execute sql query
 			ResultSet rs = preparedStatement.executeQuery();
 
-			while (rs.next()) {
+			while (rs.next())
+			{
 
-				if (schemaVersion == 0) {
+				if (schemaVersion == 0)
+				{
 					String key = rs.getString("playerid");
 					String worldName = rs.getString("worldname");
 					double x = rs.getDouble("x");
@@ -263,7 +282,8 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 
 					World world = plugin.getServer().getWorld(worldName);
 
-					if (world == null) {
+					if (world == null)
+					{
 						plugin.getLogger().warning("Stored record has invalid world: "
 								+ worldName + ". Skipping record.");
 						continue;
@@ -271,24 +291,29 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 
 					// convert key string to UUID
 					UUID playerUUID = null;
-					try {
+					try
+					{
 						playerUUID = UUID.fromString(key);
 					}
-					catch (Exception e) {
-						if (plugin.getConfig().getBoolean("debug")) {
+					catch (Exception e)
+					{
+						if (plugin.getConfig().getBoolean("debug"))
+						{
 							plugin.getLogger().warning("Player UUID in datastore is invalid!");
 						}
 					}
 
 					// if playerUUID is not null, add record to return list
-					if (playerUUID != null) {
+					if (playerUUID != null)
+					{
 						DeathRecord deathRecord = new DeathRecord(playerUUID, world.getUID(), x, y, z);
 						returnSet.add(deathRecord);
 					}
 				}
 
 				// if schema version 1, try to get world by uuid
-				else if (schemaVersion == 1) {
+				else if (schemaVersion == 1)
+				{
 
 					long playerUidMsb = rs.getLong("playerUidMsb");
 					long playerUidLsb = rs.getLong("playerUidLsb");
@@ -301,7 +326,8 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 
 					World world = plugin.getServer().getWorld(new UUID(worldUidMsb, worldUidLsb));
 
-					if (world == null) {
+					if (world == null)
+					{
 						plugin.getLogger().warning("Stored record has invalid world: "
 								+ worldName + ". Skipping record.");
 						continue;
@@ -315,7 +341,8 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 				}
 			}
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 
 			// output simple error message
 			plugin.getLogger().warning("An error occurred while trying "
@@ -323,7 +350,8 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 			plugin.getLogger().warning(e.getLocalizedMessage());
 
 			// if debugging is enabled, output stack trace
-			if (plugin.getConfig().getBoolean("debug")) {
+			if (plugin.getConfig().getBoolean("debug"))
+			{
 				e.getStackTrace();
 			}
 		}
@@ -334,10 +362,11 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 
 
 	@Override
-	public synchronized void insertRecord(final DeathRecord deathRecord) {
-
+	public synchronized void insertRecord(final DeathRecord deathRecord)
+	{
 		// if record is null do nothing and return
-		if (deathRecord == null) {
+		if (deathRecord == null)
+		{
 			return;
 		}
 
@@ -352,7 +381,8 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 		final World world = plugin.getServer().getWorld(deathRecord.getWorldUid());
 
 		// if world is null, log message and return
-		if (world == null) {
+		if (world == null)
+		{
 			plugin.getLogger().warning("An error occurred while inserting"
 					+ " a record in the SQLite database. World invalid!");
 			return;
@@ -365,10 +395,13 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 		final long worldUidMsb = world.getUID().getMostSignificantBits();
 		final long worldUidLsb = world.getUID().getLeastSignificantBits();
 
-		new BukkitRunnable() {
+		new BukkitRunnable()
+		{
 			@Override
-			public void run() {
-				try {
+			public void run()
+			{
+				try
+				{
 					// create prepared statement
 					PreparedStatement preparedStatement = connection.prepareStatement(Queries.getQuery("InsertLocation"));
 
@@ -384,14 +417,16 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 					// execute prepared statement
 					preparedStatement.executeUpdate();
 				}
-				catch (Exception e) {
+				catch (Exception e)
+				{
 
 					// output simple error message
 					plugin.getLogger().warning("An error occurred while inserting a record into the SQLite database.");
 					plugin.getLogger().warning(e.getLocalizedMessage());
 
 					// if debugging is enabled, output stack trace
-					if (plugin.getConfig().getBoolean("debug")) {
+					if (plugin.getConfig().getBoolean("debug"))
+					{
 						e.getStackTrace();
 					}
 				}
@@ -401,16 +436,19 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 
 
 	@Override
-	public synchronized int insertRecords(final Collection<DeathRecord> deathRecords) {
+	public synchronized int insertRecords(final Collection<DeathRecord> deathRecords)
+	{
 
 		// if record is null do nothing and return
-		if (deathRecords == null) {
+		if (deathRecords == null)
+		{
 			return 0;
 		}
 
 		int count = 0;
 
-		for (DeathRecord deathRecord : deathRecords) {
+		for (DeathRecord deathRecord : deathRecords)
+		{
 
 			// cache death record
 			deathRecordCache.put(deathRecord);
@@ -423,7 +461,8 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 			final World world = plugin.getServer().getWorld(deathRecord.getWorldUid());
 
 			// if world is null, skip to next record
-			if (world == null) {
+			if (world == null)
+			{
 				plugin.getLogger().warning("An error occurred while inserting"
 						+ " a record in the SQLite database. World invalid!");
 				continue;
@@ -436,10 +475,13 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 			final long worldUidMsb = world.getUID().getMostSignificantBits();
 			final long worldUidLsb = world.getUID().getLeastSignificantBits();
 
-			new BukkitRunnable() {
+			new BukkitRunnable()
+			{
 				@Override
-				public void run() {
-					try {
+				public void run()
+				{
+					try
+					{
 						// create prepared statement
 						PreparedStatement preparedStatement = connection.prepareStatement(Queries.getQuery("InsertLocation"));
 
@@ -456,14 +498,16 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 						// execute prepared statement
 						preparedStatement.executeUpdate();
 					}
-					catch (Exception e) {
+					catch (Exception e)
+					{
 
 						// output simple error message
 						plugin.getLogger().warning("An error occurred while inserting a record into the SQLite database.");
 						plugin.getLogger().warning(e.getLocalizedMessage());
 
 						// if debugging is enabled, output stack trace
-						if (plugin.getConfig().getBoolean("debug")) {
+						if (plugin.getConfig().getBoolean("debug"))
+						{
 							e.getStackTrace();
 						}
 					}
@@ -476,15 +520,17 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 
 
 	@Override
-	public synchronized Optional<DeathRecord> deleteRecord(final UUID playerUid, final UUID worldUid) {
-
+	public synchronized Optional<DeathRecord> deleteRecord(final UUID playerUid, final UUID worldUid)
+	{
 		// if player uuid is null return null record
-		if (playerUid == null) {
+		if (playerUid == null)
+		{
 			return Optional.empty();
 		}
 
 		// if world uid is null return null record
-		if (worldUid == null) {
+		if (worldUid == null)
+		{
 			return Optional.empty();
 		}
 
@@ -499,7 +545,8 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 		// get destination record to be deleted, for return
 		Optional<DeathRecord> optionalDeathRecord = selectRecord(playerUid, worldUid);
 
-		try {
+		try
+		{
 			// create prepared statement
 			PreparedStatement preparedStatement = connection.prepareStatement(Queries.getQuery("DeleteLocation"));
 
@@ -512,11 +559,13 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 			int rowsAffected = preparedStatement.executeUpdate();
 
 			// output debugging information
-			if (plugin.getConfig().getBoolean("debug")) {
+			if (plugin.getConfig().getBoolean("debug"))
+			{
 				plugin.getLogger().info(rowsAffected + " rows deleted.");
 			}
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 
 			// output simple error message
 			plugin.getLogger().warning("An error occurred while attempting "
@@ -524,7 +573,8 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 			plugin.getLogger().warning(e.getLocalizedMessage());
 
 			// if debugging is enabled, output stack trace
-			if (plugin.getConfig().getBoolean("debug")) {
+			if (plugin.getConfig().getBoolean("debug"))
+			{
 				e.getStackTrace();
 			}
 		}
@@ -533,20 +583,23 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 
 
 	@Override
-	public void close() {
-
-		try {
+	public void close()
+	{
+		try
+		{
 			connection.close();
 			plugin.getLogger().info("SQLite database connection closed.");
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 
 			// output simple error message
 			plugin.getLogger().warning("An error occurred while closing the SQLite database connection.");
 			plugin.getLogger().warning(e.getMessage());
 
 			// if debugging is enabled, output stack trace
-			if (plugin.getConfig().getBoolean("debug")) {
+			if (plugin.getConfig().getBoolean("debug"))
+			{
 				e.getStackTrace();
 			}
 		}
@@ -555,20 +608,20 @@ final class DataStoreSQLite extends DataStoreAbstract implements DataStore, List
 
 
 	@Override
-	public void sync() {
-
+	public void sync()
+	{
 		// no action necessary for this storage type
-
 	}
 
 
 	@Override
-	public boolean delete() {
-
+	public boolean delete()
+	{
 		// get path name to data store file
 		File dataStoreFile = new File(dataFilePath);
 		boolean result = false;
-		if (dataStoreFile.exists()) {
+		if (dataStoreFile.exists())
+		{
 			result = dataStoreFile.delete();
 		}
 		return result;

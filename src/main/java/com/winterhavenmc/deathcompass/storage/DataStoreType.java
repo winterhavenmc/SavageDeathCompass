@@ -28,25 +28,27 @@ import java.util.HashSet;
 /**
  * Enum of datastore types available for use by plugin
  */
-enum DataStoreType {
+enum DataStoreType
+{
+	SQLITE("SQLite", "deathlocations.db")
+			{
+				@Override
+				public DataStore connect(JavaPlugin plugin)
+				{
 
-	SQLITE("SQLite", "deathlocations.db") {
-
-		@Override
-		public DataStore connect(final JavaPlugin plugin) {
-
-			// create new sqlite datastore object
-			return new DataStoreSQLite(plugin);
-		}
+					// create new sqlite datastore object
+					return new DataStoreSQLite(plugin);
+				}
 
 
-		@Override
-		boolean storageObjectExists(final JavaPlugin plugin) {
-			// get path name to data store file
-			File dataStoreFile = new File(plugin.getDataFolder() + File.separator + this.getStorageName());
-			return dataStoreFile.exists();
-		}
-	};
+				@Override
+				boolean storageObjectExists(JavaPlugin plugin)
+				{
+					// get path name to data store file
+					File dataStoreFile = new File(plugin.getDataFolder() + File.separator + this.getStorageName());
+					return dataStoreFile.exists();
+				}
+			};
 
 
 	// DataStoreType display name
@@ -64,7 +66,8 @@ enum DataStoreType {
 	 *
 	 * @param displayName the display name of the datastore type
 	 */
-	DataStoreType(final String displayName, final String storageName) {
+	DataStoreType(final String displayName, final String storageName)
+	{
 		this.displayName = displayName;
 		this.storageName = storageName;
 	}
@@ -75,7 +78,8 @@ enum DataStoreType {
 	 *
 	 * @return String containing DataStoreType display name
 	 */
-	public String getDisplayName() {
+	public String getDisplayName()
+	{
 		return displayName;
 	}
 
@@ -85,7 +89,8 @@ enum DataStoreType {
 	 *
 	 * @return the name of the backing store object for a data store type
 	 */
-	String getStorageName() {
+	String getStorageName()
+	{
 		return storageName;
 	}
 
@@ -96,7 +101,7 @@ enum DataStoreType {
 	 * @param plugin reference to plugin main class
 	 * @return true if backing object exists, false if not
 	 */
-	abstract boolean storageObjectExists(final JavaPlugin plugin);
+	abstract boolean storageObjectExists(JavaPlugin plugin);
 
 
 	/**
@@ -105,7 +110,8 @@ enum DataStoreType {
 	 * @return String - display name of DataStoreType
 	 */
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return displayName;
 	}
 
@@ -116,11 +122,14 @@ enum DataStoreType {
 	 * @param name datastore name to match
 	 * @return matched DataStoreType, or default type if no match
 	 */
-	public static DataStoreType match(final String name) {
+	public static DataStoreType match(final String name)
+	{
 
 		// try to match data store type to name
-		for (DataStoreType type : DataStoreType.values()) {
-			if (type.getDisplayName().equalsIgnoreCase(name)) {
+		for (DataStoreType type : DataStoreType.values())
+		{
+			if (type.getDisplayName().equalsIgnoreCase(name))
+			{
 				return type;
 			}
 		}
@@ -134,7 +143,7 @@ enum DataStoreType {
 	 *
 	 * @return new DataStore
 	 */
-	public abstract DataStore connect(final JavaPlugin plugin);
+	public abstract DataStore connect(JavaPlugin plugin);
 
 
 	/**
@@ -143,25 +152,29 @@ enum DataStoreType {
 	 * @param oldDataStore the old datastore to be converted from
 	 * @param newDataStore the new datastore to be converted to
 	 */
-	static void convert(final JavaPlugin plugin, final DataStore oldDataStore, final DataStore newDataStore) {
-
+	static void convert(final JavaPlugin plugin, final DataStore oldDataStore, final DataStore newDataStore)
+	{
 		// if datastores are same type, do not convert
-		if (oldDataStore.getType().equals(newDataStore.getType())) {
+		if (oldDataStore.getType().equals(newDataStore.getType()))
+		{
 			return;
 		}
 
 		// if old datastore file exists, attempt to read all records
-		if (oldDataStore.getType().storageObjectExists(plugin)) {
-
+		if (oldDataStore.getType().storageObjectExists(plugin))
+		{
 			plugin.getLogger().info("Converting existing " + oldDataStore + " datastore to "
 					+ newDataStore + " datastore...");
 
 			// initialize old datastore
-			if (!oldDataStore.isInitialized()) {
-				try {
+			if (!oldDataStore.isInitialized())
+			{
+				try
+				{
 					oldDataStore.initialize();
 				}
-				catch (Exception e) {
+				catch (Exception e)
+				{
 					plugin.getLogger().warning("Could not initialize "
 							+ oldDataStore + " datastore for conversion.");
 					plugin.getLogger().warning(e.getLocalizedMessage());
@@ -192,16 +205,18 @@ enum DataStoreType {
 	 *
 	 * @param newDataStore the datastore to convert all other existing datastore to
 	 */
-	static void convertAll(final JavaPlugin plugin, final DataStore newDataStore) {
-
+	static void convertAll(JavaPlugin plugin, final DataStore newDataStore)
+	{
 		// get array list of all data store types
 		Collection<DataStoreType> dataStoresTypes = new HashSet<>(Arrays.asList(DataStoreType.values()));
 
 		// remove newDataStore from list of types to convert
 		dataStoresTypes.remove(newDataStore.getType());
 
-		for (DataStoreType type : dataStoresTypes) {
-			if (type.storageObjectExists(plugin)) {
+		for (DataStoreType type : dataStoresTypes)
+		{
+			if (type.storageObjectExists(plugin))
+			{
 				convert(plugin, type.connect(plugin), newDataStore);
 			}
 		}
