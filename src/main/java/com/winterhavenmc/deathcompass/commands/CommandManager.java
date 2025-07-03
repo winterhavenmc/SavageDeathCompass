@@ -33,8 +33,8 @@ import java.util.stream.Collectors;
 /**
  * A class that implements subcommands for the plugin
  */
-public final class CommandManager implements TabExecutor {
-
+public final class CommandManager implements TabExecutor
+{
 	private final PluginMain plugin;
 	private final SubcommandRegistry subcommandRegistry = new SubcommandRegistry();
 
@@ -44,12 +44,14 @@ public final class CommandManager implements TabExecutor {
 	 *
 	 * @param plugin reference to plugin main class
 	 */
-	public CommandManager(final PluginMain plugin) {
+	public CommandManager(final PluginMain plugin)
+	{
 		this.plugin = Objects.requireNonNull(plugin);
 		Objects.requireNonNull(plugin.getCommand("deathcompass")).setExecutor(this);
 
 		// register subcommands
-		for (SubcommandType subcommandType : SubcommandType.values()) {
+		for (SubcommandType subcommandType : SubcommandType.values())
+		{
 			subcommandRegistry.register(subcommandType.create(plugin));
 		}
 
@@ -69,16 +71,18 @@ public final class CommandManager implements TabExecutor {
 	 */
 	@Override
 	public List<String> onTabComplete(final @Nonnull CommandSender sender, final @Nonnull Command command,
-	                                  final @Nonnull String alias, final String[] args) {
-
+	                                  final @Nonnull String alias, final String[] args)
+	{
 		// if more than one argument, use tab completer of subcommand
-		if (args.length > 1) {
+		if (args.length > 1)
+		{
 
 			// get subcommand from map
 			Optional<Subcommand> subcommand = subcommandRegistry.getSubcommand(args[0]);
 
 			// if no subcommand returned from map, return empty list
-			if (subcommand.isEmpty()) {
+			if (subcommand.isEmpty())
+			{
 				return Collections.emptyList();
 			}
 
@@ -94,30 +98,32 @@ public final class CommandManager implements TabExecutor {
 	/**
 	 * Command handler for DeathChest
 	 *
-	 * @param sender   the command sender
-	 * @param command  the command typed
-	 * @param label    the command label
-	 * @param args     Array of String - command arguments
+	 * @param sender  the command sender
+	 * @param command the command typed
+	 * @param label   the command label
+	 * @param args    Array of String - command arguments
 	 * @return boolean - always returns {@code true}, to suppress bukkit builtin help message
 	 */
 	@Override
 	public boolean onCommand(final @Nonnull CommandSender sender,
-	                               final @Nonnull Command command,
-	                               final @Nonnull String label,
-	                               final String[] args) {
-
+	                         final @Nonnull Command command,
+	                         final @Nonnull String label,
+	                         final String[] args)
+	{
 		// convert args array to list
 		List<String> argsList = new ArrayList<>(Arrays.asList(args));
 
 		String subcommandName;
 
 		// get subcommand, remove from front of list
-		if (argsList.size() > 0) {
-			subcommandName = argsList.remove(0);
+		if (!argsList.isEmpty())
+		{
+			subcommandName = argsList.removeFirst();
 		}
 
 		// if no arguments, set command to help
-		else {
+		else
+		{
 			subcommandName = "help";
 		}
 
@@ -125,14 +131,15 @@ public final class CommandManager implements TabExecutor {
 		Optional<Subcommand> optionalSubcommand = subcommandRegistry.getSubcommand(subcommandName);
 
 		// if subcommand is empty, get help command from map
-		if (optionalSubcommand.isEmpty()) {
+		if (optionalSubcommand.isEmpty())
+		{
 			optionalSubcommand = subcommandRegistry.getSubcommand("help");
 			plugin.messageBuilder.compose(sender, MessageId.COMMAND_FAIL_INVALID_COMMAND).send();
 			plugin.soundConfig.playSound(sender, SoundId.COMMAND_INVALID);
 		}
 
 		// execute subcommand
-		optionalSubcommand.ifPresent( subcommand -> subcommand.onCommand(sender, argsList) );
+		optionalSubcommand.ifPresent(subcommand -> subcommand.onCommand(sender, argsList));
 
 		return true;
 	}
@@ -141,11 +148,12 @@ public final class CommandManager implements TabExecutor {
 	/**
 	 * Get matching list of subcommands for which sender has permission
 	 *
-	 * @param sender the command sender
+	 * @param sender      the command sender
 	 * @param matchString the string prefix to match against command names
 	 * @return List of String - command names that match prefix and sender has permission
 	 */
-	private List<String> getMatchingSubcommandNames(final CommandSender sender, final String matchString) {
+	private List<String> getMatchingSubcommandNames(final CommandSender sender, final String matchString)
+	{
 
 		return subcommandRegistry.getKeys().stream()
 				.map(subcommandRegistry::getSubcommand)

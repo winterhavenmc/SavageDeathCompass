@@ -24,15 +24,18 @@ import com.winterhavenmc.deathcompass.sounds.SoundId;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 /**
  * Displays description and usage of a subcommand
  */
-final class HelpSubcommand extends AbstractSubcommand {
-
+final class HelpSubcommand extends AbstractSubcommand
+{
 	private final PluginMain plugin;
 	private final SubcommandRegistry subcommandRegistry;
 
@@ -40,10 +43,11 @@ final class HelpSubcommand extends AbstractSubcommand {
 	/**
 	 * Class constructor
 	 *
-	 * @param plugin reference to plugin main class
+	 * @param plugin             reference to plugin main class
 	 * @param subcommandRegistry reference to subcommand registry instance
 	 */
-	HelpSubcommand(final PluginMain plugin, final SubcommandRegistry subcommandRegistry) {
+	HelpSubcommand(final PluginMain plugin, final SubcommandRegistry subcommandRegistry)
+	{
 		this.plugin = Objects.requireNonNull(plugin);
 		this.subcommandRegistry = Objects.requireNonNull(subcommandRegistry);
 		this.name = "help";
@@ -55,9 +59,10 @@ final class HelpSubcommand extends AbstractSubcommand {
 
 	@Override
 	public List<String> onTabComplete(final CommandSender sender, final Command command,
-	                                  final String alias, final String[] args) {
-
-		if (args.length == 2 && args[0].equalsIgnoreCase(this.name)) {
+	                                  final String alias, final String[] args)
+	{
+		if (args.length == 2 && args[0].equalsIgnoreCase(this.name))
+		{
 			return subcommandRegistry.getKeys().stream()
 					.map(subcommandRegistry::getSubcommand)
 					.filter(Optional::isPresent)
@@ -72,23 +77,25 @@ final class HelpSubcommand extends AbstractSubcommand {
 
 
 	@Override
-	public boolean onCommand(final CommandSender sender, final List<String> args) {
-
+	public boolean onCommand(final CommandSender sender, final List<String> args)
+	{
 		// if command sender does not have permission to display help, output error message and return true
-		if (!sender.hasPermission(permissionNode)) {
+		if (!sender.hasPermission(permissionNode))
+		{
 			plugin.messageBuilder.compose(sender, MessageId.COMMAND_FAIL_HELP_PERMISSION).send();
 			plugin.soundConfig.playSound(sender, SoundId.COMMAND_FAIL);
 			return true;
 		}
 
 		// if no arguments, display usage for all commands
-		if (args.size() == 0) {
+		if (args.isEmpty())
+		{
 			displayUsageAll(sender);
 			return true;
 		}
 
 		// display subcommand help message or invalid command message
-		subcommandRegistry.getSubcommand(args.get(0)).ifPresentOrElse(
+		subcommandRegistry.getSubcommand(args.getFirst()).ifPresentOrElse(
 				subcommand -> sendCommandHelpMessage(sender, subcommand),
 				() -> sendCommandInvalidMessage(sender)
 		);
@@ -100,10 +107,11 @@ final class HelpSubcommand extends AbstractSubcommand {
 	/**
 	 * Send help description for subcommand to command sender
 	 *
-	 * @param sender the command sender
+	 * @param sender     the command sender
 	 * @param subcommand the subcommand to display help description
 	 */
-	private void sendCommandHelpMessage(final CommandSender sender, final Subcommand subcommand) {
+	private void sendCommandHelpMessage(final CommandSender sender, final Subcommand subcommand)
+	{
 		plugin.messageBuilder.compose(sender, subcommand.getDescription()).send();
 		subcommand.displayUsage(sender);
 	}
@@ -114,7 +122,8 @@ final class HelpSubcommand extends AbstractSubcommand {
 	 *
 	 * @param sender the command sender
 	 */
-	private void sendCommandInvalidMessage(final CommandSender sender) {
+	private void sendCommandInvalidMessage(final CommandSender sender)
+	{
 		plugin.messageBuilder.compose(sender, MessageId.COMMAND_HELP_INVALID).send();
 		plugin.soundConfig.playSound(sender, SoundId.COMMAND_INVALID);
 		displayUsageAll(sender);
@@ -126,7 +135,8 @@ final class HelpSubcommand extends AbstractSubcommand {
 	 *
 	 * @param sender the command sender
 	 */
-	void displayUsageAll(final CommandSender sender) {
+	void displayUsageAll(final CommandSender sender)
+	{
 		plugin.messageBuilder.compose(sender, MessageId.COMMAND_HELP_USAGE).send();
 
 		subcommandRegistry.getKeys().stream()

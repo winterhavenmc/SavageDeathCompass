@@ -22,21 +22,25 @@ import com.winterhavenmc.deathcompass.PluginMain;
 /**
  * Enumeration of subcommands to be instantiated
  */
-enum SubcommandType {
+enum SubcommandType
+{
+	RELOAD()
+			{
+				@Override
+				Subcommand create(final PluginMain plugin)
+				{
+					return new ReloadSubcommand(plugin);
+				}
+			},
 
-	RELOAD() {
-		@Override
-		Subcommand create(final PluginMain plugin) {
-			return new ReloadSubcommand(plugin);
-		}
-	},
-
-	STATUS() {
-		@Override
-		Subcommand create(final PluginMain plugin) {
-			return new StatusSubcommand(plugin);
-		}
-	};
+	STATUS()
+			{
+				@Override
+				Subcommand create(final PluginMain plugin)
+				{
+					return new StatusSubcommand(plugin);
+				}
+			};
 
 	abstract Subcommand create(final PluginMain plugin);
 

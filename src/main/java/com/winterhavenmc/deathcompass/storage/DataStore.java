@@ -24,8 +24,9 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface DataStore {
 
+public interface DataStore
+{
 	/**
 	 * Initialize storage
 	 */
@@ -34,6 +35,7 @@ public interface DataStore {
 
 	/**
 	 * Check if datastore is initialized
+	 *
 	 * @return boolean - true if initialized, false if not
 	 */
 	boolean isInitialized();
@@ -41,6 +43,7 @@ public interface DataStore {
 
 	/**
 	 * Get enum member representing datastore type
+	 *
 	 * @return DataStoreType
 	 */
 	DataStoreType getType();
@@ -106,6 +109,7 @@ public interface DataStore {
 
 	/**
 	 * Delete datastore file
+	 *
 	 * @return true if deletion successful, else false
 	 */
 	@SuppressWarnings("UnusedReturnValue")
@@ -119,8 +123,8 @@ public interface DataStore {
 	 *
 	 * @return new datastore of configured type
 	 */
-	static DataStore connect(final JavaPlugin plugin) {
-
+	static DataStore connect(JavaPlugin plugin)
+	{
 		// get data store type from config
 		DataStoreType dataStoreType = DataStoreType.match(plugin.getConfig().getString("storage-type"));
 
@@ -128,13 +132,15 @@ public interface DataStore {
 		DataStore newDataStore = dataStoreType.connect(plugin);
 
 		// initialize new data store
-		try {
+		try
+		{
 			newDataStore.initialize();
-		}
-		catch (Exception e) {
+		} catch (Exception e)
+		{
 			plugin.getLogger().severe("Could not initialize " + newDataStore + " datastore!");
 			plugin.getLogger().severe(e.getLocalizedMessage());
-			if (plugin.getConfig().getBoolean("debug")) {
+			if (plugin.getConfig().getBoolean("debug"))
+			{
 				e.printStackTrace();
 			}
 		}
@@ -152,8 +158,8 @@ public interface DataStore {
 	 *
 	 * @param plugin reference to plugin main class
 	 */
-	static void reload(final PluginMain plugin) {
-
+	static void reload(PluginMain plugin)
+	{
 		// get current datastore type
 		DataStoreType currentType = plugin.dataStore.getType();
 
@@ -161,7 +167,8 @@ public interface DataStore {
 		DataStoreType newType = DataStoreType.match(plugin.getConfig().getString("storage-type"));
 
 		// if current datastore type does not match configured datastore type, create new datastore
-		if (!currentType.equals(newType)) {
+		if (!currentType.equals(newType))
+		{
 
 			// create new datastore
 			plugin.dataStore = connect(plugin);
