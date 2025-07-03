@@ -145,7 +145,7 @@
 									<excludes>
 										<exclude>org.apache.logging.log4j:log4j-core:(,2.17.0)</exclude>
 										<message>
-											Versions of log4j prior to 2.17.0 may be vulnerable to remote code execution or denial of service attacks.
+											Versions of log4j prior to 2.17.0 may be vulnerable to remote code execution or denial-of-service attacks.
 											https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228
 											https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-45046
 											https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-45105
