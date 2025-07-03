@@ -18,6 +18,7 @@
 package com.winterhavenmc.deathcompass.listeners;
 
 import com.winterhavenmc.deathcompass.PluginMain;
+import com.winterhavenmc.deathcompass.messages.Macro;
 import com.winterhavenmc.deathcompass.messages.MessageId;
 import com.winterhavenmc.deathcompass.sounds.SoundId;
 import com.winterhavenmc.deathcompass.storage.DeathRecord;
@@ -161,7 +162,10 @@ public final class PlayerEventListener implements Listener
 		setDeathCompassTarget(player);
 
 		// send player respawn message
-		plugin.messageBuilder.compose(player, MessageId.ACTION_PLAYER_RESPAWN).send();
+		plugin.messageBuilder.compose(player, MessageId.ACTION_PLAYER_RESPAWN)
+				.setMacro(Macro.PLAYER, player)
+				.setMacro(Macro.WORLD, player.getWorld())
+				.send();
 	}
 
 
