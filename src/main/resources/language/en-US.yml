@@ -38,27 +38,22 @@ MESSAGES:
   COMMAND_FAIL_INVALID_COMMAND:
     enabled: true
     string: '&cThat is not a valid command!'
-    # available subs: %PLAYER%
 
   COMMAND_FAIL_HELP_PERMISSION:
     enabled: true
     string: '&cYou do not have permission to display DeathCompass help!'
-    # available subs: %PLAYER%
 
   COMMAND_FAIL_RELOAD_PERMISSION:
     enabled: true
     string: '&cYou do not have permission to reload DeathCompass configuration!'
-    # available subs: %PLAYER%
 
   COMMAND_FAIL_STATUS_PERMISSION:
     enabled: true
     string: '&cYou do not have permission to view DeathCompass settings!'
-    # available subs: %PLAYER%
 
   COMMAND_SUCCESS_RELOAD:
     enabled: true
     string: '&7DeathCompass configuration reloaded.'
-    # available subs: %PLAYER%
 
 
   COMMAND_HELP_HELP:
@@ -87,7 +82,7 @@ MESSAGES:
   #########################
   COMMAND_STATUS_HEADER:
     enabled: true
-    string: "\n&3&m                  =&r&3[&b SavageDeathCompass &3]&m=                  "
+    string: "\n&3&m                   =&r&3[&b SavageDeathCompass &3]&m=                   "
 
   COMMAND_STATUS_FOOTER:
     enabled: true
