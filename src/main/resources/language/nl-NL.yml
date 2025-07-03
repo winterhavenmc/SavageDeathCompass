@@ -80,3 +80,44 @@ MESSAGES:
   COMMAND_HELP_USAGE:
     enabled: true
     string: '&eGebruik van de opdracht:'
+
+
+  #########################
+  # Status command messages
+  #########################
+  COMMAND_STATUS_HEADER:
+    enabled: true
+    string: "\n&3&m                   =&r&3[&b SavageDeathCompass &3]&m=                   "
+
+  COMMAND_STATUS_FOOTER:
+    enabled: true
+    string: "\n&3%URL%&r"
+
+  COMMAND_STATUS_PLUGIN_VERSION:
+    enabled: true
+    string: '&aVersion:&r %VERSION%'
+
+  COMMAND_STATUS_LANGUAGE:
+    enabled: true
+    string: "&aLanguage:&r %LANGUAGE%"
+
+  COMMAND_STATUS_SOUND_EFFECTS:
+    enabled: true
+    string: "&aSound effects:&r %SOUND_EFFECTS%"
+
+  COMMAND_STATUS_DESTROY_ON_DROP:
+    enabled: true
+    string: "&aDestroy on drop:&r %DESTROY_ON_DROP%"
+
+  COMMAND_STATUS_PREVENT_STORAGE:
+    enabled: true
+    string: "&aPrevent storage:&r %PREVENT_STORAGE%"
+
+  COMMAND_STATUS_TARGET_DELAY:
+    enabled: true
+    string: "&aTarget delay:&r %TARGET_DELAY%"
+
+  COMMAND_STATUS_ENABLED_WORLDS:
+    enabled: true
+    string: "&aEnabled worlds:&r %ENABLED_WORLDS%"
+
