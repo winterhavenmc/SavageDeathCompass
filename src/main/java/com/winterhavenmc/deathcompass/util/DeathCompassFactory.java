@@ -119,7 +119,6 @@ public final class DeathCompassFactory {
 		itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
-		itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
 		// set item metadata display name to value from config file
 		itemMeta.setDisplayName(ChatColor.RESET + itemName);
