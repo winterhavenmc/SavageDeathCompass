@@ -180,7 +180,7 @@ public final class InventoryEventListener implements Listener {
 	 */
 	private void cancelInventoryTransfer(final Cancellable event, final HumanEntity player) {
 		event.setCancelled(true);
-		plugin.messageBuilder.build(player, MessageId.ACTION_INVENTORY_DENY_TRANSFER).send();
+		plugin.messageBuilder.compose(player, MessageId.ACTION_INVENTORY_DENY_TRANSFER).send();
 		plugin.soundConfig.playSound(player, SoundId.INVENTORY_DENY_TRANSFER);
 	}
 
