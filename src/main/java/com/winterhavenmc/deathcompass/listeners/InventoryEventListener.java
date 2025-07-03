@@ -85,7 +85,7 @@ public final class InventoryEventListener implements Listener
 		final ItemStack itemStack = event.getItem();
 
 		// if item stack is death compass, cancel event
-		if (plugin.deathCompassFactory.isDeathCompass(itemStack))
+		if (plugin.deathCompassUtility.isDeathCompass(itemStack))
 		{
 			event.setCancelled(true);
 		}
@@ -110,7 +110,7 @@ public final class InventoryEventListener implements Listener
 		{
 			case MOVE_TO_OTHER_INVENTORY:
 				// check if current item is death compass
-				if (plugin.deathCompassFactory.isDeathCompass(event.getCurrentItem()))
+				if (plugin.deathCompassUtility.isDeathCompass(event.getCurrentItem()))
 				{
 					// if inventory type is in set, do nothing and return (allow transfer between player inventory and hot bar)
 					if (SHIFT_CLICK_ALLOWED_TYPES.contains(event.getInventory().getType()))
@@ -125,8 +125,8 @@ public final class InventoryEventListener implements Listener
 
 			case SWAP_WITH_CURSOR:
 				// check if cursor item or current item is death compass
-				if (plugin.deathCompassFactory.isDeathCompass(event.getCursor())
-						|| plugin.deathCompassFactory.isDeathCompass(event.getCurrentItem()))
+				if (plugin.deathCompassUtility.isDeathCompass(event.getCursor())
+						|| plugin.deathCompassUtility.isDeathCompass(event.getCurrentItem()))
 				{
 					// check if slot is in container inventory
 					if (event.getRawSlot() < event.getInventory().getSize())
@@ -140,7 +140,7 @@ public final class InventoryEventListener implements Listener
 			case PLACE_SOME:
 			case PLACE_ALL:
 				// check if cursor item is a death compass
-				if (plugin.deathCompassFactory.isDeathCompass(event.getCursor()))
+				if (plugin.deathCompassUtility.isDeathCompass(event.getCursor()))
 				{
 
 					// check if slot is in container inventory
@@ -169,7 +169,7 @@ public final class InventoryEventListener implements Listener
 		}
 
 		// if cursor item is a death compass
-		if (plugin.deathCompassFactory.isDeathCompass(event.getOldCursor()))
+		if (plugin.deathCompassUtility.isDeathCompass(event.getOldCursor()))
 		{
 			// iterate over dragged slots and if any are above max slot, cancel event
 			for (int slot : event.getRawSlots())

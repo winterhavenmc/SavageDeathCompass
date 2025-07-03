@@ -29,7 +29,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.List;
 
 
-public final class DeathCompassFactory
+public final class DeathCompassUtility
 {
 	private final PluginMain plugin;
 	private final NamespacedKey itemKey;
@@ -38,7 +38,7 @@ public final class DeathCompassFactory
 	/**
 	 * Private constructor to prevent class instantiation
 	 */
-	public DeathCompassFactory(final PluginMain plugin)
+	public DeathCompassUtility(final PluginMain plugin)
 	{
 		this.plugin = plugin;
 		this.itemKey = new NamespacedKey(plugin, "isItem");

@@ -85,7 +85,7 @@ public final class PlayerEventListener implements Listener
 			ListIterator<ItemStack> iterator = drops.listIterator();
 
 			// create death compass stack for comparison
-			ItemStack deathCompass = plugin.deathCompassFactory.createItem();
+			ItemStack deathCompass = plugin.deathCompassUtility.createItem();
 
 			// loop through all dropped items and remove any stacks that are death compasses
 			while (iterator.hasNext())
@@ -188,7 +188,7 @@ public final class PlayerEventListener implements Listener
 		}
 
 		// create 1 compass itemstack with configured settings
-		ItemStack deathcompass = plugin.deathCompassFactory.createItem();
+		ItemStack deathcompass = plugin.deathCompassUtility.createItem();
 
 		// get player last death location
 		Location lastDeathLocation = getDeathLocation(player);
@@ -230,7 +230,7 @@ public final class PlayerEventListener implements Listener
 		}
 
 		// create DeathCompass itemstack
-		ItemStack deathcompass = plugin.deathCompassFactory.createItem();
+		ItemStack deathcompass = plugin.deathCompassUtility.createItem();
 
 		// if player does not have a death compass in inventory, do nothing and return
 		if (!player.getInventory().containsAtLeast(deathcompass, 1))
@@ -297,7 +297,7 @@ public final class PlayerEventListener implements Listener
 		ItemStack droppedItemStack = event.getItemDrop().getItemStack();
 
 		// create death compass itemstack for comparison
-		ItemStack dc = plugin.deathCompassFactory.createItem();
+		ItemStack dc = plugin.deathCompassUtility.createItem();
 
 		// if droppedItemStack is not a DeathCompass or destroy-on-drop config is not true, do nothing and return
 		if (!droppedItemStack.isSimilar(dc) || !plugin.getConfig().getBoolean("destroy-on-drop"))
@@ -330,7 +330,7 @@ public final class PlayerEventListener implements Listener
 	private void giveDeathCompass(final Player player)
 	{
 		// create DeathCompass itemstack
-		ItemStack deathcompass = plugin.deathCompassFactory.createItem();
+		ItemStack deathcompass = plugin.deathCompassUtility.createItem();
 
 		// add DeathCompass itemstack to player inventory
 		player.getInventory().addItem(deathcompass);
@@ -348,7 +348,7 @@ public final class PlayerEventListener implements Listener
 	 */
 	private void removeDeathCompasses(final Inventory inventory)
 	{
-		ItemStack deathcompass = plugin.deathCompassFactory.createItem();
+		ItemStack deathcompass = plugin.deathCompassUtility.createItem();
 		inventory.removeItem(deathcompass);
 	}
 
