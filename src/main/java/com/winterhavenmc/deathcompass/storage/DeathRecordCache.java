@@ -28,8 +28,8 @@ import java.util.*;
 /**
  * Implements in memory cache for datastore objects
  */
-final class DeathRecordCache implements Listener {
-
+final class DeathRecordCache implements Listener
+{
 	// static reference to plugin main class
 	private final JavaPlugin plugin;
 
@@ -40,8 +40,8 @@ final class DeathRecordCache implements Listener {
 	/**
 	 * Constructor
 	 */
-	DeathRecordCache(final JavaPlugin plugin) {
-
+	DeathRecordCache(final JavaPlugin plugin)
+	{
 		this.plugin = plugin;
 
 		// initialize location map
@@ -57,8 +57,8 @@ final class DeathRecordCache implements Listener {
 	 *
 	 * @param deathRecord object containing player UUID and death location to cache
 	 */
-	void put(final DeathRecord deathRecord) {
-
+	void put(final DeathRecord deathRecord)
+	{
 		// check for null parameter
 		Objects.requireNonNull(deathRecord);
 
@@ -72,8 +72,8 @@ final class DeathRecordCache implements Listener {
 		Map<UUID, DeathRecord> playerMap = deathRecordMap.get(playerUid);
 
 		// if no cached entry exists for player, create new map
-		if (playerMap == null) {
-
+		if (playerMap == null)
+		{
 			// create empty map
 			playerMap = new HashMap<>();
 		}
@@ -93,31 +93,37 @@ final class DeathRecordCache implements Listener {
 	 * @param worldUid  world UID to use as key
 	 * @return deathRecord containing playerUid and death location for world, or null if no record exists
 	 */
-	Optional<DeathRecord> get(final UUID playerUid, final UUID worldUid) {
-
+	Optional<DeathRecord> get(final UUID playerUid, final UUID worldUid)
+	{
 		// if passed playerUid is null, return null record
-		if (playerUid == null) {
-			if (plugin.getConfig().getBoolean("debug")) {
+		if (playerUid == null)
+		{
+			if (plugin.getConfig().getBoolean("debug"))
+			{
 				plugin.getLogger().warning("LocationCache.get was passed null playerUid!");
 			}
 			return Optional.empty();
 		}
 
 		// if passed worldUid is null, return null record
-		if (worldUid == null) {
-			if (plugin.getConfig().getBoolean("debug")) {
+		if (worldUid == null)
+		{
+			if (plugin.getConfig().getBoolean("debug"))
+			{
 				plugin.getLogger().warning("LocationCache.get was passed null worldUid!");
 			}
 			return Optional.empty();
 		}
 
 		// if map for player does not exist, return null record
-		if (deathRecordMap.get(playerUid) == null) {
+		if (deathRecordMap.get(playerUid) == null)
+		{
 			return Optional.empty();
 		}
 
 		// if location in map is null, return null record
-		if (deathRecordMap.get(playerUid).get(worldUid) == null) {
+		if (deathRecordMap.get(playerUid).get(worldUid) == null)
+		{
 			return Optional.empty();
 		}
 
@@ -132,7 +138,8 @@ final class DeathRecordCache implements Listener {
 	 * @param event the event handled by this listener
 	 */
 	@EventHandler
-	void onPlayerQuit(final PlayerQuitEvent event) {
+	void onPlayerQuit(final PlayerQuitEvent event)
+	{
 		deathRecordMap.remove(event.getPlayer().getUniqueId());
 	}
 

@@ -20,8 +20,8 @@ package com.winterhavenmc.deathcompass.messages;
 /**
  * Provides constant identifiers for configurable messages sent to players
  */
-public enum MessageId {
-
+public enum MessageId
+{
 	ACTION_PLAYER_RESPAWN,
 	ACTION_ITEM_DESTROY,
 	ACTION_INVENTORY_DENY_TRANSFER,
@@ -37,5 +37,4 @@ public enum MessageId {
 	COMMAND_HELP_RELOAD,
 	COMMAND_HELP_STATUS,
 	COMMAND_HELP_USAGE,
-
 }

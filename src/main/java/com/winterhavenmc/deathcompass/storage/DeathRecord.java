@@ -30,8 +30,8 @@ import java.util.UUID;
 /**
  * Implements a death record object for storage.
  */
-public final class DeathRecord {
-
+public final class DeathRecord
+{
 	// player UUID
 	private final UUID playerUid;
 
@@ -47,8 +47,8 @@ public final class DeathRecord {
 	 *
 	 * @param player the player for the DeathRecord
 	 */
-	public DeathRecord(final Player player) {
-
+	public DeathRecord(final Player player)
+	{
 		// test for null parameters
 		Objects.requireNonNull(player);
 
@@ -63,7 +63,8 @@ public final class DeathRecord {
 	}
 
 
-	public DeathRecord(final UUID playerUid, final UUID worldUid, final double x, final double y, final double z) {
+	public DeathRecord(final UUID playerUid, final UUID worldUid, final double x, final double y, final double z)
+	{
 		this.playerUid = playerUid;
 		this.worldUid = worldUid;
 		this.x = x;
@@ -77,7 +78,8 @@ public final class DeathRecord {
 	 *
 	 * @return UUID for death record player
 	 */
-	UUID getPlayerUid() {
+	UUID getPlayerUid()
+	{
 		return this.playerUid;
 	}
 
@@ -87,7 +89,8 @@ public final class DeathRecord {
 	 *
 	 * @return UUID for death record world
 	 */
-	public UUID getWorldUid() {
+	public UUID getWorldUid()
+	{
 		return this.worldUid;
 	}
 
@@ -97,7 +100,8 @@ public final class DeathRecord {
 	 *
 	 * @return x coordinate
 	 */
-	public double getX() {
+	public double getX()
+	{
 		return this.x;
 	}
 
@@ -107,7 +111,8 @@ public final class DeathRecord {
 	 *
 	 * @return y coordinate
 	 */
-	public double getY() {
+	public double getY()
+	{
 		return this.y;
 	}
 
@@ -117,7 +122,8 @@ public final class DeathRecord {
 	 *
 	 * @return z coordinate
 	 */
-	public double getZ() {
+	public double getZ()
+	{
 		return this.z;
 	}
 
@@ -127,13 +133,14 @@ public final class DeathRecord {
 	 *
 	 * @return Location - death compass player death location
 	 */
-	public Optional<Location> getLocation() {
-
+	public Optional<Location> getLocation()
+	{
 		// get world from uid
 		final World world = Bukkit.getServer().getWorld(this.worldUid);
 
 		// if world is invalid, return null
-		if (world == null) {
+		if (world == null)
+		{
 			return Optional.empty();
 		}
 

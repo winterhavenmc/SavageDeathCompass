@@ -31,8 +31,8 @@ import java.util.Objects;
 /**
  * Displays configuration settings of the plugin
  */
-final class StatusSubcommand extends AbstractSubcommand {
-
+final class StatusSubcommand extends AbstractSubcommand
+{
 	private final PluginMain plugin;
 
 
@@ -41,7 +41,8 @@ final class StatusSubcommand extends AbstractSubcommand {
 	 *
 	 * @param plugin reference to plugin main class
 	 */
-	StatusSubcommand(final PluginMain plugin) {
+	StatusSubcommand(final PluginMain plugin)
+	{
 		this.plugin = Objects.requireNonNull(plugin);
 		this.name = "status";
 		this.usageString = "/deathcompass status";
@@ -51,9 +52,10 @@ final class StatusSubcommand extends AbstractSubcommand {
 
 
 	@Override
-	public boolean onCommand(final CommandSender sender, final List<String> args) {
-
-		if (!sender.hasPermission(permissionNode)) {
+	public boolean onCommand(final CommandSender sender, final List<String> args)
+	{
+		if (!sender.hasPermission(permissionNode))
+		{
 			plugin.messageBuilder.compose(sender, MessageId.COMMAND_FAIL_STATUS_PERMISSION).send();
 			plugin.soundConfig.playSound(sender, SoundId.COMMAND_FAIL);
 			return true;
@@ -69,39 +71,46 @@ final class StatusSubcommand extends AbstractSubcommand {
 	}
 
 
-	private void showVersion(final CommandSender sender) {
+	private void showVersion(final CommandSender sender)
+	{
 		sender.sendMessage(ChatColor.DARK_AQUA + "[" + plugin.getName() + "] "
 				+ ChatColor.AQUA + "Version: " + ChatColor.RESET + plugin.getDescription().getVersion());
 	}
 
 
-	private void showDebug(final CommandSender sender) {
-		if (plugin.getConfig().getBoolean("debug")) {
+	private void showDebug(final CommandSender sender)
+	{
+		if (plugin.getConfig().getBoolean("debug"))
+		{
 			sender.sendMessage(ChatColor.GREEN + "Debug: "
 					+ ChatColor.RED + plugin.getConfig().getString("debug"));
 		}
 	}
 
 
-	private void showLanguage(final CommandSender sender) {
+	private void showLanguage(final CommandSender sender)
+	{
 		sender.sendMessage(ChatColor.GREEN + "Language: "
 				+ ChatColor.RESET + plugin.getConfig().getString("language"));
 	}
 
 
-	private void showDestroyOnDrop(final CommandSender sender) {
+	private void showDestroyOnDrop(final CommandSender sender)
+	{
 		sender.sendMessage(ChatColor.GREEN + "Destroy On Drop: "
 				+ ChatColor.RESET + plugin.getConfig().getString("destroy-on-drop"));
 	}
 
 
-	private void showTargetDelay(final CommandSender sender) {
+	private void showTargetDelay(final CommandSender sender)
+	{
 		sender.sendMessage(ChatColor.GREEN + "Set Compass Target Delay: "
 				+ ChatColor.RESET + plugin.getConfig().getString("target-delay"));
 	}
 
 
-	private void showEnabledWorlds(final CommandSender sender) {
+	private void showEnabledWorlds(final CommandSender sender)
+	{
 		sender.sendMessage(ChatColor.GREEN + "Enabled Words: "
 				+ ChatColor.RESET + plugin.worldManager.getEnabledWorldNames().toString()
 				+ ChatColor.RESET);

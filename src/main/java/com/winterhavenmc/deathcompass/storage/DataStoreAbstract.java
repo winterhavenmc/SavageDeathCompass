@@ -21,8 +21,8 @@ package com.winterhavenmc.deathcompass.storage;
 /**
  * Abstract class declares methods that need to be implemented for plugin data stores.
  */
-abstract class DataStoreAbstract {
-
+abstract class DataStoreAbstract
+{
 	// datastore initialized state
 	private boolean initialized;
 
@@ -35,7 +35,8 @@ abstract class DataStoreAbstract {
 	 *
 	 * @return {@code true} if datastore is initialized, {@code false} if datastore is not initialized
 	 */
-	public boolean isInitialized() {
+	public boolean isInitialized()
+	{
 		return this.initialized;
 	}
 
@@ -45,7 +46,8 @@ abstract class DataStoreAbstract {
 	 *
 	 * @param initialized boolean for initialized state of datastore
 	 */
-	void setInitialized(final boolean initialized) {
+	void setInitialized(final boolean initialized)
+	{
 		this.initialized = initialized;
 	}
 
@@ -55,7 +57,8 @@ abstract class DataStoreAbstract {
 	 *
 	 * @return DataStoreType - the datastore type for this datastore
 	 */
-	public DataStoreType getType() {
+	public DataStoreType getType()
+	{
 		return this.type;
 	}
 
@@ -66,7 +69,8 @@ abstract class DataStoreAbstract {
 	 * @return the name of this datastore instance
 	 */
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return this.type.toString();
 	}
 
