@@ -153,7 +153,7 @@ public final class PlayerEventListener implements Listener {
 		setDeathCompassTarget(player);
 
 		// send player respawn message
-		plugin.messageBuilder.build(player, MessageId.ACTION_PLAYER_RESPAWN).send();
+		plugin.messageBuilder.compose(player, MessageId.ACTION_PLAYER_RESPAWN).send();
 	}
 
 
@@ -255,7 +255,7 @@ public final class PlayerEventListener implements Listener {
 		// if block is a DeathChestBlock owned by player, remove death compasses from inventory and reset target
 		if (block != null
 				&& block.hasMetadata("deathchest-owner")
-				&& block.getMetadata("deathchest-owner").get(0).asString()
+				&& block.getMetadata("deathchest-owner").getFirst().asString()
 					.equals(player.getUniqueId().toString())) {
 
 			// remove all death compasses from player inventory
@@ -300,7 +300,7 @@ public final class PlayerEventListener implements Listener {
 		}
 
 		// send player compass destroyed message
-		plugin.messageBuilder.build(player, MessageId.ACTION_ITEM_DESTROY).send();
+		plugin.messageBuilder.compose(player, MessageId.ACTION_ITEM_DESTROY).send();
 	}
 
 
@@ -319,7 +319,7 @@ public final class PlayerEventListener implements Listener {
 
 		// log info
 		plugin.getLogger().info(player.getName() + ChatColor.RESET  + " was given a death compass in "
-				+ plugin.worldManager.getWorldName(player) + ChatColor.RESET + ".");
+				+ plugin.worldManager.getWorldName(player.getWorld()) + ChatColor.RESET + ".");
 	}
 
 
