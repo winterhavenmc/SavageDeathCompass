@@ -24,14 +24,12 @@ import com.winterhavenmc.deathcompass.messages.Macro;
 import com.winterhavenmc.deathcompass.messages.MessageId;
 import com.winterhavenmc.deathcompass.storage.DataStore;
 import com.winterhavenmc.deathcompass.util.DeathCompassFactory;
-
 import com.winterhavenmc.deathcompass.util.MetricsHandler;
-import com.winterhavenmc.util.messagebuilder.MessageBuilder;
-import com.winterhavenmc.util.soundconfig.SoundConfiguration;
-import com.winterhavenmc.util.soundconfig.YamlSoundConfiguration;
-import com.winterhavenmc.util.worldmanager.WorldManager;
+import com.winterhavenmc.library.messagebuilder.MessageBuilder;
+import com.winterhavenmc.library.soundconfig.SoundConfiguration;
+import com.winterhavenmc.library.soundconfig.YamlSoundConfiguration;
+import com.winterhavenmc.library.worldmanager.WorldManager;
 
-import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
