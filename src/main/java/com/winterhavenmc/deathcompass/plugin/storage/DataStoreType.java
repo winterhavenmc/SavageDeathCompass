@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.storage;
+package com.winterhavenmc.deathcompass.plugin.storage;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

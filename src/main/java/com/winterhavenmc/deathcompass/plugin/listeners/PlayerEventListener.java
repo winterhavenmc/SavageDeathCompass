@@ -15,13 +15,13 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.listeners;
+package com.winterhavenmc.deathcompass.plugin.listeners;
 
-import com.winterhavenmc.deathcompass.PluginMain;
-import com.winterhavenmc.deathcompass.messages.Macro;
-import com.winterhavenmc.deathcompass.messages.MessageId;
-import com.winterhavenmc.deathcompass.sounds.SoundId;
-import com.winterhavenmc.deathcompass.storage.DeathRecord;
+import com.winterhavenmc.deathcompass.plugin.PluginMain;
+import com.winterhavenmc.deathcompass.plugin.messages.Macro;
+import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
+import com.winterhavenmc.deathcompass.plugin.sounds.SoundId;
+import com.winterhavenmc.deathcompass.plugin.storage.DeathRecord;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

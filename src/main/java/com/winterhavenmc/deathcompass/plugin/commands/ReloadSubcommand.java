@@ -15,12 +15,12 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.commands;
+package com.winterhavenmc.deathcompass.plugin.commands;
 
-import com.winterhavenmc.deathcompass.PluginMain;
-import com.winterhavenmc.deathcompass.messages.MessageId;
-import com.winterhavenmc.deathcompass.sounds.SoundId;
-import com.winterhavenmc.deathcompass.storage.DataStore;
+import com.winterhavenmc.deathcompass.plugin.PluginMain;
+import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
+import com.winterhavenmc.deathcompass.plugin.sounds.SoundId;
+import com.winterhavenmc.deathcompass.plugin.storage.DataStore;
 
 import org.bukkit.command.CommandSender;
 

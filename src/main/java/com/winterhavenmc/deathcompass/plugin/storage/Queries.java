@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.storage;
+package com.winterhavenmc.deathcompass.plugin.storage;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -15,9 +15,9 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.commands;
+package com.winterhavenmc.deathcompass.plugin.commands;
 
-import com.winterhavenmc.deathcompass.messages.MessageId;
+import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 

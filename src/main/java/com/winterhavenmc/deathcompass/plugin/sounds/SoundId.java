@@ -15,33 +15,18 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.commands;
+package com.winterhavenmc.deathcompass.plugin.sounds;
 
-import com.winterhavenmc.deathcompass.PluginMain;
 
 /**
- * Enumeration of subcommands to be instantiated
+ * Provides constant identifiers for configurable sounds
  */
-enum SubcommandType
+public enum SoundId
 {
-	RELOAD()
-			{
-				@Override
-				Subcommand create(final PluginMain plugin)
-				{
-					return new ReloadSubcommand(plugin);
-				}
-			},
+	INVENTORY_DENY_TRANSFER,
+	PLAYER_DROP_COMPASS,
 
-	STATUS()
-			{
-				@Override
-				Subcommand create(final PluginMain plugin)
-				{
-					return new StatusSubcommand(plugin);
-				}
-			};
-
-	abstract Subcommand create(final PluginMain plugin);
-
+	COMMAND_FAIL,
+	COMMAND_INVALID,
+	COMMAND_RELOAD_SUCCESS,
 }

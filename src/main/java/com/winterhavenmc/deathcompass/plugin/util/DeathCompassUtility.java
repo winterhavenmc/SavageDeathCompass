@@ -15,9 +15,9 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.util;
+package com.winterhavenmc.deathcompass.plugin.util;
 
-import com.winterhavenmc.deathcompass.PluginMain;
+import com.winterhavenmc.deathcompass.plugin.PluginMain;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

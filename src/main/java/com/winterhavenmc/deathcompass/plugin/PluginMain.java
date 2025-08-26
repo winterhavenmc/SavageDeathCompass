@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Tim Savage.
+ * Copyright (c) 2022-2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,16 +15,16 @@
  *
  */
 
-package com.winterhavenmc.deathcompass;
+package com.winterhavenmc.deathcompass.plugin;
 
-import com.winterhavenmc.deathcompass.commands.CommandManager;
-import com.winterhavenmc.deathcompass.listeners.InventoryEventListener;
-import com.winterhavenmc.deathcompass.listeners.PlayerEventListener;
-import com.winterhavenmc.deathcompass.messages.Macro;
-import com.winterhavenmc.deathcompass.messages.MessageId;
-import com.winterhavenmc.deathcompass.storage.DataStore;
-import com.winterhavenmc.deathcompass.util.DeathCompassUtility;
-import com.winterhavenmc.deathcompass.util.MetricsHandler;
+import com.winterhavenmc.deathcompass.plugin.commands.CommandManager;
+import com.winterhavenmc.deathcompass.plugin.listeners.InventoryEventListener;
+import com.winterhavenmc.deathcompass.plugin.listeners.PlayerEventListener;
+import com.winterhavenmc.deathcompass.plugin.messages.Macro;
+import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
+import com.winterhavenmc.deathcompass.plugin.storage.DataStore;
+import com.winterhavenmc.deathcompass.plugin.util.DeathCompassUtility;
+import com.winterhavenmc.deathcompass.plugin.util.MetricsHandler;
 import com.winterhavenmc.library.messagebuilder.MessageBuilder;
 import com.winterhavenmc.library.soundconfig.SoundConfiguration;
 import com.winterhavenmc.library.soundconfig.YamlSoundConfiguration;

@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.messages;
+package com.winterhavenmc.deathcompass.plugin.messages;
 
 public enum Macro
 {

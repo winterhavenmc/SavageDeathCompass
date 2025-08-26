@@ -15,9 +15,9 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.storage;
+package com.winterhavenmc.deathcompass.plugin.storage;
 
-import com.winterhavenmc.deathcompass.PluginMain;
+import com.winterhavenmc.deathcompass.plugin.PluginMain;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collection;

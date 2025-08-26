@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.commands;
+package com.winterhavenmc.deathcompass.plugin.commands;
 
 import java.util.*;
 

@@ -15,24 +15,33 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.commands;
+package com.winterhavenmc.deathcompass.plugin.commands;
 
-import com.winterhavenmc.deathcompass.messages.MessageId;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-
-import java.util.List;
+import com.winterhavenmc.deathcompass.plugin.PluginMain;
 
 /**
- * Interface that defines a subcommand
+ * Enumeration of subcommands to be instantiated
  */
-interface Subcommand
+enum SubcommandType
 {
-	boolean onCommand(CommandSender sender, List<String> argsList);
-	List<String> onTabComplete(final CommandSender sender, final Command command, final String alias, final String[] args);
-	String getName();
-	String getUsage();
-	void displayUsage(CommandSender sender);
-	MessageId getDescription();
-	String getPermissionNode();
+	RELOAD()
+			{
+				@Override
+				Subcommand create(final PluginMain plugin)
+				{
+					return new ReloadSubcommand(plugin);
+				}
+			},
+
+	STATUS()
+			{
+				@Override
+				Subcommand create(final PluginMain plugin)
+				{
+					return new StatusSubcommand(plugin);
+				}
+			};
+
+	abstract Subcommand create(final PluginMain plugin);
+
 }

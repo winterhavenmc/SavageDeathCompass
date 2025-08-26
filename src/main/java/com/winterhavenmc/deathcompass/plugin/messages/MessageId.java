@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.messages;
+package com.winterhavenmc.deathcompass.plugin.messages;
 
 /**
  * Provides constant identifiers for configurable messages sent to players

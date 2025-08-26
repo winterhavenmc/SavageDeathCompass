@@ -15,11 +15,11 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.listeners;
+package com.winterhavenmc.deathcompass.plugin.listeners;
 
-import com.winterhavenmc.deathcompass.PluginMain;
-import com.winterhavenmc.deathcompass.messages.MessageId;
-import com.winterhavenmc.deathcompass.sounds.SoundId;
+import com.winterhavenmc.deathcompass.plugin.PluginMain;
+import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
+import com.winterhavenmc.deathcompass.plugin.sounds.SoundId;
 
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.Cancellable;
