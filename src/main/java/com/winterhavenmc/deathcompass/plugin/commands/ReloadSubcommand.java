@@ -20,7 +20,6 @@ package com.winterhavenmc.deathcompass.plugin.commands;
 import com.winterhavenmc.deathcompass.plugin.PluginMain;
 import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
 import com.winterhavenmc.deathcompass.plugin.sounds.SoundId;
-import com.winterhavenmc.deathcompass.plugin.storage.DataStore;
 
 import org.bukkit.command.CommandSender;
 
@@ -79,9 +78,6 @@ final class ReloadSubcommand extends AbstractSubcommand
 
 		// reload sounds
 		plugin.soundConfig.reload();
-
-		// reload datastore if changed
-		DataStore.reload(plugin);
 
 		// send success message
 		plugin.messageBuilder.compose(sender, MessageId.COMMAND_SUCCESS_RELOAD).send();

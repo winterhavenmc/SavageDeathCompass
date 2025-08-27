@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Tim Savage.
+ * Copyright (c) 2022-2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.plugin.storage;
+package com.winterhavenmc.deathcompass.plugin.model;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -30,7 +30,7 @@ import java.util.UUID;
 /**
  * Implements a death record object for storage.
  */
-public final class DeathRecord
+public final class DeathLocation
 {
 	// player UUID
 	private final UUID playerUid;
@@ -45,9 +45,9 @@ public final class DeathRecord
 	/**
 	 * Class constructor
 	 *
-	 * @param player the player for the DeathRecord
+	 * @param player the player for the DeathLocation
 	 */
-	public DeathRecord(final Player player)
+	public DeathLocation(final Player player)
 	{
 		// test for null parameters
 		Objects.requireNonNull(player);
@@ -63,7 +63,7 @@ public final class DeathRecord
 	}
 
 
-	public DeathRecord(final UUID playerUid, final UUID worldUid, final double x, final double y, final double z)
+	public DeathLocation(final UUID playerUid, final UUID worldUid, final double x, final double y, final double z)
 	{
 		this.playerUid = playerUid;
 		this.worldUid = worldUid;
@@ -78,7 +78,7 @@ public final class DeathRecord
 	 *
 	 * @return UUID for death record player
 	 */
-	UUID getPlayerUid()
+	public UUID getPlayerUid()
 	{
 		return this.playerUid;
 	}

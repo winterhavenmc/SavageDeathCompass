@@ -20,8 +20,8 @@ package com.winterhavenmc.deathcompass.plugin.listeners;
 import com.winterhavenmc.deathcompass.plugin.PluginMain;
 import com.winterhavenmc.deathcompass.plugin.messages.Macro;
 import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
+import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
 import com.winterhavenmc.deathcompass.plugin.sounds.SoundId;
-import com.winterhavenmc.deathcompass.plugin.storage.DeathRecord;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -114,10 +114,10 @@ public final class PlayerEventListener implements Listener
 		}
 
 		// create new death record for player
-		DeathRecord deathRecord = new DeathRecord(player);
+		DeathLocation deathLocation = new DeathLocation(player);
 
 		// insert death record in database
-		plugin.dataStore.insertRecord(deathRecord);
+		plugin.dataStore.deathLocations().saveDeathLocation(deathLocation);
 
 		// put player uuid in deathTriggeredRespawn set
 		deathTriggeredRespawn.add(player.getUniqueId());
@@ -411,7 +411,7 @@ public final class PlayerEventListener implements Listener
 		Location location = player.getWorld().getSpawnLocation();
 
 		// fetch death record from datastore
-		final Optional<DeathRecord> optionalDeathRecord = plugin.dataStore.selectRecord(player.getUniqueId(), worldUid);
+		final Optional<DeathLocation> optionalDeathRecord = plugin.dataStore.deathLocations().getDeathLocation(player.getUniqueId(), worldUid);
 
 		// if fetched record is not empty, set location
 		if (optionalDeathRecord.isPresent() && optionalDeathRecord.get().getLocation().isPresent())

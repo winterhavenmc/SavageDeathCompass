@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.plugin.storage;
+package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +26,7 @@ import java.util.Properties;
 /**
  * Retrieve sql queries from properties resource
  */
-final class Queries
+public final class SqliteQueries
 {
 	private final static String propFileName = "queries.properties";
 	private static Properties properties;
@@ -35,7 +35,7 @@ final class Queries
 	/**
 	 * Private class constructor to prevent instantiation
 	 */
-	private Queries()
+	private SqliteQueries()
 	{
 		throw new AssertionError();
 	}
@@ -55,7 +55,7 @@ final class Queries
 			properties = new Properties();
 			try
 			{
-				InputStream inputStream = Queries.class.getResourceAsStream("/" + propFileName);
+				InputStream inputStream = SqliteQueries.class.getResourceAsStream("/" + propFileName);
 
 				if (inputStream == null)
 				{
@@ -80,7 +80,7 @@ final class Queries
 	 * @return String the sql query string
 	 * @throws SQLException if query string could not be retrieved
 	 */
-	static String getQuery(final String query) throws SQLException
+	public static String getQuery(final String query) throws SQLException
 	{
 		return getQueries().getProperty(query);
 	}
