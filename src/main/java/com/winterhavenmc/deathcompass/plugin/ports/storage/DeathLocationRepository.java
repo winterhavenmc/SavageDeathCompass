@@ -32,5 +32,4 @@ public interface DeathLocationRepository
 	void saveDeathLocation(final DeathLocation deathLocation);
 	int saveDeathLocations(final Collection<DeathLocation> deathLocations);
 	Optional<DeathLocation> deleteDeathLocation(final UUID playerUUID, final UUID worldUID);
-
 }
