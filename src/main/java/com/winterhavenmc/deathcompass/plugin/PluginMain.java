@@ -20,8 +20,6 @@ package com.winterhavenmc.deathcompass.plugin;
 import com.winterhavenmc.deathcompass.plugin.commands.CommandManager;
 import com.winterhavenmc.deathcompass.plugin.listeners.InventoryEventListener;
 import com.winterhavenmc.deathcompass.plugin.listeners.PlayerEventListener;
-import com.winterhavenmc.deathcompass.plugin.messages.Macro;
-import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
 import com.winterhavenmc.deathcompass.plugin.storage.DataStore;
 import com.winterhavenmc.deathcompass.plugin.util.DeathCompassUtility;
 import com.winterhavenmc.deathcompass.plugin.util.MetricsHandler;
@@ -41,7 +39,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public final class PluginMain extends JavaPlugin
 {
-	public MessageBuilder<MessageId, Macro> messageBuilder;
+	public MessageBuilder messageBuilder;
 	public SoundConfiguration soundConfig;
 	public WorldManager worldManager;
 	public DataStore dataStore;
@@ -55,7 +53,7 @@ public final class PluginMain extends JavaPlugin
 		saveDefaultConfig();
 
 		// initialize message builder
-		messageBuilder = new MessageBuilder<>(this);
+		messageBuilder = MessageBuilder.create(this);
 
 		// instantiate sound config
 		soundConfig = new YamlSoundConfiguration(this);
