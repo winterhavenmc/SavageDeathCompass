@@ -22,6 +22,7 @@ import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteQueries;
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
 import com.winterhavenmc.deathcompass.plugin.ports.storage.DeathLocationRepository;
 
+import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
@@ -35,15 +36,19 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 {
 	private final Plugin plugin;
 	private final Connection connection;
+	private final LocaleProvider localeProvider;
 	private final DeathLocationRepository deathLocationRepository;
+	private int schemaVersion;
 
 
 	SqliteSchemaUpdaterFromV0(final Plugin plugin,
 	                          final Connection connection,
+	                          final LocaleProvider localeProvider,
 	                          final DeathLocationRepository deathLocationRepository)
 	{
 		this.plugin = plugin;
 		this.connection = connection;
+		this.localeProvider = localeProvider;
 		this.deathLocationRepository = deathLocationRepository;
 	}
 
@@ -51,7 +56,7 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 	@Override
 	public void update()
 	{
-		int schemaVersion = SqliteSchemaUpdater.getSchemaVersion(connection, plugin.getLogger());
+		schemaVersion = SqliteSchemaUpdater.getSchemaVersion(connection, plugin.getLogger());
 		if (schemaVersion == 0)
 		{
 			if (tableExists(connection, "deathlocations"))
@@ -73,14 +78,13 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 		}
 		catch (SQLException sqlException)
 		{
-			plugin.getLogger().warning(SqliteMessage.SCHEMA_UPDATE_ERROR.toString());
+			plugin.getLogger().warning(SqliteMessage.SCHEMA_UPDATE_ERROR.getLocalizedMessage(localeProvider.getLocale()));
 			plugin.getLogger().warning(sqlException.getLocalizedMessage());
 		}
 
-		//TODO: count will be passed to SqliteMessage#getLocalizedMessage() when MessageBuilder 2.0 is used
-		@SuppressWarnings("unused")
 		int count = deathLocationRepository.saveDeathLocations(existingDeathLocations);
-		plugin.getLogger().info(SqliteMessage.SCHEMA_DEATH_LOCATIONS_MIGRATED_NOTICE.toString());
+		plugin.getLogger().info(SqliteMessage.SCHEMA_DEATH_LOCATIONS_MIGRATED_NOTICE
+				.getLocalizedMessage(localeProvider.getLocale(), count, schemaVersion));
 	}
 
 
@@ -110,7 +114,8 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 					}
 					catch (IllegalArgumentException argumentException)
 					{
-						plugin.getLogger().warning("Player UUID in datastore is invalid!");
+						plugin.getLogger().warning(SqliteMessage.SCHEMA_UPDATE_PLAYER_UUID_INVALID
+								.getLocalizedMessage(localeProvider.getLocale()));
 						plugin.getLogger().warning(argumentException.getLocalizedMessage());
 					}
 
@@ -122,13 +127,15 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 				}
 				else
 				{
-					plugin.getLogger().warning("Stored record has invalid world: " + worldName + ". Skipping record.");
+					plugin.getLogger().warning(SqliteMessage.SCHEMA_UPDATE_WORLD_INVALID
+							.getLocalizedMessage(localeProvider.getLocale(), worldName));
 				}
 			}
 		}
 		catch (SQLException sqlException)
 		{
-			plugin.getLogger().warning("An error occurred while trying to select all records from the SQLite datastore.");
+			plugin.getLogger().warning(SqliteMessage.SCHEMA_UPDATE_SELECT_ALL_ERROR
+					.getLocalizedMessage(localeProvider.getLocale()));
 		}
 
 		return returnSet;

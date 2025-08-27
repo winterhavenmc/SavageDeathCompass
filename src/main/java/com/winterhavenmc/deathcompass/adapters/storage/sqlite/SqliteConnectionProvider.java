@@ -20,6 +20,7 @@ package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.schema.SqliteSchemaUpdater;
 import com.winterhavenmc.deathcompass.plugin.ports.storage.ConnectionProvider;
 import com.winterhavenmc.deathcompass.plugin.ports.storage.DeathLocationRepository;
+import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
@@ -29,6 +30,7 @@ import java.sql.*;
 public class SqliteConnectionProvider implements ConnectionProvider
 {
 	private final Plugin plugin;
+	private final LocaleProvider localeProvider;
 	private final String dataFilePath;
 	private Connection connection;
 	private boolean initialized;
@@ -44,6 +46,7 @@ public class SqliteConnectionProvider implements ConnectionProvider
 	public SqliteConnectionProvider(final Plugin plugin)
 	{
 		this.plugin = plugin;
+		this.localeProvider = LocaleProvider.create(plugin);
 		this.dataFilePath = plugin.getDataFolder() + File.separator + "deathlocations.db";
 	}
 
@@ -57,7 +60,7 @@ public class SqliteConnectionProvider implements ConnectionProvider
 		// if data store is already initialized, log and return
 		if (this.initialized)
 		{
-			plugin.getLogger().info(SqliteMessage.DATASTORE_INITIALIZED_ERROR.toString());
+			plugin.getLogger().info(SqliteMessage.DATASTORE_INITIALIZE_ERROR.toString());
 			return;
 		}
 
@@ -74,10 +77,10 @@ public class SqliteConnectionProvider implements ConnectionProvider
 		connection = DriverManager.getConnection(dbUrl);
 
 		// instantiate datastore adapters
-		deathLocationRepository = new SqliteDeathLocationRepository(plugin, connection);
+		deathLocationRepository = new SqliteDeathLocationRepository(plugin, connection, localeProvider);
 
 		// update schema if necessary
-		SqliteSchemaUpdater schemaUpdater = SqliteSchemaUpdater.create(plugin, connection, deathLocationRepository);
+		SqliteSchemaUpdater schemaUpdater = SqliteSchemaUpdater.create(plugin, connection, localeProvider, deathLocationRepository);
 		schemaUpdater.update();
 
 		// create tables if necessary
@@ -85,7 +88,7 @@ public class SqliteConnectionProvider implements ConnectionProvider
 
 		// set initialized true
 		this.initialized = true;
-		plugin.getLogger().info(SqliteMessage.DATASTORE_INITIALIZED_NOTICE.toString());
+		plugin.getLogger().info(SqliteMessage.DATASTORE_INITIALIZE_NOTICE.toString());
 	}
 
 
@@ -98,11 +101,11 @@ public class SqliteConnectionProvider implements ConnectionProvider
 		try
 		{
 			connection.close();
-			plugin.getLogger().info("SQLite database connection closed.");
+			plugin.getLogger().info(SqliteMessage.DATASTORE_CLOSE_NOTICE.getLocalizedMessage(localeProvider.getLocale()));
 		}
 		catch (Exception e)
 		{
-			plugin.getLogger().warning("An error occurred while closing the SQLite database connection.");
+			plugin.getLogger().warning(SqliteMessage.DATASTORE_CLOSE_ERROR.getLocalizedMessage(localeProvider.getLocale()));
 			plugin.getLogger().warning(e.getMessage());
 		}
 
@@ -128,7 +131,7 @@ public class SqliteConnectionProvider implements ConnectionProvider
 		}
 		catch (SQLException sqlException)
 		{
-			plugin.getLogger().warning(SqliteMessage.CREATE_DEATH_LOCATION_TABLE_ERROR.toString());
+			plugin.getLogger().warning(SqliteMessage.CREATE_DEATH_LOCATION_TABLE_ERROR.getLocalizedMessage(localeProvider.getLocale()));
 			plugin.getLogger().warning(sqlException.getLocalizedMessage());
 		}
 	}

@@ -18,24 +18,27 @@
 package com.winterhavenmc.deathcompass.adapters.storage.sqlite.schema;
 
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteMessage;
+import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
 import org.bukkit.plugin.Plugin;
 
 
 public final class SqliteSchemaUpdaterNoOp implements SqliteSchemaUpdater
 {
 	private final Plugin plugin;
+	private final LocaleProvider localeProvider;
 
 
-	public SqliteSchemaUpdaterNoOp(final Plugin plugin)
+	public SqliteSchemaUpdaterNoOp(final Plugin plugin, final LocaleProvider localeProvider)
 	{
 		this.plugin = plugin;
+		this.localeProvider = localeProvider;
 	}
 
 
 	@Override
 	public void update()
 	{
-		plugin.getLogger().info(SqliteMessage.SCHEMA_UP_TO_DATE_NOTICE.toString());
+		plugin.getLogger().info(SqliteMessage.SCHEMA_UP_TO_DATE_NOTICE.getLocalizedMessage(localeProvider.getLocale()));
 	}
 
 }

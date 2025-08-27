@@ -20,6 +20,7 @@ package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
 import com.winterhavenmc.deathcompass.plugin.ports.storage.DeathLocationRepository;
 
+import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
@@ -36,15 +37,17 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 
 	private final Plugin plugin;
 	private final Connection connection;
+	private final LocaleProvider localeProvider;
 	private final SqliteDeathLocationCache sqliteDeathLocationCache;
 	private final SqliteDeathLocationQueryExecutor queryExecutor = new SqliteDeathLocationQueryExecutor();
 	private final SqliteDeathLocationRowMapper rowMapper = new SqliteDeathLocationRowMapper();
 
 
-	public SqliteDeathLocationRepository(final Plugin plugin, final Connection connection)
+	public SqliteDeathLocationRepository(final Plugin plugin, final Connection connection, final LocaleProvider localeProvider)
 	{
 		this.plugin = plugin;
 		this.connection = connection;
+		this.localeProvider = localeProvider;
 		this.sqliteDeathLocationCache = new SqliteDeathLocationCache(plugin);
 	}
 
@@ -77,14 +80,15 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 				}
 				else
 				{
-					plugin.getLogger().warning("World " + resultSet.getString("WorldName") + " is not loaded!");
+					plugin.getLogger().warning(SqliteMessage.SELECT_RECORD_WORLD_INVALID_ERROR
+							.getLocalizedMessage(localeProvider.getLocale(), resultSet.getString("WorldName")));
 				}
 			}
 			return Optional.empty();
 		}
 		catch (SQLException sqlException)
 		{
-			plugin.getLogger().warning("An error occurred while trying to select a record from the SQLite datastore.");
+			plugin.getLogger().warning(SqliteMessage.SELECT_RECORD_ERROR.getLocalizedMessage(localeProvider.getLocale()));
 			plugin.getLogger().warning(sqlException.getLocalizedMessage());
 			return Optional.empty();
 		}
@@ -107,13 +111,13 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 			}
 			catch (SQLException sqlException)
 			{
-				plugin.getLogger().warning("An error occurred while inserting a record into the SQLite database.");
+				plugin.getLogger().warning(SqliteMessage.INSERT_RECORD_ERROR.getLocalizedMessage(localeProvider.getLocale()));
 				plugin.getLogger().warning(sqlException.getLocalizedMessage());
 			}
 		}
 		else
 		{
-			plugin.getLogger().warning("An error occurred while inserting a record in the SQLite datastore. World invalid!");
+			plugin.getLogger().warning(SqliteMessage.INSERT_RECORD_WORLD_INVALID_ERROR.getLocalizedMessage(localeProvider.getLocale()));
 		}
 		return 0;
 	}
@@ -151,7 +155,7 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 		catch (SQLException sqlException)
 		{
 			// output simple error message
-			plugin.getLogger().warning("An error occurred while attempting to delete a record from the SQLite datastore.");
+			plugin.getLogger().warning(SqliteMessage.DELETE_RECORD_ERROR.getLocalizedMessage(localeProvider.getLocale()));
 			plugin.getLogger().warning(sqlException.getLocalizedMessage());
 		}
 

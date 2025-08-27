@@ -20,6 +20,7 @@ package com.winterhavenmc.deathcompass.adapters.storage.sqlite.schema;
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteMessage;
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteQueries;
 import com.winterhavenmc.deathcompass.plugin.ports.storage.DeathLocationRepository;
+import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
 import org.bukkit.plugin.Plugin;
 
 import java.sql.*;
@@ -33,12 +34,13 @@ public sealed interface SqliteSchemaUpdater permits SqliteSchemaUpdaterFromV0, S
 
 	static SqliteSchemaUpdater create(final Plugin plugin,
 	                                  final Connection connection,
+	                                  final LocaleProvider localeProvider,
 	                                  final DeathLocationRepository deathLocationRepository)
 	{
 		int schemaVersion = getSchemaVersion(connection, plugin.getLogger());
 		return (schemaVersion == 0)
-				? new SqliteSchemaUpdaterFromV0(plugin, connection, deathLocationRepository)
-				: new SqliteSchemaUpdaterNoOp(plugin);
+				? new SqliteSchemaUpdaterFromV0(plugin, connection, localeProvider, deathLocationRepository)
+				: new SqliteSchemaUpdaterNoOp(plugin, localeProvider);
 	}
 
 
