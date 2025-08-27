@@ -74,7 +74,7 @@ public final class SqliteQueries
 
 
 	/**
-	 * Retreive an sql query string
+	 * Retrieve a sql query string
 	 *
 	 * @param query the properties key for the query string to be retrieved
 	 * @return String the sql query string
