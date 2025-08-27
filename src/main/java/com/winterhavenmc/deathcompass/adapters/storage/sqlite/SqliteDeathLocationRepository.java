@@ -32,12 +32,13 @@ import java.util.*;
 
 public class SqliteDeathLocationRepository implements DeathLocationRepository
 {
+	final static UUID INVALID_UUID = new UUID(0, 0);
+
 	private final Plugin plugin;
 	private final Connection connection;
 	private final SqliteDeathLocationCache sqliteDeathLocationCache;
 	private final SqliteDeathLocationQueryExecutor queryExecutor = new SqliteDeathLocationQueryExecutor();
-
-	private int schemaVersion;
+	private final SqliteDeathLocationRowMapper rowMapper = new SqliteDeathLocationRowMapper();
 
 
 	public SqliteDeathLocationRepository(final Plugin plugin, final Connection connection)
@@ -49,127 +50,10 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 
 
 	@Override
-	public synchronized Collection<DeathLocation> getAllDeathLocations()
+	public Optional<DeathLocation> getDeathLocation(final UUID playerUUID, final UUID worldUID)
 	{
-		Collection<DeathLocation> returnSet = new HashSet<>();
-
-		try
-		{
-			PreparedStatement preparedStatement = connection.prepareStatement(SqliteQueries.getQuery("SelectAllLocations"));
-
-			// execute sql query
-			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next())
-			{
-				if (schemaVersion == 0)
-				{
-					String key = rs.getString("playerid");
-					String worldName = rs.getString("worldname");
-					double x = rs.getDouble("x");
-					double y = rs.getDouble("y");
-					double z = rs.getDouble("z");
-
-					World world = plugin.getServer().getWorld(worldName);
-
-					if (world == null)
-					{
-						plugin.getLogger().warning("Stored record has invalid world: "
-								+ worldName + ". Skipping record.");
-						continue;
-					}
-
-					// convert key string to UUID
-					UUID playerUUID = null;
-					try
-					{
-						playerUUID = UUID.fromString(key);
-					}
-					catch (IllegalArgumentException argumentException)
-					{
-						plugin.getLogger().warning("Player UUID in datastore is invalid!");
-						plugin.getLogger().warning(argumentException.getLocalizedMessage());
-					}
-
-					// if playerUUID is not null, add record to return list
-					if (playerUUID != null)
-					{
-						DeathLocation deathLocation = new DeathLocation(playerUUID, world.getUID(), x, y, z);
-						returnSet.add(deathLocation);
-					}
-				}
-
-				// if schema version 1, try to get world by uuid
-				else if (schemaVersion == 1)
-				{
-					long playerUidMsb = rs.getLong("playerUidMsb");
-					long playerUidLsb = rs.getLong("playerUidLsb");
-					String worldName = rs.getString("worldname");
-					long worldUidMsb = rs.getLong("worldUidMsb");
-					long worldUidLsb = rs.getLong("worldUidLsb");
-					double x = rs.getDouble("x");
-					double y = rs.getDouble("y");
-					double z = rs.getDouble("z");
-
-					World world = plugin.getServer().getWorld(new UUID(worldUidMsb, worldUidLsb));
-
-					if (world == null)
-					{
-						plugin.getLogger().warning("Stored record has invalid world: "
-								+ worldName + ". Skipping record.");
-						continue;
-					}
-
-					// convert components to player uuid
-					UUID playerUUID = new UUID(playerUidMsb, playerUidLsb);
-
-					DeathLocation deathLocation = new DeathLocation(playerUUID, world.getUID(), x, y, z);
-					returnSet.add(deathLocation);
-				}
-			}
-		}
-		catch (Exception e)
-		{
-
-			// output simple error message
-			plugin.getLogger().warning("An error occurred while trying "
-					+ "to fetch all records from the SQLite database.");
-			plugin.getLogger().warning(e.getLocalizedMessage());
-
-			// if debugging is enabled, output stack trace
-			if (plugin.getConfig().getBoolean("debug"))
-			{
-				e.getStackTrace();
-			}
-		}
-
-		// return results
-		return returnSet;
-	}
-
-
-	@Override
-	public synchronized Optional<DeathLocation> getDeathLocation(final UUID playerUUID, final UUID worldUID)
-	{
-		// if key is null return null record
-		if (playerUUID == null)
-		{
-			return Optional.empty();
-		}
-
-		// if world uid is null, return null record
-		if (worldUID == null)
-		{
-			return Optional.empty();
-		}
-
-		// get player uuid components
-		final long playerUidMsb = playerUUID.getMostSignificantBits();
-		final long playerUidLsb = playerUUID.getLeastSignificantBits();
-
-		// get world uid components
-		final long worldUidMsb = worldUID.getMostSignificantBits();
-		final long worldUidLsb = worldUID.getLeastSignificantBits();
+		if (playerUUID == null) { return Optional.empty(); }
+		if (worldUID == null) { return Optional.empty(); }
 
 		// try cache first
 		Optional<DeathLocation> optionalDeathLocation = sqliteDeathLocationCache.get(playerUUID, worldUID);
@@ -180,75 +64,46 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 			return optionalDeathLocation;
 		}
 
-		DeathLocation deathLocation = null;
-
-		try (final PreparedStatement preparedStatement = connection.prepareStatement(SqliteQueries.getQuery("SelectLocation")))
+		try (final PreparedStatement preparedStatement = connection.prepareStatement(SqliteQueries.getQuery("SelectLocation"));
+		     final ResultSet resultSet = queryExecutor.selectDeathLocation(playerUUID, worldUID, preparedStatement))
 		{
-			preparedStatement.setLong(1, playerUidMsb);
-			preparedStatement.setLong(2, playerUidLsb);
-			preparedStatement.setLong(3, worldUidMsb);
-			preparedStatement.setLong(4, worldUidLsb);
-
-			// execute sql query
-			ResultSet rs = preparedStatement.executeQuery();
-
-			// only zero or one record can match the unique key
-			if (rs.next())
+			if (resultSet.next())
 			{
-				// get stored world and coordinates
-				String worldName = rs.getString("worldname");
-				double x = rs.getDouble("x");
-				double y = rs.getDouble("y");
-				double z = rs.getDouble("z");
-
-				// get server world by uid
-				World world = plugin.getServer().getWorld(worldUID);
-				if (world == null)
+				DeathLocation deathLocation = rowMapper.map(plugin, resultSet);
+				if (!deathLocation.getWorldUid().equals(INVALID_UUID))
 				{
-					plugin.getLogger().warning("World " + worldName + " is not loaded!");
-					return Optional.empty();
+					sqliteDeathLocationCache.put(deathLocation);
+					return Optional.of(deathLocation);
 				}
-
-				deathLocation = new DeathLocation(playerUUID, worldUID, x, y, z);
-			}
-		}
-		catch (SQLException sqlException)
-		{
-			// output simple error message
-			plugin.getLogger().warning("An error occurred while trying to select a record from the SQLite datastore.");
-			plugin.getLogger().warning(sqlException.getLocalizedMessage());
-
-			// if debugging is enabled, output stack trace
-			if (plugin.getConfig().getBoolean("debug"))
-			{
-				sqlException.getStackTrace();
+				else
+				{
+					plugin.getLogger().warning("World " + resultSet.getString("WorldName") + " is not loaded!");
+				}
 			}
 			return Optional.empty();
 		}
-
-		// if record is not null, put record in cache
-		if (deathLocation != null)
+		catch (SQLException sqlException)
 		{
-			sqliteDeathLocationCache.put(deathLocation);
+			plugin.getLogger().warning("An error occurred while trying to select a record from the SQLite datastore.");
+			plugin.getLogger().warning(sqlException.getLocalizedMessage());
+			return Optional.empty();
 		}
-
-		return Optional.ofNullable(deathLocation);
 	}
 
 
 	@Override
-	public synchronized void saveDeathLocation(final DeathLocation deathLocation)
+	public int saveDeathLocation(final DeathLocation deathLocation)
 	{
-		if (deathLocation == null) { return; }
+		if (deathLocation == null) { return 0; }
 
-		sqliteDeathLocationCache.put(deathLocation);
 		final World world = plugin.getServer().getWorld(deathLocation.getWorldUid());
 		if (world != null)
 		{
 			final String worldName = world.getName();
+			sqliteDeathLocationCache.put(deathLocation);
 			try (final PreparedStatement preparedStatement = connection.prepareStatement(SqliteQueries.getQuery("InsertLocation")))
 			{
-				queryExecutor.insertDeathLocation(deathLocation, worldName, preparedStatement);
+				return queryExecutor.insertDeathLocation(deathLocation, worldName, preparedStatement);
 			}
 			catch (SQLException sqlException)
 			{
@@ -260,43 +115,26 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 		{
 			plugin.getLogger().warning("An error occurred while inserting a record in the SQLite datastore. World invalid!");
 		}
+		return 0;
 	}
 
 
 	@Override
-	public synchronized int saveDeathLocations(final Collection<DeathLocation> deathLocations)
+	public int saveDeathLocations(final Collection<DeathLocation> deathLocations)
 	{
 		if (deathLocations == null) { return 0; }
 
 		int count = 0;
 		for (DeathLocation deathLocation : deathLocations)
 		{
-			sqliteDeathLocationCache.put(deathLocation);
-			final World world = plugin.getServer().getWorld(deathLocation.getWorldUid());
-			if (world != null)
-			{
-				final String worldName = world.getName();
-				try (final PreparedStatement preparedStatement = connection.prepareStatement(SqliteQueries.getQuery("InsertLocation")))
-				{
-					count += queryExecutor.insertDeathLocation(deathLocation, worldName, preparedStatement);
-				}
-				catch (Exception e)
-				{
-					plugin.getLogger().warning("An error occurred while inserting a record into the SQLite datastore.");
-					plugin.getLogger().warning(e.getLocalizedMessage());
-				}
-			}
-			else
-			{
-				plugin.getLogger().warning("An error occurred while inserting a record in the SQLite datastore. World invalid!");
-			}
+			count += saveDeathLocation(deathLocation);
 		}
 		return count;
 	}
 
 
-	@Override
-	public synchronized Optional<DeathLocation> deleteDeathLocation(final UUID playerUid, final UUID worldUid)
+	@SuppressWarnings("unused")
+	public Optional<DeathLocation> deleteDeathLocation(final UUID playerUid, final UUID worldUid)
 	{
 		if (playerUid == null) { return Optional.empty(); }
 		if (worldUid == null) { return Optional.empty(); }

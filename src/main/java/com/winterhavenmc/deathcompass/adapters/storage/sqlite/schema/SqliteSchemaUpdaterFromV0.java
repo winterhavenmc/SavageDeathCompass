@@ -21,12 +21,14 @@ import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteMessage;
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteQueries;
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
 import com.winterhavenmc.deathcompass.plugin.ports.storage.DeathLocationRepository;
+
+import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Collection;
+import java.sql.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 
 public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
@@ -54,15 +56,15 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 		{
 			if (tableExists(connection, "deathlocations"))
 			{
-				updateDiscoveryTableSchema(connection, schemaVersion);
+				updateDeathLocationTableSchema(connection, schemaVersion);
 			}
 		}
 	}
 
 
-	private void updateDiscoveryTableSchema(final Connection connection, final int version)
+	private void updateDeathLocationTableSchema(final Connection connection, final int version)
 	{
-		Collection<DeathLocation> existingDeathLocations = deathLocationRepository.getAllDeathLocations();
+		Set<DeathLocation> existingDeathLocations = SelectAllRecords();
 		try (final Statement statement = connection.createStatement())
 		{
 			statement.executeUpdate(SqliteQueries.getQuery("DropDeathLocationTable"));
@@ -75,8 +77,61 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 			plugin.getLogger().warning(sqlException.getLocalizedMessage());
 		}
 
+		//TODO: count will be passed to SqliteMessage#getLocalizedMessage() when MessageBuilder 2.0 is used
+		@SuppressWarnings("unused")
 		int count = deathLocationRepository.saveDeathLocations(existingDeathLocations);
 		plugin.getLogger().info(SqliteMessage.SCHEMA_DEATH_LOCATIONS_MIGRATED_NOTICE.toString());
+	}
+
+
+	private Set<DeathLocation> SelectAllRecords()
+	{
+		Set<DeathLocation> returnSet = new HashSet<>();
+
+		try (final PreparedStatement preparedStatement = connection.prepareStatement(SqliteQueries.getQuery("SelectAllLocations"));
+		     final ResultSet resultSet = preparedStatement.getResultSet())
+		{
+			while (resultSet.next())
+			{
+				String playerUidString = resultSet.getString("playerid");
+				String worldName = resultSet.getString("worldname");
+				double x = resultSet.getDouble("x");
+				double y = resultSet.getDouble("y");
+				double z = resultSet.getDouble("z");
+
+				World world = plugin.getServer().getWorld(worldName);
+				if (world != null)
+				{
+					UUID playerUUID = null;
+
+					try
+					{
+						playerUUID = UUID.fromString(playerUidString);
+					}
+					catch (IllegalArgumentException argumentException)
+					{
+						plugin.getLogger().warning("Player UUID in datastore is invalid!");
+						plugin.getLogger().warning(argumentException.getLocalizedMessage());
+					}
+
+					if (playerUUID != null)
+					{
+						DeathLocation deathLocation = new DeathLocation(playerUUID, world.getUID(), x, y, z);
+						returnSet.add(deathLocation);
+					}
+				}
+				else
+				{
+					plugin.getLogger().warning("Stored record has invalid world: " + worldName + ". Skipping record.");
+				}
+			}
+		}
+		catch (SQLException sqlException)
+		{
+			plugin.getLogger().warning("An error occurred while trying to select all records from the SQLite datastore.");
+		}
+
+		return returnSet;
 	}
 
 }
