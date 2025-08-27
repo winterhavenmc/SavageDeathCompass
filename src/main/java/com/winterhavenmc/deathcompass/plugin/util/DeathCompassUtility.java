@@ -18,21 +18,14 @@
 package com.winterhavenmc.deathcompass.plugin.util;
 
 import com.winterhavenmc.deathcompass.plugin.PluginMain;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
+import com.winterhavenmc.library.messagebuilder.ItemForge;
 
-import java.util.List;
+import org.bukkit.inventory.ItemStack;
 
 
 public final class DeathCompassUtility
 {
 	private final PluginMain plugin;
-	private final NamespacedKey itemKey;
 
 
 	/**
@@ -41,7 +34,6 @@ public final class DeathCompassUtility
 	public DeathCompassUtility(final PluginMain plugin)
 	{
 		this.plugin = plugin;
-		this.itemKey = new NamespacedKey(plugin, "isItem");
 	}
 
 
@@ -52,14 +44,7 @@ public final class DeathCompassUtility
 	 */
 	public ItemStack createItem()
 	{
-		// create compass item stack
-		final ItemStack newItem = new ItemStack(Material.COMPASS, 1);
-
-		// set item display name and lore
-		setMetaData(newItem);
-
-		// return new item
-		return newItem;
+		return plugin.messageBuilder.itemForge().createItem("DEATH_COMPASS").orElseThrow();
 	}
 
 
@@ -71,66 +56,7 @@ public final class DeathCompassUtility
 	 */
 	public boolean isDeathCompass(final ItemStack itemStack)
 	{
-		// if passed ItemStack is null, return false
-		if (itemStack == null)
-		{
-			return false;
-		}
-
-		// if item stack is not a compass return false
-		if (!itemStack.getType().equals(Material.COMPASS))
-		{
-			return false;
-		}
-
-		// if item stack does not have metadata return false
-		if (!itemStack.hasItemMeta())
-		{
-			return false;
-		}
-
-		// if item stack does not have persistent data tag, return false
-		//noinspection ConstantConditions
-		return itemStack.getItemMeta().getPersistentDataContainer().has(itemKey, PersistentDataType.BYTE);
-	}
-
-
-	/**
-	 * Set ItemMetaData on ItemStack using custom display name and lore from language file.<br>
-	 * Display name additionally has hidden itemTag to make it identifiable as a DeathCompass item.
-	 *
-	 * @param itemStack the ItemStack on which to set DeathCompass MetaData
-	 */
-	@SuppressWarnings("ConstantConditions")
-	private void setMetaData(final ItemStack itemStack)
-	{
-		// retrieve item name from language file
-		String itemName = plugin.messageBuilder.getItemName().orElse("Death Compass");
-
-		// retrieve item lore from language file
-		List<String> itemLore = plugin.messageBuilder.getItemLore();
-
-		// get item metadata object
-		final ItemMeta itemMeta = itemStack.getItemMeta();
-
-		// hide item stack attributes and enchants
-		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		itemMeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
-		itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-		itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-		itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
-
-		// set item metadata display name to value from config file
-		itemMeta.setDisplayName(ChatColor.RESET + itemName);
-
-		// set item metadata Lore to value from config file
-		itemMeta.setLore(itemLore);
-
-		// set persistent data in item metadata
-		itemMeta.getPersistentDataContainer().set(itemKey, PersistentDataType.BYTE, (byte) 1);
-
-		// save new item metadata
-		itemStack.setItemMeta(itemMeta);
+		return ItemForge.isCustomItem(itemStack);
 	}
 
 }
