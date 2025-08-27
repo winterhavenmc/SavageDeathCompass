@@ -239,7 +239,6 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 	@Override
 	public synchronized void saveDeathLocation(final DeathLocation deathLocation)
 	{
-		// if record is null do nothing and return
 		if (deathLocation == null) { return; }
 
 		sqliteDeathLocationCache.put(deathLocation);
