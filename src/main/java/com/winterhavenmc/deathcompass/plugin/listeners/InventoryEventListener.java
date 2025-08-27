@@ -108,7 +108,8 @@ public final class InventoryEventListener implements Listener
 
 		switch (event.getAction())
 		{
-			case MOVE_TO_OTHER_INVENTORY:
+			case MOVE_TO_OTHER_INVENTORY ->
+			{
 				// check if current item is death compass
 				if (plugin.deathCompassUtility.isDeathCompass(event.getCurrentItem()))
 				{
@@ -121,9 +122,10 @@ public final class InventoryEventListener implements Listener
 					// cancel event and send player message
 					cancelInventoryTransfer(event, event.getWhoClicked());
 				}
-				break;
+			}
 
-			case SWAP_WITH_CURSOR:
+			case SWAP_WITH_CURSOR ->
+			{
 				// check if cursor item or current item is death compass
 				if (plugin.deathCompassUtility.isDeathCompass(event.getCursor())
 						|| plugin.deathCompassUtility.isDeathCompass(event.getCurrentItem()))
@@ -134,11 +136,10 @@ public final class InventoryEventListener implements Listener
 						cancelInventoryTransfer(event, event.getWhoClicked());
 					}
 				}
-				break;
+			}
 
-			case PLACE_ONE:
-			case PLACE_SOME:
-			case PLACE_ALL:
+			case PLACE_ONE, PLACE_SOME, PLACE_ALL ->
+			{
 				// check if cursor item is a death compass
 				if (plugin.deathCompassUtility.isDeathCompass(event.getCursor()))
 				{
@@ -149,7 +150,7 @@ public final class InventoryEventListener implements Listener
 						cancelInventoryTransfer(event, event.getWhoClicked());
 					}
 				}
-				break;
+			}
 		}
 	}
 
