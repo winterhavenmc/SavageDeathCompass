@@ -19,55 +19,55 @@ ITEMS:
 
 
 MESSAGES:
-################
-# Event Messages
-################
+  ################
+  # Event Messages
+  ################
   EVENT_PLAYER_RESPAWN:
-    MESSAGE_TEXT: "'<red>{ITEM} points to {RECIPIENT}'s death location in {DEATH_LOCATION.WORLD}.</red>"
+    MESSAGE_TEXT: "<red>{ITEM} peker til dødsstedet til {RECIPIENT} i {DEATH_LOCATION.WORLD}.</red>"
 
   EVENT_ITEM_DESTROY:
-    MESSAGE_TEXT: "<red>{ITEM} destroyed.</red>"
+    MESSAGE_TEXT: "<red>{ITEM} ødelagt.</red>"
 
   EVENT_INVENTORY_DENY_TRANSFER:
-    MESSAGE_TEXT: "<red>{ITEM} can not be placed in containers.</red>"
+    MESSAGE_TEXT: "<red>{ITEM} kan ikke plasseres i beholdere.</red>"
 
 
   ##################
   # Command Messages
   ##################
   COMMAND_FAIL_INVALID_COMMAND:
-    MESSAGE_TEXT: "<red>That is not a valid command!</red>"
+    MESSAGE_TEXT: "<red>Det er ikke en gyldig kommando!</red>"
 
   COMMAND_FAIL_HELP_PERMISSION:
-    MESSAGE_TEXT: "<red>You do not have permission to display {PLUGIN} help!</red>"
+    MESSAGE_TEXT: "<red>Du har ikke tillatelse til å vise hjelp for {PLUGIN}!</red>"
 
   COMMAND_FAIL_RELOAD_PERMISSION:
-    MESSAGE_TEXT: "<red>You do not have permission to reload {PLUGIN} configuration!</red>"
+    MESSAGE_TEXT: "<red>Du har ikke tillatelse til å laste inn konfigurasjonen for {PLUGIN} på nytt!</red>"
 
   COMMAND_FAIL_STATUS_PERMISSION:
-    MESSAGE_TEXT: '<red>You do not have permission to view {PLUGIN} settings!</red>'
+    MESSAGE_TEXT: '<red>Du har ikke tillatelse til å vise innstillingene for {PLUGIN}!</red>'
 
   COMMAND_SUCCESS_RELOAD:
-    MESSAGE_TEXT: "<gray>{PLUGIN} configuration reloaded.</gray>"
+    MESSAGE_TEXT: "<gray>konfigurasjonen for {PLUGIN} lastet inn på nytt.</gray>"
 
 
   ###############
   # Help Messages
   ###############
   COMMAND_HELP_HELP:
-    MESSAGE_TEXT: "<yellow>Displays help for {PLUGIN} commands.</yellow>"
+    MESSAGE_TEXT: "<yellow>Viser hjelp for {PLUGIN}-kommandoer.</yellow>"
 
   COMMAND_HELP_RELOAD:
-    MESSAGE_TEXT: "<yellow>Reloads the plugin configuration.</yellow>"
+    MESSAGE_TEXT: "<yellow>Laster plugin-konfigurasjonen på nytt.</yellow>"
 
   COMMAND_HELP_STATUS:
-    MESSAGE_TEXT: "<yellow>Displays plugin configuration settings.</yellow>"
+    MESSAGE_TEXT: "<yellow>Viser plugin-konfigurasjonsinnstillinger.</yellow>"
 
   COMMAND_HELP_INVALID:
-    MESSAGE_TEXT: "<yellow>That is not a valid command.</yellow>"
+    MESSAGE_TEXT: "<yellow>Det er ikke en gyldig kommando.</yellow>"
 
   COMMAND_HELP_USAGE:
-    MESSAGE_TEXT: "<yellow>Plugin command usage:</yellow>"
+    MESSAGE_TEXT: "<yellow>Bruk av plugin-kommando:</yellow>"
 
 
   #########################
@@ -96,7 +96,7 @@ MESSAGES:
 
   COMMAND_STATUS_DESTROY_ON_DROP:
     MESSAGE_TEXT: "<green>Destroy on drop:</green> {SETTING}"
-    
+
   COMMAND_STATUS_PREVENT_STORAGE:
     MESSAGE_TEXT: "<green>Prevent storage:</green> {SETTING}"
 

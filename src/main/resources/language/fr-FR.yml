@@ -6,10 +6,10 @@
 ITEMS:
   DEATH_COMPASS:
     MATERIAL: COMPASS
-    DISPLAY_NAME: "<green>Death Compass</green>"
+    DISPLAY_NAME: "<green>Boussole de la mort</green>"
     LORE:
-      - "<yellow>Points to Your Last</yellow>"
-      - "<yellow>Death Location</yellow>"
+      - "<yellow>Indique le lieu</yellow>"
+      - "<yellow>de votre dernier décès</yellow>"
 
 
 # Message placeholders:
@@ -19,55 +19,55 @@ ITEMS:
 
 
 MESSAGES:
-################
-# Event Messages
-################
+  ################
+  # Event Messages
+  ################
   EVENT_PLAYER_RESPAWN:
-    MESSAGE_TEXT: "'<red>{ITEM} points to {RECIPIENT}'s death location in {DEATH_LOCATION.WORLD}.</red>"
+    MESSAGE_TEXT: "<red>{ITEM} pointe vers le lieu de décès de {RECIPIENT} dans {DEATH_LOCATION.WORLD}.</red>"
 
   EVENT_ITEM_DESTROY:
-    MESSAGE_TEXT: "<red>{ITEM} destroyed.</red>"
+    MESSAGE_TEXT: "<red>{ITEM} détruit.</red>"
 
   EVENT_INVENTORY_DENY_TRANSFER:
-    MESSAGE_TEXT: "<red>{ITEM} can not be placed in containers.</red>"
+    MESSAGE_TEXT: "<red>{ITEM} ne peut pas être placé dans des conteneurs.</red>"
 
 
   ##################
   # Command Messages
   ##################
   COMMAND_FAIL_INVALID_COMMAND:
-    MESSAGE_TEXT: "<red>That is not a valid command!</red>"
+    MESSAGE_TEXT: "<red>Cette commande n'est pas valide !</red>"
 
   COMMAND_FAIL_HELP_PERMISSION:
-    MESSAGE_TEXT: "<red>You do not have permission to display {PLUGIN} help!</red>"
+    MESSAGE_TEXT: "<red>Vous n'êtes pas autorisé à afficher l'aide de {PLUGIN} !</red>"
 
   COMMAND_FAIL_RELOAD_PERMISSION:
-    MESSAGE_TEXT: "<red>You do not have permission to reload {PLUGIN} configuration!</red>"
+    MESSAGE_TEXT: "<red>Vous n'êtes pas autorisé à recharger la configuration de {PLUGIN} !</red>"
 
   COMMAND_FAIL_STATUS_PERMISSION:
-    MESSAGE_TEXT: '<red>You do not have permission to view {PLUGIN} settings!</red>'
+    MESSAGE_TEXT: "<red>Vous n'êtes pas autorisé à afficher les paramètres de {PLUGIN} !</red>"
 
   COMMAND_SUCCESS_RELOAD:
-    MESSAGE_TEXT: "<gray>{PLUGIN} configuration reloaded.</gray>"
+    MESSAGE_TEXT: "<gray>Configuration de {PLUGIN} rechargée.</gray>"
 
 
   ###############
   # Help Messages
   ###############
   COMMAND_HELP_HELP:
-    MESSAGE_TEXT: "<yellow>Displays help for {PLUGIN} commands.</yellow>"
+    MESSAGE_TEXT: "<yellow><yellow>Affiche l'aide pour les commandes {PLUGIN}.</yellow"
 
   COMMAND_HELP_RELOAD:
-    MESSAGE_TEXT: "<yellow>Reloads the plugin configuration.</yellow>"
+    MESSAGE_TEXT: "<yellow>Recharge la configuration du plugin.</yellow>"
 
   COMMAND_HELP_STATUS:
-    MESSAGE_TEXT: "<yellow>Displays plugin configuration settings.</yellow>"
+    MESSAGE_TEXT: "<yellow>Affiche les paramètres de configuration du plugin.</yellow>"
 
   COMMAND_HELP_INVALID:
-    MESSAGE_TEXT: "<yellow>That is not a valid command.</yellow>"
+    MESSAGE_TEXT: "<yellow>Ese n'est pas une commande valide.</yellow>"
 
   COMMAND_HELP_USAGE:
-    MESSAGE_TEXT: "<yellow>Plugin command usage:</yellow>"
+    MESSAGE_TEXT: "<yellow>Utilisation des commandes du plugin :</yellow>"
 
 
   #########################
@@ -96,7 +96,7 @@ MESSAGES:
 
   COMMAND_STATUS_DESTROY_ON_DROP:
     MESSAGE_TEXT: "<green>Destroy on drop:</green> {SETTING}"
-    
+
   COMMAND_STATUS_PREVENT_STORAGE:
     MESSAGE_TEXT: "<green>Prevent storage:</green> {SETTING}"
 

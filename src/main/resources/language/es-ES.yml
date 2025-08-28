@@ -3,121 +3,105 @@
 ###########
 # Item Info
 ###########
-ITEM_INFO:
-  # Item Display Name
-  ITEM_NAME: '&6Brújula de la Muerte'
+ITEMS:
+  DEATH_COMPASS:
+    MATERIAL: COMPASS
+    DISPLAY_NAME: "<green>Brújula de la Muerte</green>"
+    ITEM_LORE:
+      - "<yellow>Puntos para la ubicación</yellow>"
+      - "<yellow>de su última muerte</yellow>"
 
-  # Item Lore
-  ITEM_LORE:
-  - '&ePuntos para la ubicación'
-  - '&ede su última muerte'
+
+# Message placeholders:
+# {ITEM}            death compass item name, as defined above, stripped of color tags
+# {RECIPIENT}       message recipient's name
+# {DEATH_LOCATION}  player's death location, with subfields: .WORLD, .X, .Y, .Z
 
 
-# Variable substitutions:
-# %ITEM%            Item name as configured above
-# %PLAYER%          Player's full name
-# %WORLD%           World name that player is in
-
-##########
-# Messages
-##########
+################
+# Event Messages
+################
 MESSAGES:
-  ACTION_PLAYER_RESPAWN:
-    enabled: true
-    string: '&c%ITEM% apunta a la ubicación de la muerte de %PLAYER%, en %WORLD%.'
+  EVENT_PLAYER_RESPAWN:
+    MESSAGE_TEXT: '&c%ITEM% apunta a la ubicación de la muerte de %PLAYER%, en %WORLD%.'
 
-  ACTION_ITEM_DESTROY:
-    enabled: true
-    string: '&c%ITEM% destruido.'
+  EVENT_ITEM_DESTROY:
+    MESSAGE_TEXT: '&c%ITEM% destruido.'
 
-  ACTION_INVENTORY_DENY_TRANSFER:
-    enabled: true
-    string: '&c%ITEM% no puede ser colocado en contenedores.'
+  EVENT_INVENTORY_DENY_TRANSFER:
+    MESSAGE_TEXT: '&c%ITEM% no puede ser colocado en contenedores.'
 
 
+  ##################
+  # Command Messages
+  ##################
   COMMAND_FAIL_INVALID_COMMAND:
-    enabled: true
-    string: '&c¡Ese no es un comando válido!'
-    # available subs: %PLAYER%
+    MESSAGE_TEXT: '&c¡Ese no es un comando válido!'
 
   COMMAND_FAIL_HELP_PERMISSION:
-    enabled: true
-    string: '&c¡No tienes permiso para mostrar la ayuda de DeathCompass!'
-    # available subs: %PLAYER%
+    MESSAGE_TEXT: '&c¡No tienes permiso para mostrar la ayuda de DeathCompass!'
 
   COMMAND_FAIL_RELOAD_PERMISSION:
-    enabled: true
-    string: '&c¡No tienes permiso para volver a cargar la configuración de DeathCompass!'
-    # available subs: %PLAYER%
+    MESSAGE_TEXT: '&c¡No tienes permiso para volver a cargar la configuración de DeathCompass!'
 
   COMMAND_FAIL_STATUS_PERMISSION:
-    enabled: true
-    string: '&c¡No tienes permiso para ver la configuración de DeathCompass!'
-    # available subs: %PLAYER%
+    MESSAGE_TEXT: '&c¡No tienes permiso para ver la configuración de DeathCompass!'
 
   COMMAND_SUCCESS_RELOAD:
-    enabled: true
-    string: '&7Se recargó la configuración de DeathCompass.'
-    # available subs: %PLAYER%
+    MESSAGE_TEXT: '&7Se recargó la configuración de DeathCompass.'
 
 
+  ###############
+  # Help Messages
+  ###############
   COMMAND_HELP_HELP:
-    enabled: true
-    string: '&eMuestra ayuda para los comandos de DeathCompass.'
+    MESSAGE_TEXT: '&eMuestra ayuda para los comandos de DeathCompass.'
 
   COMMAND_HELP_RELOAD:
-    enabled: true
-    string: '&eVuelve a cargar la configuración del complemento.'
+    MESSAGE_TEXT: '&eVuelve a cargar la configuración del complemento.'
 
   COMMAND_HELP_STATUS:
-    enabled: true
-    string: '&eMuestra los ajustes de configuración del complemento.'
+    MESSAGE_TEXT: '&eMuestra los ajustes de configuración del complemento.'
 
   COMMAND_HELP_INVALID:
-    enabled: true
-    string: '&eEse no es un comando válido.'
+    MESSAGE_TEXT: '&eEse no es un comando válido.'
 
   COMMAND_HELP_USAGE:
-    enabled: true
-    string: '&eUso del comando:'
+    MESSAGE_TEXT: '&eUso del comando:'
 
 
   #########################
   # Status command messages
   #########################
   COMMAND_STATUS_HEADER:
-    enabled: true
-    string: "\n&3&m                   =&r&3[&b SavageDeathCompass &3]&m=                   "
+    MESSAGE_TEXT: "<newline><gradient:blue:aqua><strikethrough>                     =</strikethrough>[</gradient> <dark_aqua>{PLUGIN}</dark_aqua> <gradient:aqua:blue>]<strikethrough>=                     </strikethrough></gradient>"
 
   COMMAND_STATUS_FOOTER:
-    enabled: true
-    string: "\n&3%URL%&r"
+    MESSAGE_TEXT: "<newline><click:open_url:'{URL}'><blue><underlined>{URL}</underlined></blue></click>"
 
   COMMAND_STATUS_PLUGIN_VERSION:
-    enabled: true
-    string: '&aVersion:&r %VERSION%'
+    MESSAGE_TEXT: "<green>Version:</green> {SETTING}"
 
   COMMAND_STATUS_LANGUAGE:
-    enabled: true
-    string: "&aLanguage:&r %LANGUAGE%"
+    MESSAGE_TEXT: "<green>Language:</green> {SETTING}"
+
+  COMMAND_STATUS_LOCALE:
+    MESSAGE_TEXT: "<green>Locale:</green> {SETTING}"
+
+  COMMAND_STATUS_TIMEZONE:
+    MESSAGE_TEXT: "<green>Timezone:</green> {SETTING}"
 
   COMMAND_STATUS_SOUND_EFFECTS:
-    enabled: true
-    string: "&aSound effects:&r %SOUND_EFFECTS%"
+    MESSAGE_TEXT: "<green>Sound effects:</green> {SETTING}"
 
   COMMAND_STATUS_DESTROY_ON_DROP:
-    enabled: true
-    string: "&aDestroy on drop:&r %DESTROY_ON_DROP%"
+    MESSAGE_TEXT: "<green>Destroy on drop:</green> {SETTING}"
 
   COMMAND_STATUS_PREVENT_STORAGE:
-    enabled: true
-    string: "&aPrevent storage:&r %PREVENT_STORAGE%"
+    MESSAGE_TEXT: "<green>Prevent storage:</green> {SETTING}"
 
   COMMAND_STATUS_TARGET_DELAY:
-    enabled: true
-    string: "&aTarget delay:&r %TARGET_DELAY%"
+    MESSAGE_TEXT: "<green>Target delay:</green> {SETTING}"
 
   COMMAND_STATUS_ENABLED_WORLDS:
-    enabled: true
-    string: "&aEnabled worlds:&r %ENABLED_WORLDS%"
-
+    MESSAGE_TEXT: "<green>Enabled worlds:</green> {SETTING}"
