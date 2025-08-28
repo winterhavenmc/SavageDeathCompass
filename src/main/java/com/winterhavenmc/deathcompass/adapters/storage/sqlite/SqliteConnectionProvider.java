@@ -27,7 +27,7 @@ import java.io.File;
 import java.sql.*;
 
 
-public class SqliteConnectionProvider implements ConnectionProvider
+public class SqliteConnectionProvider implements ConnectionProvider, AutoCloseable
 {
 	private final Plugin plugin;
 	private final LocaleProvider localeProvider;
