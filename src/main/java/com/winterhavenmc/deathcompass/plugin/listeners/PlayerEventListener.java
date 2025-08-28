@@ -18,6 +18,7 @@
 package com.winterhavenmc.deathcompass.plugin.listeners;
 
 import com.winterhavenmc.deathcompass.plugin.PluginMain;
+import com.winterhavenmc.deathcompass.plugin.tasks.SetCompassTargetTask;
 import com.winterhavenmc.deathcompass.plugin.util.Macro;
 import com.winterhavenmc.deathcompass.plugin.util.MessageId;
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
@@ -34,10 +35,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
@@ -49,7 +48,7 @@ public final class PlayerEventListener implements Listener
 	private final PluginMain plugin;
 
 	// player death respawn hash set, used to prevent giving compass on non-death respawn events
-	private final Set<UUID> deathTriggeredRespawn = ConcurrentHashMap.newKeySet();
+	private final Set<UUID> deathTriggeredRespawn = new HashSet<>();
 
 
 	/**
@@ -372,19 +371,8 @@ public final class PlayerEventListener implements Listener
 	 */
 	private void setDeathCompassTarget(final Player player)
 	{
-		new BukkitRunnable()
-		{
-
-			public void run()
-			{
-				Location location = getDeathLocation(player);
-				if (location.getWorld() != player.getWorld())
-				{
-					return;
-				}
-				player.setCompassTarget(location);
-			}
-		}.runTaskLaterAsynchronously(plugin, plugin.getConfig().getLong("target-delay"));
+		Location location = getDeathLocation(player);
+		new SetCompassTargetTask(player, location).runTaskLater(plugin, plugin.getConfig().getLong("target-delay"));
 	}
 
 

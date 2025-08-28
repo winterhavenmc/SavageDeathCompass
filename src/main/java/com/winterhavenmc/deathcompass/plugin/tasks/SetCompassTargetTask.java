@@ -15,19 +15,30 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.plugin.ports.storage;
+package com.winterhavenmc.deathcompass.plugin.tasks;
 
-import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
-import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
-
-import java.util.Collection;
-import java.util.UUID;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 
-@SuppressWarnings("UnusedReturnValue")
-public interface DeathLocationRepository
+public class SetCompassTargetTask extends BukkitRunnable
 {
-	DeathLocation getDeathLocation(final UUID playerUUID, final UUID worldUID);
-	int saveDeathLocation(final ValidDeathLocation deathLocation);
-	int saveDeathLocations(final Collection<ValidDeathLocation> deathLocations);
+	private final Player player;
+	private final Location location;
+
+	public SetCompassTargetTask(final Player player, final Location location)
+	{
+		this.player = player;
+		this.location = location;
+	}
+
+	public void run()
+	{
+		if (location.getWorld() != player.getWorld())
+		{
+			return;
+		}
+		player.setCompassTarget(location);
+	}
 }

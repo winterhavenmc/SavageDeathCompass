@@ -25,7 +25,7 @@ public enum DeathLocationReason
 	WORLD_UUID_NULL("The world UUID was null."),
 	PLAYER_NULL("The player was null."),
 	WORLD_UNAVAILABLE("The world was not available."),
-	RECORD_NOT_FOUND("The death location was not found in the Sqlite datastore."),
+	RECORD_NOT_FOUND("A death location record was not found in the datastore."),
 	SQL_EXCEPTION_THROWN("An SQL exception was thrown."),
 	;
 
