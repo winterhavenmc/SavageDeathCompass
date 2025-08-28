@@ -18,8 +18,8 @@
 package com.winterhavenmc.deathcompass.plugin.model;
 
 import org.bukkit.entity.Player;
-
 import java.util.UUID;
+
 
 public sealed interface DeathLocation permits ValidDeathLocation, InvalidDeathLocation
 {

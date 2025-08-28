@@ -21,6 +21,7 @@ import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteConnectionPr
 import com.winterhavenmc.deathcompass.plugin.ports.storage.ConnectionProvider;
 import org.bukkit.plugin.Plugin;
 
+
 public final class Bootstrap
 {
 	private Bootstrap() { /* private constructor to prevent instantiation */ }

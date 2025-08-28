@@ -24,7 +24,6 @@ import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
 import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
 import com.winterhavenmc.deathcompass.plugin.util.SoundId;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -343,15 +342,11 @@ public final class PlayerEventListener implements Listener
 	 */
 	private ItemStack giveDeathCompass(final Player player)
 	{
-		// create DeathCompass itemstack
 		ItemStack deathcompass = plugin.deathCompassUtility.createItem();
-
-		// add DeathCompass itemstack to player inventory
 		player.getInventory().addItem(deathcompass);
 
-		// log info
-		plugin.getLogger().info(player.getName() + ChatColor.RESET + " was given a death compass in "
-				+ plugin.worldManager.getWorldName(player.getWorld()) + ChatColor.RESET + ".");
+		plugin.getLogger().info(player.getName() + " was given a death compass in "
+				+ plugin.worldManager.getWorldName(player.getWorld()) + ".");
 
 		return deathcompass;
 	}

@@ -19,6 +19,7 @@ package com.winterhavenmc.deathcompass.adapters.storage.sqlite.schema;
 
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteMessage;
 import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
+
 import org.bukkit.plugin.Plugin;
 
 

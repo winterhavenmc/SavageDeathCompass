@@ -23,10 +23,10 @@ package com.winterhavenmc.deathcompass.plugin.util;
  */
 public enum SoundId
 {
-	INVENTORY_DENY_TRANSFER,
-	PLAYER_DROP_COMPASS,
-
 	COMMAND_FAIL,
 	COMMAND_INVALID,
 	COMMAND_RELOAD_SUCCESS,
+
+	INVENTORY_DENY_TRANSFER,
+	PLAYER_DROP_COMPASS,
 }
