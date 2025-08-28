@@ -23,7 +23,7 @@ MESSAGES:
   # Event Messages
   ################
   EVENT_PLAYER_RESPAWN:
-    MESSAGE_TEXT: "'<red>{ITEM} peker til dødsstedet til {RECIPIENT} i {DEATH_LOCATION.WORLD}.</red>"
+    MESSAGE_TEXT: "<red>{ITEM} peker til dødsstedet til {RECIPIENT} i {DEATH_LOCATION.WORLD}.</red>"
 
   EVENT_ITEM_DESTROY:
     MESSAGE_TEXT: "<red>{ITEM} ødelagt.</red>"
