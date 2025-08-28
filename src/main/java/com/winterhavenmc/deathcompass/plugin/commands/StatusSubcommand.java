@@ -22,9 +22,11 @@ import com.winterhavenmc.deathcompass.plugin.messages.Macro;
 import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
 import com.winterhavenmc.deathcompass.plugin.sounds.SoundId;
 
+import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,6 +37,7 @@ import java.util.Objects;
 final class StatusSubcommand extends AbstractSubcommand
 {
 	private final PluginMain plugin;
+	private final LocaleProvider localeProvider;
 
 
 	/**
@@ -49,31 +52,31 @@ final class StatusSubcommand extends AbstractSubcommand
 		this.usageString = "/deathcompass status";
 		this.description = MessageId.COMMAND_HELP_STATUS;
 		this.permissionNode = "deathcompass.status";
+		this.localeProvider = LocaleProvider.create(plugin);
 	}
 
 
 	@Override
-	public boolean onCommand(final CommandSender sender, final List<String> args)
+	public void onCommand(final CommandSender sender, final List<String> args)
 	{
 		if (!sender.hasPermission(permissionNode))
 		{
 			plugin.messageBuilder.compose(sender, MessageId.COMMAND_FAIL_STATUS_PERMISSION).send();
 			plugin.soundConfig.playSound(sender, SoundId.COMMAND_FAIL);
-			return true;
 		}
 
 		displayHeader(sender);
 		displayPluginVersion(sender);
-		displayDebug(sender);
-		displayLanguage(sender);
-		displaySoundEffects(sender);
-		displayDestroyOnDrop(sender);
-		displayPreventStorage(sender);
-		displayTargetDelay(sender);
-		displayEnabledWorlds(sender);
+		displayDebugSetting(sender);
+		displayLanguageSetting(sender);
+		displayLocaleSetting(sender);
+		displayTimezoneSetting(sender);
+		displaySoundEffectsSetting(sender);
+		displayDestroyOnDropSetting(sender);
+		displayPreventStorageSetting(sender);
+		displayTargetDelaySetting(sender);
+		displayEnabledWorldsSetting(sender);
 		displayFooter(sender);
-
-		return true;
 	}
 
 
@@ -95,11 +98,11 @@ final class StatusSubcommand extends AbstractSubcommand
 	private void displayPluginVersion(final CommandSender sender)
 	{
 		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_PLUGIN_VERSION)
-				.setMacro(Macro.VERSION, plugin.getDescription().getVersion())
+				.setMacro(Macro.SETTING, plugin.getDescription().getVersion())
 				.send();
 	}
 
-	private void displayDebug(final CommandSender sender)
+	private void displayDebugSetting(final CommandSender sender)
 	{
 		if (plugin.getConfig().getBoolean("debug"))
 		{
@@ -108,46 +111,63 @@ final class StatusSubcommand extends AbstractSubcommand
 		}
 	}
 
-	private void displayLanguage(final CommandSender sender)
+	private void displayLanguageSetting(final CommandSender sender)
 	{
 		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_LANGUAGE)
-				.setMacro(Macro.LANGUAGE, plugin.getConfig().getString("language"))
+				.setMacro(Macro.SETTING, plugin.getConfig().getString("language"))
 				.send();
 	}
 
-	private void displaySoundEffects(final CommandSender sender)
+
+	private void displayLocaleSetting(final CommandSender sender)
+	{
+		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_LOCALE)
+				.setMacro(Macro.SETTING, localeProvider.getLocale().toLanguageTag())
+				.send();
+	}
+
+
+	private void displayTimezoneSetting(final CommandSender sender)
+	{
+		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_TIMEZONE)
+				.setMacro(Macro.SETTING, plugin.getConfig().getString("timezone", ZoneId.systemDefault().toString()))
+				.send();
+	}
+
+
+	private void displaySoundEffectsSetting(final CommandSender sender)
 	{
 		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_SOUND_EFFECTS)
-				.setMacro(Macro.SOUND_EFFECTS, plugin.getConfig().getBoolean("sound-effects"))
+				.setMacro(Macro.SETTING, plugin.getConfig().getBoolean("sound-effects"))
 				.send();
 	}
 
-	private void displayDestroyOnDrop(final CommandSender sender)
+	private void displayDestroyOnDropSetting(final CommandSender sender)
 	{
 		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_DESTROY_ON_DROP)
-				.setMacro(Macro.DESTROY_ON_DROP, plugin.getConfig().getString("destroy-on-drop"))
+				.setMacro(Macro.SETTING, plugin.getConfig().getString("destroy-on-drop"))
 				.send();
 	}
 
 
-	private void displayPreventStorage(final CommandSender sender)
+	private void displayPreventStorageSetting(final CommandSender sender)
 	{
 		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_PREVENT_STORAGE)
-				.setMacro(Macro.PREVENT_STORAGE, plugin.getConfig().getBoolean("prevent-storage"))
+				.setMacro(Macro.SETTING, plugin.getConfig().getBoolean("prevent-storage"))
 				.send();
 	}
 
-	private void displayTargetDelay(final CommandSender sender)
+	private void displayTargetDelaySetting(final CommandSender sender)
 	{
 		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_TARGET_DELAY)
-				.setMacro(Macro.TARGET_DELAY, plugin.getConfig().getString("target-delay") + " ticks")
+				.setMacro(Macro.SETTING, plugin.getConfig().getString("target-delay") + " ticks")
 				.send();
 	}
 
-	private void displayEnabledWorlds(final CommandSender sender)
+	private void displayEnabledWorldsSetting(final CommandSender sender)
 	{
 		plugin.messageBuilder.compose(sender, MessageId.COMMAND_STATUS_ENABLED_WORLDS)
-				.setMacro(Macro.ENABLED_WORLDS, plugin.worldManager.getEnabledWorldNames().toString())
+				.setMacro(Macro.SETTING, plugin.worldManager.getEnabledWorldNames().toString())
 				.send();
 	}
 
