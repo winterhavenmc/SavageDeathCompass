@@ -50,7 +50,7 @@ public final class ValidDeathLocation implements DeathLocation
 	/**
 	 * Getter for location
 	 *
-	 * @return Location - death compass player death location
+	 * @return {@code Optional} Location containing player death location if valid, else empty optional
 	 */
 	public Optional<Location> location()
 	{
