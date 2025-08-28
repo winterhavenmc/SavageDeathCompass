@@ -32,6 +32,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.IntStream;
 
 
 public class SqliteDeathLocationRepository implements DeathLocationRepository
@@ -101,6 +102,8 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 	{
 		if (deathLocation == null) { return 0; }
 
+		int count = 0;
+
 		final World world = plugin.getServer().getWorld(deathLocation.worldUid());
 		if (world != null)
 		{
@@ -108,7 +111,7 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 			sqliteDeathLocationCache.put(deathLocation);
 			try (final PreparedStatement preparedStatement = connection.prepareStatement(SqliteQueries.getQuery("InsertLocation")))
 			{
-				return queryExecutor.insertDeathLocation(deathLocation, worldName, preparedStatement);
+				count += queryExecutor.insertDeathLocation(deathLocation, worldName, preparedStatement);
 			}
 			catch (SQLException sqlException)
 			{
@@ -120,20 +123,29 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 		{
 			plugin.getLogger().warning(SqliteMessage.INSERT_RECORD_WORLD_INVALID_ERROR.getLocalizedMessage(localeProvider.getLocale()));
 		}
-		return 0;
+
+		return count;
 	}
 
 
 	@Override
 	public int saveDeathLocations(final Collection<ValidDeathLocation> deathLocations)
 	{
-		if (deathLocations == null) { return 0; }
+		if (deathLocations == null || deathLocations.isEmpty()) { return 0; }
 
 		int count = 0;
-		for (ValidDeathLocation deathLocation : deathLocations)
+
+		try (final PreparedStatement preparedStatement = connection.prepareStatement(SqliteQueries.getQuery("InsertLocation")))
 		{
-			count += saveDeathLocation(deathLocation);
+			int[] results = queryExecutor.insertDeathLocations(deathLocations, plugin, preparedStatement);
+			count = IntStream.of(results).sum();
 		}
+		catch (SQLException sqlException)
+		{
+			plugin.getLogger().warning(SqliteMessage.INSERT_RECORD_ERROR.getLocalizedMessage(localeProvider.getLocale()));
+			plugin.getLogger().warning(sqlException.getLocalizedMessage());
+		}
+
 		return count;
 	}
 
