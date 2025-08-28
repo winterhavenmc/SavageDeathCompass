@@ -51,7 +51,7 @@ final class ReloadSubcommand extends AbstractSubcommand
 
 
 	@Override
-	public boolean onCommand(final CommandSender sender, final List<String> args)
+	public void onCommand(final CommandSender sender, final List<String> args)
 	{
 		// check for null parameter
 		Objects.requireNonNull(sender);
@@ -61,7 +61,6 @@ final class ReloadSubcommand extends AbstractSubcommand
 		{
 			plugin.messageBuilder.compose(sender, MessageId.COMMAND_FAIL_RELOAD_PERMISSION).send();
 			plugin.soundConfig.playSound(sender, SoundId.COMMAND_FAIL);
-			return true;
 		}
 
 		// copy default config from jar if it doesn't exist
@@ -84,9 +83,6 @@ final class ReloadSubcommand extends AbstractSubcommand
 
 		// play reload success sound
 		plugin.soundConfig.playSound(sender, SoundId.COMMAND_RELOAD_SUCCESS);
-
-		// return true to prevent bukkit command help display
-		return true;
 	}
 
 }

@@ -77,21 +77,19 @@ final class HelpSubcommand extends AbstractSubcommand
 
 
 	@Override
-	public boolean onCommand(final CommandSender sender, final List<String> args)
+	public void onCommand(final CommandSender sender, final List<String> args)
 	{
 		// if command sender does not have permission to display help, output error message and return true
 		if (!sender.hasPermission(permissionNode))
 		{
 			plugin.messageBuilder.compose(sender, MessageId.COMMAND_FAIL_HELP_PERMISSION).send();
 			plugin.soundConfig.playSound(sender, SoundId.COMMAND_FAIL);
-			return true;
 		}
 
 		// if no arguments, display usage for all commands
 		if (args.isEmpty())
 		{
 			displayUsageAll(sender);
-			return true;
 		}
 
 		// display subcommand help message or invalid command message
@@ -99,8 +97,6 @@ final class HelpSubcommand extends AbstractSubcommand
 				subcommand -> sendCommandHelpMessage(sender, subcommand),
 				() -> sendCommandInvalidMessage(sender)
 		);
-
-		return true;
 	}
 
 
