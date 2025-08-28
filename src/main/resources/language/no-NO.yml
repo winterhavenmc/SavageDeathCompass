@@ -1,0 +1,107 @@
+# Language configuration file for ${project.name} v${project.version}
+
+###########
+# Item Info
+###########
+ITEMS:
+  DEATH_COMPASS:
+    MATERIAL: COMPASS
+    DISPLAY_NAME: "<green>Death Compass</green>"
+    LORE:
+      - "<yellow>Points to Your Last</yellow>"
+      - "<yellow>Death Location</yellow>"
+
+
+# Message placeholders:
+# {ITEM}            death compass item name, as defined above, stripped of color tags
+# {RECIPIENT}       message recipient's name
+# {DEATH_LOCATION}  player's death location, with subfields: .WORLD, .X, .Y, .Z
+
+
+MESSAGES:
+  ################
+  # Event Messages
+  ################
+  EVENT_PLAYER_RESPAWN:
+    MESSAGE_TEXT: "'<red>{ITEM} peker til dødsstedet til {RECIPIENT} i {DEATH_LOCATION.WORLD}.</red>"
+
+  EVENT_ITEM_DESTROY:
+    MESSAGE_TEXT: "<red>{ITEM} ødelagt.</red>"
+
+  EVENT_INVENTORY_DENY_TRANSFER:
+    MESSAGE_TEXT: "<red>{ITEM} kan ikke plasseres i beholdere.</red>"
+
+
+  ##################
+  # Command Messages
+  ##################
+  COMMAND_FAIL_INVALID_COMMAND:
+    MESSAGE_TEXT: "<red>Det er ikke en gyldig kommando!</red>"
+
+  COMMAND_FAIL_HELP_PERMISSION:
+    MESSAGE_TEXT: "<red>Du har ikke tillatelse til å vise hjelp for {PLUGIN}!</red>"
+
+  COMMAND_FAIL_RELOAD_PERMISSION:
+    MESSAGE_TEXT: "<red>Du har ikke tillatelse til å laste inn konfigurasjonen for {PLUGIN} på nytt!</red>"
+
+  COMMAND_FAIL_STATUS_PERMISSION:
+    MESSAGE_TEXT: '<red>Du har ikke tillatelse til å vise innstillingene for {PLUGIN}!</red>'
+
+  COMMAND_SUCCESS_RELOAD:
+    MESSAGE_TEXT: "<gray>konfigurasjonen for {PLUGIN} lastet inn på nytt.</gray>"
+
+
+  ###############
+  # Help Messages
+  ###############
+  COMMAND_HELP_HELP:
+    MESSAGE_TEXT: "<yellow>Viser hjelp for {PLUGIN}-kommandoer.</yellow>"
+
+  COMMAND_HELP_RELOAD:
+    MESSAGE_TEXT: "<yellow>Laster plugin-konfigurasjonen på nytt.</yellow>"
+
+  COMMAND_HELP_STATUS:
+    MESSAGE_TEXT: "<yellow>Viser plugin-konfigurasjonsinnstillinger.</yellow>"
+
+  COMMAND_HELP_INVALID:
+    MESSAGE_TEXT: "<yellow>Det er ikke en gyldig kommando.</yellow>"
+
+  COMMAND_HELP_USAGE:
+    MESSAGE_TEXT: "<yellow>Bruk av plugin-kommando:</yellow>"
+
+
+  #########################
+  # Status command messages
+  #########################
+  COMMAND_STATUS_HEADER:
+    MESSAGE_TEXT: "<newline><gradient:blue:aqua><strikethrough>                     =</strikethrough>[</gradient> <dark_aqua>{PLUGIN}</dark_aqua> <gradient:aqua:blue>]<strikethrough>=                     </strikethrough></gradient>"
+
+  COMMAND_STATUS_FOOTER:
+    MESSAGE_TEXT: "<newline><click:open_url:'{URL}'><blue><underlined>{URL}</underlined></blue></click>"
+
+  COMMAND_STATUS_PLUGIN_VERSION:
+    MESSAGE_TEXT: "<green>Version:</green> {SETTING}"
+
+  COMMAND_STATUS_LANGUAGE:
+    MESSAGE_TEXT: "<green>Language:</green> {SETTING}"
+
+  COMMAND_STATUS_LOCALE:
+    MESSAGE_TEXT: "<green>Locale:</green> {SETTING}"
+
+  COMMAND_STATUS_TIMEZONE:
+    MESSAGE_TEXT: "<green>Timezone:</green> {SETTING}"
+
+  COMMAND_STATUS_SOUND_EFFECTS:
+    MESSAGE_TEXT: "<green>Sound effects:</green> {SETTING}"
+
+  COMMAND_STATUS_DESTROY_ON_DROP:
+    MESSAGE_TEXT: "<green>Destroy on drop:</green> {SETTING}"
+
+  COMMAND_STATUS_PREVENT_STORAGE:
+    MESSAGE_TEXT: "<green>Prevent storage:</green> {SETTING}"
+
+  COMMAND_STATUS_TARGET_DELAY:
+    MESSAGE_TEXT: "<green>Target delay:</green> {SETTING}"
+
+  COMMAND_STATUS_ENABLED_WORLDS:
+    MESSAGE_TEXT: "<green>Enabled worlds:</green> {SETTING}"

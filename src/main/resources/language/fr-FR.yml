@@ -1,0 +1,107 @@
+# Language configuration file for ${project.name} v${project.version}
+
+###########
+# Item Info
+###########
+ITEMS:
+  DEATH_COMPASS:
+    MATERIAL: COMPASS
+    DISPLAY_NAME: "<green>Boussole de la mort</green>"
+    LORE:
+      - "<yellow>Indique le lieu</yellow>"
+      - "<yellow>de votre dernier décès</yellow>"
+
+
+# Message placeholders:
+# {ITEM}            death compass item name, as defined above, stripped of color tags
+# {RECIPIENT}       message recipient's name
+# {DEATH_LOCATION}  player's death location, with subfields: .WORLD, .X, .Y, .Z
+
+
+MESSAGES:
+  ################
+  # Event Messages
+  ################
+  EVENT_PLAYER_RESPAWN:
+    MESSAGE_TEXT: "<red>{ITEM} pointe vers le lieu de décès de {RECIPIENT} dans {DEATH_LOCATION.WORLD}.</red>"
+
+  EVENT_ITEM_DESTROY:
+    MESSAGE_TEXT: "<red>{ITEM} détruit.</red>"
+
+  EVENT_INVENTORY_DENY_TRANSFER:
+    MESSAGE_TEXT: "<red>{ITEM} ne peut pas être placé dans des conteneurs.</red>"
+
+
+  ##################
+  # Command Messages
+  ##################
+  COMMAND_FAIL_INVALID_COMMAND:
+    MESSAGE_TEXT: "<red>Cette commande n'est pas valide !</red>"
+
+  COMMAND_FAIL_HELP_PERMISSION:
+    MESSAGE_TEXT: "<red>Vous n'êtes pas autorisé à afficher l'aide de {PLUGIN} !</red>"
+
+  COMMAND_FAIL_RELOAD_PERMISSION:
+    MESSAGE_TEXT: "<red>Vous n'êtes pas autorisé à recharger la configuration de {PLUGIN} !</red>"
+
+  COMMAND_FAIL_STATUS_PERMISSION:
+    MESSAGE_TEXT: "<red>Vous n'êtes pas autorisé à afficher les paramètres de {PLUGIN} !</red>"
+
+  COMMAND_SUCCESS_RELOAD:
+    MESSAGE_TEXT: "<gray>Configuration de {PLUGIN} rechargée.</gray>"
+
+
+  ###############
+  # Help Messages
+  ###############
+  COMMAND_HELP_HELP:
+    MESSAGE_TEXT: "<yellow><yellow>Affiche l'aide pour les commandes {PLUGIN}.</yellow"
+
+  COMMAND_HELP_RELOAD:
+    MESSAGE_TEXT: "<yellow>Recharge la configuration du plugin.</yellow>"
+
+  COMMAND_HELP_STATUS:
+    MESSAGE_TEXT: "<yellow>Affiche les paramètres de configuration du plugin.</yellow>"
+
+  COMMAND_HELP_INVALID:
+    MESSAGE_TEXT: "<yellow>Ese n'est pas une commande valide.</yellow>"
+
+  COMMAND_HELP_USAGE:
+    MESSAGE_TEXT: "<yellow>Utilisation des commandes du plugin :</yellow>"
+
+
+  #########################
+  # Status command messages
+  #########################
+  COMMAND_STATUS_HEADER:
+    MESSAGE_TEXT: "<newline><gradient:blue:aqua><strikethrough>                     =</strikethrough>[</gradient> <dark_aqua>{PLUGIN}</dark_aqua> <gradient:aqua:blue>]<strikethrough>=                     </strikethrough></gradient>"
+
+  COMMAND_STATUS_FOOTER:
+    MESSAGE_TEXT: "<newline><click:open_url:'{URL}'><blue><underlined>{URL}</underlined></blue></click>"
+
+  COMMAND_STATUS_PLUGIN_VERSION:
+    MESSAGE_TEXT: "<green>Version:</green> {SETTING}"
+
+  COMMAND_STATUS_LANGUAGE:
+    MESSAGE_TEXT: "<green>Language:</green> {SETTING}"
+
+  COMMAND_STATUS_LOCALE:
+    MESSAGE_TEXT: "<green>Locale:</green> {SETTING}"
+
+  COMMAND_STATUS_TIMEZONE:
+    MESSAGE_TEXT: "<green>Timezone:</green> {SETTING}"
+
+  COMMAND_STATUS_SOUND_EFFECTS:
+    MESSAGE_TEXT: "<green>Sound effects:</green> {SETTING}"
+
+  COMMAND_STATUS_DESTROY_ON_DROP:
+    MESSAGE_TEXT: "<green>Destroy on drop:</green> {SETTING}"
+
+  COMMAND_STATUS_PREVENT_STORAGE:
+    MESSAGE_TEXT: "<green>Prevent storage:</green> {SETTING}"
+
+  COMMAND_STATUS_TARGET_DELAY:
+    MESSAGE_TEXT: "<green>Target delay:</green> {SETTING}"
+
+  COMMAND_STATUS_ENABLED_WORLDS:
+    MESSAGE_TEXT: "<green>Enabled worlds:</green> {SETTING}"
