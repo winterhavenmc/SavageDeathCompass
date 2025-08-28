@@ -18,6 +18,8 @@
 package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
+import com.winterhavenmc.deathcompass.plugin.model.InvalidDeathLocation;
+import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
 import com.winterhavenmc.deathcompass.plugin.ports.storage.DeathLocationRepository;
 
 import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
@@ -53,30 +55,30 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 
 
 	@Override
-	public Optional<DeathLocation> getDeathLocation(final UUID playerUUID, final UUID worldUID)
+	public DeathLocation getDeathLocation(final UUID playerUid, final UUID worldUid)
 	{
-		if (playerUUID == null) { return Optional.empty(); }
-		if (worldUID == null) { return Optional.empty(); }
+		if (playerUid == null) { return new InvalidDeathLocation("The parameter 'playerUid' was null."); }
+		if (worldUid == null) { return new InvalidDeathLocation("The parameter 'worldUid' was null."); }
 
 		// try cache first
-		Optional<DeathLocation> optionalDeathLocation = sqliteDeathLocationCache.get(playerUUID, worldUID);
+		DeathLocation optionalDeathLocation = sqliteDeathLocationCache.get(playerUid, worldUid);
 
 		// if a record was returned from cache, return the record; otherwise try datastore
-		if (optionalDeathLocation.isPresent())
+		if (optionalDeathLocation instanceof ValidDeathLocation validDeathLocation)
 		{
-			return optionalDeathLocation;
+			return validDeathLocation;
 		}
 
 		try (final PreparedStatement preparedStatement = connection.prepareStatement(SqliteQueries.getQuery("SelectLocation"));
-		     final ResultSet resultSet = queryExecutor.selectDeathLocation(playerUUID, worldUID, preparedStatement))
+		     final ResultSet resultSet = queryExecutor.selectDeathLocation(playerUid, worldUid, preparedStatement))
 		{
 			if (resultSet.next())
 			{
 				DeathLocation deathLocation = rowMapper.map(plugin, resultSet);
-				if (!deathLocation.getWorldUid().equals(INVALID_UUID))
+				if (deathLocation instanceof ValidDeathLocation validDeathLocation && !validDeathLocation.worldUid().equals(INVALID_UUID))
 				{
-					sqliteDeathLocationCache.put(deathLocation);
-					return Optional.of(deathLocation);
+					sqliteDeathLocationCache.put(validDeathLocation);
+					return validDeathLocation;
 				}
 				else
 				{
@@ -84,23 +86,23 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 							.getLocalizedMessage(localeProvider.getLocale(), resultSet.getString("WorldName")));
 				}
 			}
-			return Optional.empty();
+			return new InvalidDeathLocation("The death location was not found in the Sqlite datastore.");
 		}
 		catch (SQLException sqlException)
 		{
 			plugin.getLogger().warning(SqliteMessage.SELECT_RECORD_ERROR.getLocalizedMessage(localeProvider.getLocale()));
 			plugin.getLogger().warning(sqlException.getLocalizedMessage());
-			return Optional.empty();
+			return new InvalidDeathLocation("An SQL exception was thrown.");
 		}
 	}
 
 
 	@Override
-	public int saveDeathLocation(final DeathLocation deathLocation)
+	public int saveDeathLocation(final ValidDeathLocation deathLocation)
 	{
 		if (deathLocation == null) { return 0; }
 
-		final World world = plugin.getServer().getWorld(deathLocation.getWorldUid());
+		final World world = plugin.getServer().getWorld(deathLocation.worldUid());
 		if (world != null)
 		{
 			final String worldName = world.getName();
@@ -124,12 +126,12 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 
 
 	@Override
-	public int saveDeathLocations(final Collection<DeathLocation> deathLocations)
+	public int saveDeathLocations(final Collection<ValidDeathLocation> deathLocations)
 	{
 		if (deathLocations == null) { return 0; }
 
 		int count = 0;
-		for (DeathLocation deathLocation : deathLocations)
+		for (ValidDeathLocation deathLocation : deathLocations)
 		{
 			count += saveDeathLocation(deathLocation);
 		}
@@ -138,12 +140,13 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 
 
 	@SuppressWarnings("unused")
-	public Optional<DeathLocation> deleteDeathLocation(final UUID playerUid, final UUID worldUid)
+	public DeathLocation deleteDeathLocation(final UUID playerUid, final UUID worldUid)
 	{
-		if (playerUid == null) { return Optional.empty(); }
-		if (worldUid == null) { return Optional.empty(); }
+		if (playerUid == null) { return new InvalidDeathLocation("The parameter 'playerUid' was null."); }
+		if (worldUid == null) { return new InvalidDeathLocation("The parameter 'worldUid' was null."); }
 
-		Optional<DeathLocation> optionalDeathRecord = getDeathLocation(playerUid, worldUid);
+		// get stored death record for return
+		DeathLocation deathLocation = getDeathLocation(playerUid, worldUid);
 		try (final PreparedStatement preparedStatement = connection.prepareStatement(SqliteQueries.getQuery("DeleteLocation")))
 		{
 			int rowsAffected = queryExecutor.deleteDeathLocation(playerUid, worldUid, preparedStatement);
@@ -159,7 +162,7 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 			plugin.getLogger().warning(sqlException.getLocalizedMessage());
 		}
 
-		return optionalDeathRecord;
+		return deathLocation;
 	}
 
 }

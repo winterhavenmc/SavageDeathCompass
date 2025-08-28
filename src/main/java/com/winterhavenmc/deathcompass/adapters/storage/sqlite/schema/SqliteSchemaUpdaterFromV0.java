@@ -20,6 +20,7 @@ package com.winterhavenmc.deathcompass.adapters.storage.sqlite.schema;
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteMessage;
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteQueries;
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
+import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
 import com.winterhavenmc.deathcompass.plugin.ports.storage.DeathLocationRepository;
 
 import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
@@ -69,7 +70,7 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 
 	private void updateDeathLocationTableSchema(final Connection connection, final int version)
 	{
-		Set<DeathLocation> existingDeathLocations = SelectAllRecords();
+		Set<ValidDeathLocation> existingDeathLocations = SelectAllRecords();
 		try (final Statement statement = connection.createStatement())
 		{
 			statement.executeUpdate(SqliteQueries.getQuery("DropDeathLocationTable"));
@@ -88,9 +89,9 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 	}
 
 
-	private Set<DeathLocation> SelectAllRecords()
+	private Set<ValidDeathLocation> SelectAllRecords()
 	{
-		Set<DeathLocation> returnSet = new HashSet<>();
+		Set<ValidDeathLocation> returnSet = new HashSet<>();
 
 		try (final PreparedStatement preparedStatement = connection.prepareStatement(SqliteQueries.getQuery("SelectAllLocations"));
 		     final ResultSet resultSet = preparedStatement.getResultSet())
@@ -119,10 +120,10 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 						plugin.getLogger().warning(argumentException.getLocalizedMessage());
 					}
 
-					if (playerUUID != null)
+					DeathLocation deathLocation = DeathLocation.of(playerUUID, world.getUID(), x, y, z);
+					if (deathLocation instanceof ValidDeathLocation validDeathLocation)
 					{
-						DeathLocation deathLocation = new DeathLocation(playerUUID, world.getUID(), x, y, z);
-						returnSet.add(deathLocation);
+						returnSet.add(validDeathLocation);
 					}
 				}
 				else

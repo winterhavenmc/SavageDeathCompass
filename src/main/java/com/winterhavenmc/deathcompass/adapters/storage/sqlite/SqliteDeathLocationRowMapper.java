@@ -26,6 +26,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
+import static com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteDeathLocationRepository.INVALID_UUID;
+
 
 public final class SqliteDeathLocationRowMapper
 {
@@ -40,8 +42,8 @@ public final class SqliteDeathLocationRowMapper
 		final World world = plugin.getServer().getWorld(worldUid);
 
 		return (world != null)
-				? new DeathLocation(playerUid, worldUid, x, y, z)
-				: new DeathLocation(playerUid, new UUID(0, 0), x, y, z);
+				? DeathLocation.of(playerUid, worldUid, x, y, z)
+				: DeathLocation.of(playerUid, INVALID_UUID, x, y, z);
 	}
 
 }
