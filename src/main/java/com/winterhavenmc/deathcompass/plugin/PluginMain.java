@@ -64,17 +64,15 @@ public final class PluginMain extends JavaPlugin
 		// instantiate datastore
 		dataStore = DataStore.connect(this);
 
+		// instantiate death compass utility
+		deathCompassUtility = new DeathCompassUtility(this);
+
 		// instantiate command handler
 		new CommandManager(this);
 
-		// instantiate player event listener
+		// instantiate player event listeners
 		new PlayerEventListener(this);
-
-		// instantiate inventory event listener
 		new InventoryEventListener(this);
-
-		// instantiate death compass factory
-		deathCompassUtility = new DeathCompassUtility(this);
 
 		// instantiate metrics handler
 		new MetricsHandler(this);
