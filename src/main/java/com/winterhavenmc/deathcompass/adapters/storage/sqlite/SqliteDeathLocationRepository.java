@@ -74,7 +74,7 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 			if (resultSet.next())
 			{
 				DeathLocation deathLocation = rowMapper.map(plugin, resultSet);
-				if (deathLocation instanceof ValidDeathLocation validDeathLocation && !validDeathLocation.worldUid().equals(INVALID_UUID))
+				if (deathLocation instanceof ValidDeathLocation validDeathLocation)
 				{
 					sqliteDeathLocationCache.put(validDeathLocation);
 					return validDeathLocation;
