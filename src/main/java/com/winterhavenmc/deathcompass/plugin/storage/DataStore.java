@@ -26,7 +26,7 @@ import org.bukkit.plugin.Plugin;
 /**
  * DataStore interface
  */
-public class DataStore implements AutoCloseable
+public class DataStore
 {
 	private final ConnectionProvider connectionProvider;
 
@@ -50,34 +50,31 @@ public class DataStore implements AutoCloseable
 
 
 	/**
-	 * Create new data store of given type and convert old data store.<br>
-	 * Two parameter version used when a datastore instance already exists
+	 * Create new data store from bootstrap connection provider. Output error to log and disable plugin on failure.
 	 *
-	 * @param plugin reference to plugin main class
-	 * @return a new datastore instance of the given type
+	 * @param plugin instance of plugin main class
+	 * @return a new datastore instance
 	 */
 	public static DataStore connect(final Plugin plugin)
 	{
-		ConnectionProvider connectionProvider = Bootstrap.getConnectionProvider(plugin);
-
-		// initialize data store
 		try
 		{
+			final ConnectionProvider connectionProvider = Bootstrap.getConnectionProvider(plugin);
 			connectionProvider.connect();
+			return new DataStore(connectionProvider);
 		}
 		catch (Exception exception)
 		{
 			plugin.getLogger().severe("Could not initialize the datastore!");
 			plugin.getLogger().severe(exception.getLocalizedMessage());
+			plugin.getServer().getPluginManager().disablePlugin(plugin);
+			return null;
 		}
-
-		// return initialized data store
-		return new DataStore(connectionProvider);
 	}
 
 
 	/**
-	 * Passthrough method returns the discovery repository
+	 * Passthrough method returns the death location repository
 	 *
 	 * @return the {@link DeathLocationRepository}
 	 */

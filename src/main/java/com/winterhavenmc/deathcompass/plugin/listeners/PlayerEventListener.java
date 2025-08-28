@@ -18,13 +18,12 @@
 package com.winterhavenmc.deathcompass.plugin.listeners;
 
 import com.winterhavenmc.deathcompass.plugin.PluginMain;
-import com.winterhavenmc.deathcompass.plugin.messages.Macro;
-import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
+import com.winterhavenmc.deathcompass.plugin.util.Macro;
+import com.winterhavenmc.deathcompass.plugin.util.MessageId;
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
 import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
-import com.winterhavenmc.deathcompass.plugin.sounds.SoundId;
+import com.winterhavenmc.deathcompass.plugin.util.SoundId;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -343,15 +342,11 @@ public final class PlayerEventListener implements Listener
 	 */
 	private ItemStack giveDeathCompass(final Player player)
 	{
-		// create DeathCompass itemstack
 		ItemStack deathcompass = plugin.deathCompassUtility.createItem();
-
-		// add DeathCompass itemstack to player inventory
 		player.getInventory().addItem(deathcompass);
 
-		// log info
-		plugin.getLogger().info(player.getName() + ChatColor.RESET + " was given a death compass in "
-				+ plugin.worldManager.getWorldName(player.getWorld()) + ChatColor.RESET + ".");
+		plugin.getLogger().info(player.getName() + " was given a death compass in "
+				+ plugin.worldManager.getWorldName(player.getWorld()) + ".");
 
 		return deathcompass;
 	}
@@ -419,20 +414,13 @@ public final class PlayerEventListener implements Listener
 		// get worldUid for player current world
 		final UUID worldUid = player.getWorld().getUID();
 
-		// set location to world spawn location, to be used as default if no stored death record found
-		Location location = player.getWorld().getSpawnLocation();
-
 		// fetch death record from datastore
 		final DeathLocation deathLocation = plugin.dataStore.deathLocations().getDeathLocation(player.getUniqueId(), worldUid);
 
-		// if fetched record is not empty, set location
-		if (deathLocation instanceof ValidDeathLocation validDeathLocation && validDeathLocation.location().isPresent())
-		{
-			location = validDeathLocation.location().get();
-		}
-
-		// return location
-		return location;
+		// if fetched record is not empty set location, else use player world spawn location
+		return (deathLocation instanceof ValidDeathLocation validDeathLocation && validDeathLocation.location().isPresent())
+				? validDeathLocation.location().get()
+				: plugin.worldManager.getSpawnLocation(player.getWorld());
 	}
 
 }

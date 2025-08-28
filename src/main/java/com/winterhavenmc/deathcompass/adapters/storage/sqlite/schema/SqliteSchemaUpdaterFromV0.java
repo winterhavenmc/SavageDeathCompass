@@ -22,8 +22,8 @@ import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteQueries;
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
 import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
 import com.winterhavenmc.deathcompass.plugin.ports.storage.DeathLocationRepository;
-
 import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
+
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 

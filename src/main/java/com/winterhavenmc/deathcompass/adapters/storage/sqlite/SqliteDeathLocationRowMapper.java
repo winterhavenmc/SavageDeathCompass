@@ -19,14 +19,14 @@ package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
 
+import com.winterhavenmc.deathcompass.plugin.model.DeathLocationReason;
+import com.winterhavenmc.deathcompass.plugin.model.InvalidDeathLocation;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
-
-import static com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteDeathLocationRepository.INVALID_UUID;
 
 
 public final class SqliteDeathLocationRowMapper
@@ -43,7 +43,7 @@ public final class SqliteDeathLocationRowMapper
 
 		return (world != null)
 				? DeathLocation.of(playerUid, worldUid, x, y, z)
-				: DeathLocation.of(playerUid, INVALID_UUID, x, y, z);
+				: new InvalidDeathLocation(DeathLocationReason.WORLD_UNAVAILABLE);
 	}
 
 }

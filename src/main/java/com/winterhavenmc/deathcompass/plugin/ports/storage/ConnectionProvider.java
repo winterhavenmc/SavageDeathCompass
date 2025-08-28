@@ -19,6 +19,7 @@ package com.winterhavenmc.deathcompass.plugin.ports.storage;
 
 import java.sql.SQLException;
 
+
 public interface ConnectionProvider
 {
 	/**
@@ -28,14 +29,14 @@ public interface ConnectionProvider
 
 
 	/**
-	 * Close SQLite datastore connection
-	 */
-	void close();
-
-
-	/**
 	 * Get instance of DeathLocationRepository
 	 *
 	 */
 	DeathLocationRepository deathLocations();
+
+
+	/**
+	 * Close SQLite datastore connection
+	 */
+	void close();
 }
