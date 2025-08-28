@@ -50,11 +50,10 @@ public class DataStore implements AutoCloseable
 
 
 	/**
-	 * Create new data store of given type and convert old data store.<br>
-	 * Two parameter version used when a datastore instance already exists
+	 * Create new data store from bootstrap connection provider. Output error to log and disable plugin on failure.
 	 *
-	 * @param plugin reference to plugin main class
-	 * @return a new datastore instance of the given type
+	 * @param plugin instance of plugin main class
+	 * @return a new datastore instance
 	 */
 	public static DataStore connect(final Plugin plugin)
 	{
@@ -77,7 +76,7 @@ public class DataStore implements AutoCloseable
 
 
 	/**
-	 * Passthrough method returns the discovery repository
+	 * Passthrough method returns the death location repository
 	 *
 	 * @return the {@link DeathLocationRepository}
 	 */
