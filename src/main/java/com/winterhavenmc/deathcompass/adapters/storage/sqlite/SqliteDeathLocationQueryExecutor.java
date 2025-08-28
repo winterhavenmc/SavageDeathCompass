@@ -17,7 +17,7 @@
 
 package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 
-import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
+import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,18 +38,18 @@ public class SqliteDeathLocationQueryExecutor
 	}
 
 
-	int insertDeathLocation(final DeathLocation deathLocation,
+	int insertDeathLocation(final ValidDeathLocation deathLocation,
 	                        final String worldName,
 	                        final PreparedStatement preparedStatement) throws SQLException
 	{
-		preparedStatement.setLong(  1, deathLocation.getPlayerUid().getMostSignificantBits());
-		preparedStatement.setLong(  2, deathLocation.getPlayerUid().getLeastSignificantBits());
+		preparedStatement.setLong(  1, deathLocation.playerUid().getMostSignificantBits());
+		preparedStatement.setLong(  2, deathLocation.playerUid().getLeastSignificantBits());
 		preparedStatement.setString(3, worldName);
-		preparedStatement.setLong(  4, deathLocation.getWorldUid().getMostSignificantBits());
-		preparedStatement.setLong(  5, deathLocation.getWorldUid().getLeastSignificantBits());
-		preparedStatement.setDouble(6, deathLocation.getX());
-		preparedStatement.setDouble(7, deathLocation.getY());
-		preparedStatement.setDouble(8, deathLocation.getZ());
+		preparedStatement.setLong(  4, deathLocation.worldUid().getMostSignificantBits());
+		preparedStatement.setLong(  5, deathLocation.worldUid().getLeastSignificantBits());
+		preparedStatement.setDouble(6, deathLocation.x());
+		preparedStatement.setDouble(7, deathLocation.y());
+		preparedStatement.setDouble(8, deathLocation.z());
 		return preparedStatement.executeUpdate();
 	}
 

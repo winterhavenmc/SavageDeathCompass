@@ -21,6 +21,7 @@ import com.winterhavenmc.deathcompass.plugin.PluginMain;
 import com.winterhavenmc.deathcompass.plugin.messages.Macro;
 import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
+import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
 import com.winterhavenmc.deathcompass.plugin.sounds.SoundId;
 
 import org.bukkit.ChatColor;
@@ -114,13 +115,16 @@ public final class PlayerEventListener implements Listener
 		}
 
 		// create new death record for player
-		DeathLocation deathLocation = new DeathLocation(player);
+		DeathLocation deathLocation = DeathLocation.of(player);
 
-		// insert death record in database
-		plugin.dataStore.deathLocations().saveDeathLocation(deathLocation);
+		if (deathLocation instanceof ValidDeathLocation validDeathLocation)
+		{
+			// insert death record in database
+			plugin.dataStore.deathLocations().saveDeathLocation(validDeathLocation);
 
-		// put player uuid in deathTriggeredRespawn set
-		deathTriggeredRespawn.add(player.getUniqueId());
+			// put player uuid in deathTriggeredRespawn set
+			deathTriggeredRespawn.add(player.getUniqueId());
+		}
 	}
 
 
@@ -419,12 +423,12 @@ public final class PlayerEventListener implements Listener
 		Location location = player.getWorld().getSpawnLocation();
 
 		// fetch death record from datastore
-		final Optional<DeathLocation> optionalDeathRecord = plugin.dataStore.deathLocations().getDeathLocation(player.getUniqueId(), worldUid);
+		final DeathLocation deathLocation = plugin.dataStore.deathLocations().getDeathLocation(player.getUniqueId(), worldUid);
 
 		// if fetched record is not empty, set location
-		if (optionalDeathRecord.isPresent() && optionalDeathRecord.get().getLocation().isPresent())
+		if (deathLocation instanceof ValidDeathLocation validDeathLocation && validDeathLocation.location().isPresent())
 		{
-			location = optionalDeathRecord.get().getLocation().get();
+			location = validDeathLocation.location().get();
 		}
 
 		// return location

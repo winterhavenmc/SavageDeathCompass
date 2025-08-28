@@ -18,6 +18,8 @@
 package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
+import com.winterhavenmc.deathcompass.plugin.model.InvalidDeathLocation;
+import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -33,7 +35,7 @@ final class SqliteDeathLocationCache implements Listener
 {
 
 	// death location map by player uuid, world uid -> death record
-	private final Map<UUID, Map<UUID, DeathLocation>> deathLocationMap;
+	private final Map<UUID, Map<UUID, ValidDeathLocation>> deathLocationMap;
 
 
 	/**
@@ -54,19 +56,19 @@ final class SqliteDeathLocationCache implements Listener
 	 *
 	 * @param deathLocation object containing player UUID and death location to cache
 	 */
-	void put(final DeathLocation deathLocation)
+	void put(final ValidDeathLocation deathLocation)
 	{
 		// check for null parameter
 		Objects.requireNonNull(deathLocation);
 
 		// get player UUID from death record
-		final UUID playerUid = deathLocation.getPlayerUid();
+		final UUID playerUid = deathLocation.playerUid();
 
 		// get world UUID from death record location
-		final UUID worldUid = deathLocation.getWorldUid();
+		final UUID worldUid = deathLocation.worldUid();
 
 		// get map for player
-		Map<UUID, DeathLocation> playerMap = deathLocationMap.get(playerUid);
+		Map<UUID, ValidDeathLocation> playerMap = deathLocationMap.get(playerUid);
 
 		// if no cached entry exists for player, create new map
 		if (playerMap == null)
@@ -90,25 +92,25 @@ final class SqliteDeathLocationCache implements Listener
 	 * @param worldUid  world UID to use as key
 	 * @return deathRecord containing playerUid and death location for world, or null if no record exists
 	 */
-	Optional<DeathLocation> get(final UUID playerUid, final UUID worldUid)
+	DeathLocation get(final UUID playerUid, final UUID worldUid)
 	{
-		if (playerUid == null) { return Optional.empty(); }
-		if (worldUid == null) { return Optional.empty(); }
+		if (playerUid == null) { return new InvalidDeathLocation("The parameter 'playerUid' was null."); }
+		if (worldUid == null) { return new InvalidDeathLocation("The parameter 'worldUid' was null."); }
 
-		// if map for player does not exist, return null record
+		// if map for player does not exist, return invalid death location
 		if (deathLocationMap.get(playerUid) == null)
 		{
-			return Optional.empty();
+			return new InvalidDeathLocation("The playerUid was null.");
 		}
 
-		// if location in map is null, return null record
+		// if location in map is null, return invalid death location
 		if (deathLocationMap.get(playerUid).get(worldUid) == null)
 		{
-			return Optional.empty();
+			return new InvalidDeathLocation("The worldUid was null.");
 		}
 
 		// return record fetched from cache
-		return Optional.of(deathLocationMap.get(playerUid).get(worldUid));
+		return deathLocationMap.get(playerUid).get(worldUid);
 	}
 
 

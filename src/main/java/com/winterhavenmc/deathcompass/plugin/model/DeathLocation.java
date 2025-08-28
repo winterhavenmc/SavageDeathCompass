@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2025 Tim Savage.
+ * Copyright (c) 2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,135 +17,24 @@
 
 package com.winterhavenmc.deathcompass.plugin.model;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
-
-/**
- * Implements a death record object for storage.
- */
-public final class DeathLocation
+public sealed interface DeathLocation permits ValidDeathLocation, InvalidDeathLocation
 {
-	// player UUID
-	private final UUID playerUid;
-
-	// player death location components
-	private final UUID worldUid;
-	private final double x;
-	private final double y;
-	private final double z;
-
-
-	/**
-	 * Class constructor
-	 *
-	 * @param player the player for the DeathLocation
-	 */
-	public DeathLocation(final Player player)
+	static DeathLocation of(UUID playerUid, UUID worldUid, double x, double y, double z)
 	{
-		// test for null parameters
-		Objects.requireNonNull(player);
-
-		// set playerUUID
-		this.playerUid = player.getUniqueId();
-
-		// set location components
-		this.worldUid = Objects.requireNonNull(player.getLocation().getWorld()).getUID();
-		this.x = player.getLocation().getX();
-		this.y = player.getLocation().getY();
-		this.z = player.getLocation().getZ();
+		if (playerUid == null) return new InvalidDeathLocation("The player UUID was null.");
+		else if (worldUid == null) return new InvalidDeathLocation("The world UUID was null.");
+		else return new ValidDeathLocation(playerUid, worldUid, x, y, z);
 	}
 
 
-	public DeathLocation(final UUID playerUid, final UUID worldUid, final double x, final double y, final double z)
+	static DeathLocation of(Player player)
 	{
-		this.playerUid = playerUid;
-		this.worldUid = worldUid;
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		if (player == null) return new InvalidDeathLocation("The player was null.");
+		else return DeathLocation.of(player.getUniqueId(), player.getWorld().getUID(),
+				player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
 	}
-
-
-	/**
-	 * Getter for playerUid
-	 *
-	 * @return UUID for death record player
-	 */
-	public UUID getPlayerUid()
-	{
-		return this.playerUid;
-	}
-
-
-	/**
-	 * Getter for worldUid
-	 *
-	 * @return UUID for death record world
-	 */
-	public UUID getWorldUid()
-	{
-		return this.worldUid;
-	}
-
-
-	/**
-	 * Getter for x coordinate
-	 *
-	 * @return x coordinate
-	 */
-	public double getX()
-	{
-		return this.x;
-	}
-
-
-	/**
-	 * Getter for y coordinate
-	 *
-	 * @return y coordinate
-	 */
-	public double getY()
-	{
-		return this.y;
-	}
-
-
-	/**
-	 * Getter for z coordinate
-	 *
-	 * @return z coordinate
-	 */
-	public double getZ()
-	{
-		return this.z;
-	}
-
-
-	/**
-	 * Getter for location
-	 *
-	 * @return Location - death compass player death location
-	 */
-	public Optional<Location> getLocation()
-	{
-		// get world from uid
-		final World world = Bukkit.getServer().getWorld(this.worldUid);
-
-		// if world is invalid, return null
-		if (world == null)
-		{
-			return Optional.empty();
-		}
-
-		// return new location object
-		return Optional.of(new Location(world, this.x, this.y, this.z));
-	}
-
 }
