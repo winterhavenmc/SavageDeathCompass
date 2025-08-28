@@ -17,4 +17,27 @@
 
 package com.winterhavenmc.deathcompass.plugin.model;
 
-public record InvalidDeathLocation(DeathLocationReason reason) implements DeathLocation { }
+public enum DeathLocationReason
+{
+	PLAYER_NULL("The player was null."),
+	PLAYER_UUID_NULL("The player UUID was null."),
+	WORLD_UUID_NULL("The world UUID was null."),
+	RECORD_NOT_FOUND("The death location was not found in the Sqlite datastore."),
+	SQL_EXCEPTION_THROWN("An SQL exception was thrown."),
+	;
+
+	private final String reason;
+
+
+	DeathLocationReason(final String reason)
+	{
+		this.reason = reason;
+	}
+
+
+	public String reason()
+	{
+		return reason;
+	}
+
+}
