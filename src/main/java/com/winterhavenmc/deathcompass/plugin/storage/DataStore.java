@@ -26,7 +26,7 @@ import org.bukkit.plugin.Plugin;
 /**
  * DataStore interface
  */
-public class DataStore implements AutoCloseable
+public class DataStore
 {
 	private final ConnectionProvider connectionProvider;
 
@@ -57,21 +57,19 @@ public class DataStore implements AutoCloseable
 	 */
 	public static DataStore connect(final Plugin plugin)
 	{
-		ConnectionProvider connectionProvider = Bootstrap.getConnectionProvider(plugin);
-
-		// initialize data store
 		try
 		{
+			final ConnectionProvider connectionProvider = Bootstrap.getConnectionProvider(plugin);
 			connectionProvider.connect();
+			return new DataStore(connectionProvider);
 		}
 		catch (Exception exception)
 		{
 			plugin.getLogger().severe("Could not initialize the datastore!");
 			plugin.getLogger().severe(exception.getLocalizedMessage());
+			plugin.getServer().getPluginManager().disablePlugin(plugin);
+			return null;
 		}
-
-		// return initialized data store
-		return new DataStore(connectionProvider);
 	}
 
 
