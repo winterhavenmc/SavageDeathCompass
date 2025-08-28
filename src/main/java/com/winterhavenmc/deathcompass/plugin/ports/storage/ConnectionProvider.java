@@ -28,14 +28,14 @@ public interface ConnectionProvider
 
 
 	/**
-	 * Close SQLite datastore connection
-	 */
-	void close();
-
-
-	/**
 	 * Get instance of DeathLocationRepository
 	 *
 	 */
 	DeathLocationRepository deathLocations();
+
+
+	/**
+	 * Close SQLite datastore connection
+	 */
+	void close();
 }
