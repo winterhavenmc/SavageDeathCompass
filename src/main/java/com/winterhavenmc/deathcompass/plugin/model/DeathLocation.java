@@ -30,6 +30,7 @@ public sealed interface DeathLocation permits ValidDeathLocation, InvalidDeathLo
 	{
 		if (playerUid == null) return new InvalidDeathLocation(DeathLocationReason.PLAYER_UUID_NULL);
 		else if (worldUid == null) return new InvalidDeathLocation(DeathLocationReason.WORLD_UUID_NULL);
+		else if (worldUid.equals(INVALID_UUID)) return new InvalidDeathLocation(DeathLocationReason.WORLD_UNAVAILABLE);
 		else return new ValidDeathLocation(playerUid, worldUid, x, y, z);
 	}
 
