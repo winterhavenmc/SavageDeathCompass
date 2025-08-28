@@ -414,20 +414,13 @@ public final class PlayerEventListener implements Listener
 		// get worldUid for player current world
 		final UUID worldUid = player.getWorld().getUID();
 
-		// get world spawn location, to be used as default if no stored death record found
-		Location location = plugin.worldManager.getSpawnLocation(player.getWorld());
-
 		// fetch death record from datastore
 		final DeathLocation deathLocation = plugin.dataStore.deathLocations().getDeathLocation(player.getUniqueId(), worldUid);
 
-		// if fetched record is not empty, set location
-		if (deathLocation instanceof ValidDeathLocation validDeathLocation && validDeathLocation.location().isPresent())
-		{
-			location = validDeathLocation.location().get();
-		}
-
-		// return location
-		return location;
+		// if fetched record is not empty set location, else use player world spawn location
+		return (deathLocation instanceof ValidDeathLocation validDeathLocation && validDeathLocation.location().isPresent())
+				? validDeathLocation.location().get()
+				: plugin.worldManager.getSpawnLocation(player.getWorld());
 	}
 
 }
