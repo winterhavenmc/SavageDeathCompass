@@ -40,6 +40,8 @@ final class SqliteDeathLocationCache implements Listener
 
 	/**
 	 * Constructor
+	 *
+	 * @param plugin instance of plugin main class
 	 */
 	SqliteDeathLocationCache(final Plugin plugin)
 	{
@@ -75,7 +77,8 @@ final class SqliteDeathLocationCache implements Listener
 	 *
 	 * @param playerUid player UUID to use as key
 	 * @param worldUid  world UID to use as key
-	 * @return deathRecord containing playerUid and death location for world, or null if no record exists
+	 * @return ValidDeathLocation containing playerUid and death location for world,
+	 * or InvalidDeathLocation if no record exists
 	 */
 	DeathLocation get(final UUID playerUid, final UUID worldUid)
 	{
