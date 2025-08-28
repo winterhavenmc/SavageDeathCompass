@@ -18,10 +18,13 @@
 package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 
 import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
+import org.bukkit.World;
+import org.bukkit.plugin.Plugin;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.UUID;
 
 public class SqliteDeathLocationQueryExecutor
@@ -51,6 +54,31 @@ public class SqliteDeathLocationQueryExecutor
 		preparedStatement.setDouble(7, deathLocation.y());
 		preparedStatement.setDouble(8, deathLocation.z());
 		return preparedStatement.executeUpdate();
+	}
+
+
+	int[] insertDeathLocations(final Collection<ValidDeathLocation> deathLocations,
+	                           final Plugin plugin,
+	                           final PreparedStatement preparedStatement) throws SQLException
+	{
+		for (ValidDeathLocation deathLocation : deathLocations)
+		{
+			World world = plugin.getServer().getWorld(deathLocation.worldUid());
+			if (world != null)
+			{
+				String worldName = world.getName();
+				preparedStatement.setLong(  1, deathLocation.playerUid().getMostSignificantBits());
+				preparedStatement.setLong(  2, deathLocation.playerUid().getLeastSignificantBits());
+				preparedStatement.setString(3, worldName);
+				preparedStatement.setLong(  4, deathLocation.worldUid().getMostSignificantBits());
+				preparedStatement.setLong(  5, deathLocation.worldUid().getLeastSignificantBits());
+				preparedStatement.setDouble(6, deathLocation.x());
+				preparedStatement.setDouble(7, deathLocation.y());
+				preparedStatement.setDouble(8, deathLocation.z());
+				preparedStatement.addBatch();
+			}
+		}
+		return preparedStatement.executeBatch();
 	}
 
 
