@@ -23,6 +23,9 @@ import java.util.UUID;
 
 public sealed interface DeathLocation permits ValidDeathLocation, InvalidDeathLocation
 {
+	UUID INVALID_UUID = new UUID(0, 0);
+
+
 	static DeathLocation of(UUID playerUid, UUID worldUid, double x, double y, double z)
 	{
 		if (playerUid == null) return new InvalidDeathLocation(DeathLocationReason.PLAYER_UUID_NULL);
