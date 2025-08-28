@@ -18,6 +18,7 @@
 package com.winterhavenmc.deathcompass.plugin.listeners;
 
 import com.winterhavenmc.deathcompass.plugin.PluginMain;
+import com.winterhavenmc.deathcompass.plugin.messages.Macro;
 import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
 import com.winterhavenmc.deathcompass.plugin.sounds.SoundId;
 
@@ -110,8 +111,10 @@ public final class InventoryEventListener implements Listener
 		{
 			case MOVE_TO_OTHER_INVENTORY ->
 			{
+				ItemStack item = event.getCurrentItem();
+
 				// check if current item is death compass
-				if (plugin.deathCompassUtility.isDeathCompass(event.getCurrentItem()))
+				if (plugin.deathCompassUtility.isDeathCompass(item))
 				{
 					// if inventory type is in set, do nothing and return (allow transfer between player inventory and hot bar)
 					if (SHIFT_CLICK_ALLOWED_TYPES.contains(event.getInventory().getType()))
@@ -120,7 +123,7 @@ public final class InventoryEventListener implements Listener
 					}
 
 					// cancel event and send player message
-					cancelInventoryTransfer(event, event.getWhoClicked());
+					cancelInventoryTransfer(event, event.getWhoClicked(), item);
 				}
 			}
 
@@ -133,7 +136,7 @@ public final class InventoryEventListener implements Listener
 					// check if slot is in container inventory
 					if (event.getRawSlot() < event.getInventory().getSize())
 					{
-						cancelInventoryTransfer(event, event.getWhoClicked());
+						cancelInventoryTransfer(event, event.getWhoClicked(), event.getCurrentItem());
 					}
 				}
 			}
@@ -147,7 +150,7 @@ public final class InventoryEventListener implements Listener
 					// check if slot is in container inventory
 					if (event.getRawSlot() < event.getInventory().getSize())
 					{
-						cancelInventoryTransfer(event, event.getWhoClicked());
+						cancelInventoryTransfer(event, event.getWhoClicked(), event.getCursor());
 					}
 				}
 			}
@@ -169,15 +172,17 @@ public final class InventoryEventListener implements Listener
 			return;
 		}
 
+		ItemStack item = event.getOldCursor();
+
 		// if cursor item is a death compass
-		if (plugin.deathCompassUtility.isDeathCompass(event.getOldCursor()))
+		if (plugin.deathCompassUtility.isDeathCompass(item))
 		{
 			// iterate over dragged slots and if any are above max slot, cancel event
 			for (int slot : event.getRawSlots())
 			{
 				if (slot < event.getInventory().getSize())
 				{
-					cancelInventoryTransfer(event, event.getWhoClicked());
+					cancelInventoryTransfer(event, event.getWhoClicked(), item);
 					break;
 				}
 			}
@@ -191,10 +196,13 @@ public final class InventoryEventListener implements Listener
 	 * @param event  the event being cancelled
 	 * @param player the player involved in the event
 	 */
-	private void cancelInventoryTransfer(final Cancellable event, final HumanEntity player)
+	private void cancelInventoryTransfer(final Cancellable event, final HumanEntity player, final ItemStack item)
 	{
 		event.setCancelled(true);
-		plugin.messageBuilder.compose(player, MessageId.ACTION_INVENTORY_DENY_TRANSFER).send();
+		plugin.messageBuilder.compose(player, MessageId.EVENT_INVENTORY_DENY_TRANSFER)
+				.setMacro(Macro.DEATH_LOCATION, player.getLastDeathLocation())
+				.setMacro(Macro.ITEM, item)
+				.send();
 		plugin.soundConfig.playSound(player, SoundId.INVENTORY_DENY_TRANSFER);
 	}
 
