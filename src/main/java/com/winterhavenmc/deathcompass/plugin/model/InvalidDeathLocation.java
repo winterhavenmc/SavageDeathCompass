@@ -17,4 +17,4 @@
 
 package com.winterhavenmc.deathcompass.plugin.model;
 
-public record InvalidDeathLocation(String reason) implements DeathLocation { }
+public record InvalidDeathLocation(DeathLocationReason reason) implements DeathLocation { }

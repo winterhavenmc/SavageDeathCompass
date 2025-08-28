@@ -18,6 +18,7 @@
 package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
+import com.winterhavenmc.deathcompass.plugin.model.DeathLocationReason;
 import com.winterhavenmc.deathcompass.plugin.model.InvalidDeathLocation;
 import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
 import com.winterhavenmc.deathcompass.plugin.ports.storage.DeathLocationRepository;
@@ -57,8 +58,8 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 	@Override
 	public DeathLocation getDeathLocation(final UUID playerUid, final UUID worldUid)
 	{
-		if (playerUid == null) { return new InvalidDeathLocation("The parameter 'playerUid' was null."); }
-		if (worldUid == null) { return new InvalidDeathLocation("The parameter 'worldUid' was null."); }
+		if (playerUid == null) { return new InvalidDeathLocation(DeathLocationReason.PLAYER_UUID_NULL); }
+		if (worldUid == null) { return new InvalidDeathLocation(DeathLocationReason.WORLD_UUID_NULL); }
 
 		// try cache first
 		DeathLocation optionalDeathLocation = sqliteDeathLocationCache.get(playerUid, worldUid);
@@ -86,13 +87,13 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 							.getLocalizedMessage(localeProvider.getLocale(), resultSet.getString("WorldName")));
 				}
 			}
-			return new InvalidDeathLocation("The death location was not found in the Sqlite datastore.");
+			return new InvalidDeathLocation(DeathLocationReason.RECORD_NOT_FOUND);
 		}
 		catch (SQLException sqlException)
 		{
 			plugin.getLogger().warning(SqliteMessage.SELECT_RECORD_ERROR.getLocalizedMessage(localeProvider.getLocale()));
 			plugin.getLogger().warning(sqlException.getLocalizedMessage());
-			return new InvalidDeathLocation("An SQL exception was thrown.");
+			return new InvalidDeathLocation(DeathLocationReason.SQL_EXCEPTION_THROWN);
 		}
 	}
 
@@ -142,8 +143,8 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 	@SuppressWarnings("unused")
 	public DeathLocation deleteDeathLocation(final UUID playerUid, final UUID worldUid)
 	{
-		if (playerUid == null) { return new InvalidDeathLocation("The parameter 'playerUid' was null."); }
-		if (worldUid == null) { return new InvalidDeathLocation("The parameter 'worldUid' was null."); }
+		if (playerUid == null) { return new InvalidDeathLocation(DeathLocationReason.PLAYER_UUID_NULL); }
+		if (worldUid == null) { return new InvalidDeathLocation(DeathLocationReason.WORLD_UUID_NULL); }
 
 		// get stored death record for return
 		DeathLocation deathLocation = getDeathLocation(playerUid, worldUid);

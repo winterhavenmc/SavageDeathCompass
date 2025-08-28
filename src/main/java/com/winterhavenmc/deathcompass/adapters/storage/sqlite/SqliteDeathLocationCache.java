@@ -18,6 +18,7 @@
 package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
+import com.winterhavenmc.deathcompass.plugin.model.DeathLocationReason;
 import com.winterhavenmc.deathcompass.plugin.model.InvalidDeathLocation;
 import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
 import org.bukkit.event.EventHandler;
@@ -94,19 +95,19 @@ final class SqliteDeathLocationCache implements Listener
 	 */
 	DeathLocation get(final UUID playerUid, final UUID worldUid)
 	{
-		if (playerUid == null) { return new InvalidDeathLocation("The parameter 'playerUid' was null."); }
-		if (worldUid == null) { return new InvalidDeathLocation("The parameter 'worldUid' was null."); }
+		if (playerUid == null) { return new InvalidDeathLocation(DeathLocationReason.PLAYER_UUID_NULL); }
+		if (worldUid == null) { return new InvalidDeathLocation(DeathLocationReason.WORLD_UUID_NULL); }
 
 		// if map for player does not exist, return invalid death location
 		if (deathLocationMap.get(playerUid) == null)
 		{
-			return new InvalidDeathLocation("The playerUid was null.");
+			return new InvalidDeathLocation(DeathLocationReason.PLAYER_UUID_NULL);
 		}
 
 		// if location in map is null, return invalid death location
 		if (deathLocationMap.get(playerUid).get(worldUid) == null)
 		{
-			return new InvalidDeathLocation("The worldUid was null.");
+			return new InvalidDeathLocation(DeathLocationReason.WORLD_UUID_NULL);
 		}
 
 		// return record fetched from cache
