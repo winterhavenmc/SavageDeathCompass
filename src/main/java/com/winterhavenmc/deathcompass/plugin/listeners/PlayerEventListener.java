@@ -156,15 +156,18 @@ public final class PlayerEventListener implements Listener
 		}
 
 		// give player death compass
-		giveDeathCompass(player);
+		ItemStack deathCompass = giveDeathCompass(player);
 
 		// set compass target to player death location
 		setDeathCompassTarget(player);
 
+		// get player death location
+		Location location = player.getLastDeathLocation();
+
 		// send player respawn message
-		plugin.messageBuilder.compose(player, MessageId.ACTION_PLAYER_RESPAWN)
-				.setMacro(Macro.PLAYER, player)
-				.setMacro(Macro.WORLD, player.getWorld())
+		plugin.messageBuilder.compose(player, MessageId.EVENT_PLAYER_RESPAWN)
+				.setMacro(Macro.ITEM, deathCompass)
+				.setMacro(Macro.DEATH_LOCATION, location)
 				.send();
 	}
 
@@ -301,10 +304,10 @@ public final class PlayerEventListener implements Listener
 		ItemStack droppedItemStack = event.getItemDrop().getItemStack();
 
 		// create death compass itemstack for comparison
-		ItemStack dc = plugin.deathCompassUtility.createItem();
+		ItemStack item = plugin.deathCompassUtility.createItem();
 
 		// if droppedItemStack is not a DeathCompass or destroy-on-drop config is not true, do nothing and return
-		if (!droppedItemStack.isSimilar(dc) || !plugin.getConfig().getBoolean("destroy-on-drop"))
+		if (!droppedItemStack.isSimilar(item) || !plugin.getConfig().getBoolean("destroy-on-drop"))
 		{
 			return;
 		}
@@ -316,13 +319,16 @@ public final class PlayerEventListener implements Listener
 		plugin.soundConfig.playSound(player, SoundId.PLAYER_DROP_COMPASS);
 
 		// if inventory does not contain at least 1 death compass, reset compass target
-		if (!player.getInventory().containsAtLeast(dc, 1))
+		if (!player.getInventory().containsAtLeast(item, 1))
 		{
 			resetDeathCompassTarget(player);
 		}
 
 		// send player compass destroyed message
-		plugin.messageBuilder.compose(player, MessageId.ACTION_ITEM_DESTROY).send();
+		plugin.messageBuilder.compose(player, MessageId.EVENT_ITEM_DESTROY)
+				.setMacro(Macro.DEATH_LOCATION, player.getLastDeathLocation())
+				.setMacro(Macro.ITEM, item)
+				.send();
 	}
 
 
@@ -331,7 +337,7 @@ public final class PlayerEventListener implements Listener
 	 *
 	 * @param player the player being given a death compass
 	 */
-	private void giveDeathCompass(final Player player)
+	private ItemStack giveDeathCompass(final Player player)
 	{
 		// create DeathCompass itemstack
 		ItemStack deathcompass = plugin.deathCompassUtility.createItem();
@@ -342,6 +348,8 @@ public final class PlayerEventListener implements Listener
 		// log info
 		plugin.getLogger().info(player.getName() + ChatColor.RESET + " was given a death compass in "
 				+ plugin.worldManager.getWorldName(player.getWorld()) + ChatColor.RESET + ".");
+
+		return deathcompass;
 	}
 
 
