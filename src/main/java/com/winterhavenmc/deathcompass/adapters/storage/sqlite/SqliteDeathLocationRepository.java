@@ -36,8 +36,6 @@ import java.util.*;
 
 public class SqliteDeathLocationRepository implements DeathLocationRepository
 {
-	final static UUID INVALID_UUID = new UUID(0, 0);
-
 	private final Plugin plugin;
 	private final Connection connection;
 	private final LocaleProvider localeProvider;
