@@ -29,7 +29,9 @@ public final class DeathCompassUtility
 
 
 	/**
-	 * Private constructor to prevent class instantiation
+	 * Constructor
+	 *
+	 * @param plugin instance of plugin main class
 	 */
 	public DeathCompassUtility(final PluginMain plugin)
 	{
