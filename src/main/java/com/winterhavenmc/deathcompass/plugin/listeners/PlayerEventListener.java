@@ -18,11 +18,11 @@
 package com.winterhavenmc.deathcompass.plugin.listeners;
 
 import com.winterhavenmc.deathcompass.plugin.PluginMain;
-import com.winterhavenmc.deathcompass.plugin.messages.Macro;
-import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
+import com.winterhavenmc.deathcompass.plugin.util.Macro;
+import com.winterhavenmc.deathcompass.plugin.util.MessageId;
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
 import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
-import com.winterhavenmc.deathcompass.plugin.sounds.SoundId;
+import com.winterhavenmc.deathcompass.plugin.util.SoundId;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

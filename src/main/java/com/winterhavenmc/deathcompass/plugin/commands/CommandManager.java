@@ -18,8 +18,8 @@
 package com.winterhavenmc.deathcompass.plugin.commands;
 
 import com.winterhavenmc.deathcompass.plugin.PluginMain;
-import com.winterhavenmc.deathcompass.plugin.messages.MessageId;
-import com.winterhavenmc.deathcompass.plugin.sounds.SoundId;
+import com.winterhavenmc.deathcompass.plugin.util.MessageId;
+import com.winterhavenmc.deathcompass.plugin.util.SoundId;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
