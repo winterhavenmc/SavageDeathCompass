@@ -17,14 +17,19 @@
 
 package com.winterhavenmc.deathcompass.plugin.model;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,15 +42,23 @@ class DeathLocationTest
 	@Mock Player playerMock;
 	@Mock World worldMock;
 	@Mock Location locationMock;
+	@Mock Server serverMock;
 
+	UUID playerUid;
+	UUID worldUid;
+
+
+	@BeforeEach
+	void setUp()
+	{
+		playerUid = new UUID(42, 42);
+		worldUid = new UUID(64, 64);
+	}
 
 	@Test
 	void of_with_valid_player_parameter()
 	{
 		// Arrange
-		UUID playerUid = new UUID(42, 42);
-		UUID worldUid = new UUID(64, 64);
-
 		when(playerMock.getWorld()).thenReturn(worldMock);
 		when(playerMock.getUniqueId()).thenReturn(playerUid);
 		when(playerMock.getLocation()).thenReturn(locationMock);
@@ -92,10 +105,6 @@ class DeathLocationTest
 	@Test
 	void of_with_valid_record_parameters()
 	{
-		// Arrange
-		UUID playerUid = new UUID(42, 42);
-		UUID worldUid = new UUID(64, 64);
-
 		// Act
 		DeathLocation result = DeathLocation.of(playerUid, worldUid, 10, 11, 12);
 
@@ -103,5 +112,52 @@ class DeathLocationTest
 		assertInstanceOf(ValidDeathLocation.class, result);
 	}
 
+
+	@Test
+	void get_location_returns_valid_location()
+	{
+		// Arrange
+		DeathLocation deathLocation = DeathLocation.of(playerUid, worldUid, 10, 11, 12);
+		ValidDeathLocation validDeathLocation = (ValidDeathLocation) deathLocation;
+		when(serverMock.getWorld(worldUid)).thenReturn(worldMock);
+		try (MockedStatic<Bukkit> mockedBukkit = mockStatic(Bukkit.class))
+		{
+			// Define the behavior for the static method
+			mockedBukkit.when(Bukkit::getServer).thenReturn(serverMock);
+
+			// Act
+			Optional<Location> location = validDeathLocation.location();
+
+			// Assert
+			assertTrue(location.isPresent());
+
+			// verify
+			verify(serverMock, atLeastOnce()).getWorld(worldUid);
+		}
+	}
+
+
+	@Test
+	void get_location_returns_invalid_location()
+	{
+		// Arrange
+		DeathLocation deathLocation = DeathLocation.of(playerUid, worldUid, 10, 11, 12);
+		ValidDeathLocation validDeathLocation = (ValidDeathLocation) deathLocation;
+		when(serverMock.getWorld(worldUid)).thenReturn(null);
+		try (MockedStatic<Bukkit> mockedBukkit = mockStatic(Bukkit.class))
+		{
+			// Define the behavior for the static method
+			mockedBukkit.when(Bukkit::getServer).thenReturn(serverMock);
+
+			// Act
+			Optional<Location> location = validDeathLocation.location();
+
+			// Assert
+			assertTrue(location.isEmpty());
+
+			// verify
+			verify(serverMock, atLeastOnce()).getWorld(worldUid);
+		}
+	}
 
 }
