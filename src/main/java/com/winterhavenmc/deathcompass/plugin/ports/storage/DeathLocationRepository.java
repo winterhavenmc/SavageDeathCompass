@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 
+@SuppressWarnings("UnusedReturnValue")
 public interface DeathLocationRepository
 {
 	DeathLocation getDeathLocation(final UUID playerUUID, final UUID worldUID);
