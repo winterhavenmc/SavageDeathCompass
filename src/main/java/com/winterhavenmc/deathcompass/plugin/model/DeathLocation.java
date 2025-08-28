@@ -26,19 +26,19 @@ public sealed interface DeathLocation permits ValidDeathLocation, InvalidDeathLo
 	UUID INVALID_UUID = new UUID(0, 0);
 
 
+	static DeathLocation of(Player player)
+	{
+		if (player == null) return new InvalidDeathLocation(DeathLocationReason.PLAYER_NULL);
+		else return DeathLocation.of(player.getUniqueId(), player.getWorld().getUID(),
+				player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
+	}
+
+
 	static DeathLocation of(UUID playerUid, UUID worldUid, double x, double y, double z)
 	{
 		if (playerUid == null) return new InvalidDeathLocation(DeathLocationReason.PLAYER_UUID_NULL);
 		else if (worldUid == null) return new InvalidDeathLocation(DeathLocationReason.WORLD_UUID_NULL);
 		else if (worldUid.equals(INVALID_UUID)) return new InvalidDeathLocation(DeathLocationReason.WORLD_UNAVAILABLE);
 		else return new ValidDeathLocation(playerUid, worldUid, x, y, z);
-	}
-
-
-	static DeathLocation of(Player player)
-	{
-		if (player == null) return new InvalidDeathLocation(DeathLocationReason.PLAYER_NULL);
-		else return DeathLocation.of(player.getUniqueId(), player.getWorld().getUID(),
-				player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
 	}
 }
