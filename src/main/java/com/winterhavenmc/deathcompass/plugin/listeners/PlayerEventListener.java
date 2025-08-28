@@ -18,6 +18,7 @@
 package com.winterhavenmc.deathcompass.plugin.listeners;
 
 import com.winterhavenmc.deathcompass.plugin.PluginMain;
+import com.winterhavenmc.deathcompass.plugin.tasks.SetCompassTargetTask;
 import com.winterhavenmc.deathcompass.plugin.util.Macro;
 import com.winterhavenmc.deathcompass.plugin.util.MessageId;
 import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
@@ -34,7 +35,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 
@@ -371,19 +371,8 @@ public final class PlayerEventListener implements Listener
 	 */
 	private void setDeathCompassTarget(final Player player)
 	{
-		new BukkitRunnable()
-		{
-
-			public void run()
-			{
-				Location location = getDeathLocation(player);
-				if (location.getWorld() != player.getWorld())
-				{
-					return;
-				}
-				player.setCompassTarget(location);
-			}
-		}.runTaskLaterAsynchronously(plugin, plugin.getConfig().getLong("target-delay"));
+		Location location = getDeathLocation(player);
+		new SetCompassTargetTask(player, location).runTaskLater(plugin, plugin.getConfig().getLong("target-delay"));
 	}
 
 
