@@ -26,7 +26,13 @@ public sealed interface DeathLocation permits ValidDeathLocation, InvalidDeathLo
 	UUID INVALID_UUID = new UUID(0, 0);
 
 
-	static DeathLocation of(Player player)
+	/**
+	 * Creates a DeathLocation from a player, used in event listeners
+	 *
+	 * @param player the player for whom to create a DeathLocation
+	 * @return a ValidDeathLocation if validation checks pass, or an InvalidDeathLocation if validation fails
+	 */
+	static DeathLocation of(final Player player)
 	{
 		if (player == null) return new InvalidDeathLocation(DeathLocationReason.PLAYER_NULL);
 		else return DeathLocation.of(player.getUniqueId(), player.getWorld().getUID(),
@@ -34,7 +40,17 @@ public sealed interface DeathLocation permits ValidDeathLocation, InvalidDeathLo
 	}
 
 
-	static DeathLocation of(UUID playerUid, UUID worldUid, double x, double y, double z)
+	/**
+	 * Create a DeathLocation from a record retrieved from the datastore
+	 *
+	 * @param playerUid the player UUID
+	 * @param worldUid the location world UUID
+	 * @param x the location x component
+	 * @param y the location y component
+	 * @param z the location z component
+	 * @return a ValidDeathLocation if validation checks pass, or an InvalidDeathLocation if validation fails
+	 */
+	static DeathLocation of(final UUID playerUid, final UUID worldUid, final double x, final double y, final double z)
 	{
 		if (playerUid == null) return new InvalidDeathLocation(DeathLocationReason.PLAYER_UUID_NULL);
 		else if (worldUid == null) return new InvalidDeathLocation(DeathLocationReason.WORLD_UUID_NULL);
