@@ -3,80 +3,105 @@
 ###########
 # Item Info
 ###########
-ITEM_INFO:
-  # Item Display Name
-  ITEM_NAME: '&6Kompas der doden'
+ITEMS:
+  DEATH_COMPASS:
+    MATERIAL: COMPASS
+    DISPLAY_NAME: "<green>Kompas der doden</green>"
+    LORE:
+      - "<yellow>Wijst je de weg</yellow>"
+      - "<yellow>naar je dodenkist</yellow>"
 
-  # Item Lore
-  ITEM_LORE:
-  - '&eWijst je de weg'
-  - '&enaar je dodenkist'
+
+# Message placeholders:
+# {ITEM}            death compass item name, as defined above, stripped of color tags
+# {RECIPIENT}       message recipient's name
+# {DEATH_LOCATION}  player's death location, with subfields: .WORLD, .X, .Y, .Z
 
 
-# Variable substitutions:
-# %ITEM%            Item name as configured above
-# %PLAYER%          Player's full name
-# %WORLD%           World name that player is in
-
-##########
-# Messages
-##########
+################
+# Event Messages
+################
 MESSAGES:
-  ACTION_PLAYER_RESPAWN:
-    enabled: true
-    string: '&eVind je dodenkist terug met behulp van het &6%ITEM%.'
+  EVENT_PLAYER_RESPAWN:
+    MESSAGE_TEXT: '<red>Vind je dodenkist terug met behulp van het {ITEM}.</red>'
 
-  ACTION_ITEM_DESTROY:
-    enabled: true
-    string: '&c%ITEM% is vernietigd.'
+  EVENT_ITEM_DESTROY:
+    MESSAGE_TEXT: '<red>{ITEM} is vernietigd.</red>'
 
-  ACTION_INVENTORY_DENY_TRANSFER:
-    enabled: true
-    string: '&c%ITEM% kan niet worden verplaatst.\n Vernietig het door het te laten vallen.'
+  EVENT_INVENTORY_DENY_TRANSFER:
+    MESSAGE_TEXT: "<red>{ITEM} kan niet worden verplaatst.\n Vernietig het door het te laten vallen.</red>"
 
 
+  ##################
+  # Command Messages
+  ##################
   COMMAND_FAIL_INVALID_COMMAND:
-    enabled: true
-    string: '&cDat is geen geldig bevel!'
-    # available subs: %PLAYER%
+    MESSAGE_TEXT: "<red>Dat is geen geldig bevel!</red>"
 
   COMMAND_FAIL_HELP_PERMISSION:
-    enabled: true
-    string: '&cU heeft geen toestemming om DeathCompass-help weer te geven!'
-    # available subs: %PLAYER%
+    MESSAGE_TEXT: "<red>U heeft geen toestemming om DeathCompass-help weer te geven!</red>"
 
   COMMAND_FAIL_RELOAD_PERMISSION:
-    enabled: true
-    string: '&cU heeft geen toestemming om de DeathCompass-configuratie opnieuw te laden!'
-    # available subs: %PLAYER%
+    MESSAGE_TEXT: "<red>U heeft geen toestemming om de DeathCompass-configuratie opnieuw te laden!</red>"
 
   COMMAND_FAIL_STATUS_PERMISSION:
-    enabled: true
-    string: '&cU heeft geen toestemming om DeathCompass-instellingen te bekijken!'
-    # available subs: %PLAYER%
+    MESSAGE_TEXT: "<red>U heeft geen toestemming om DeathCompass-instellingen te bekijken!</red>"
 
   COMMAND_SUCCESS_RELOAD:
-    enabled: true
-    string: '&7DeathCompass-configuratie opnieuw geladen.'
-    # available subs: %PLAYER%
+    MESSAGE_TEXT: "<gray>DeathCompass-configuratie opnieuw geladen.</gray>"
 
 
+  ###############
+  # Help Messages
+  ###############
   COMMAND_HELP_HELP:
-    enabled: true
-    string: '&eGeeft hulp weer voor DeathCompass-commando's.'
+    MESSAGE_TEXT: "<yellow>Geeft hulp weer voor DeathCompass-opdrachten.</yellow>"
 
   COMMAND_HELP_RELOAD:
-    enabled: true
-    string: '&eLaadt de plug-inconfiguratie opnieuw.'
+    MESSAGE_TEXT: "<yellow>Laadt de plug-inconfiguratie opnieuw.</yellow>"
 
   COMMAND_HELP_STATUS:
-    enabled: true
-    string: '&eGeeft configuratie-instellingen voor plug-ins weer.'
+    MESSAGE_TEXT: "<yellow>Geeft configuratie-instellingen voor plug-ins weer.</yellow>"
 
   COMMAND_HELP_INVALID:
-    enabled: true
-    string: '&eDat is geen geldig bevel.'
+    MESSAGE_TEXT: "<yellow>Dat is geen geldig bevel.</yellow>"
 
   COMMAND_HELP_USAGE:
-    enabled: true
-    string: '&eGebruik van de opdracht:'
+    MESSAGE_TEXT: "<yellow>Gebruik van de opdracht:</yellow>"
+
+
+  #########################
+  # Status command messages
+  #########################
+  COMMAND_STATUS_HEADER:
+    MESSAGE_TEXT: "<newline><gradient:blue:aqua><strikethrough>                     =</strikethrough>[</gradient> <dark_aqua>{PLUGIN}</dark_aqua> <gradient:aqua:blue>]<strikethrough>=                     </strikethrough></gradient>"
+
+  COMMAND_STATUS_FOOTER:
+    MESSAGE_TEXT: "<newline><click:open_url:'{URL}'><blue><underlined>{URL}</underlined></blue></click>"
+
+  COMMAND_STATUS_PLUGIN_VERSION:
+    MESSAGE_TEXT: "<green>Version:</green> {SETTING}"
+
+  COMMAND_STATUS_LANGUAGE:
+    MESSAGE_TEXT: "<green>Language:</green> {SETTING}"
+
+  COMMAND_STATUS_LOCALE:
+    MESSAGE_TEXT: "<green>Locale:</green> {SETTING}"
+
+  COMMAND_STATUS_TIMEZONE:
+    MESSAGE_TEXT: "<green>Timezone:</green> {SETTING}"
+
+  COMMAND_STATUS_SOUND_EFFECTS:
+    MESSAGE_TEXT: "<green>Sound effects:</green> {SETTING}"
+
+  COMMAND_STATUS_DESTROY_ON_DROP:
+    MESSAGE_TEXT: "<green>Destroy on drop:</green> {SETTING}"
+
+  COMMAND_STATUS_PREVENT_STORAGE:
+    MESSAGE_TEXT: "<green>Prevent storage:</green> {SETTING}"
+
+  COMMAND_STATUS_TARGET_DELAY:
+    MESSAGE_TEXT: "<green>Target delay:</green> {SETTING}"
+
+  COMMAND_STATUS_ENABLED_WORLDS:
+    MESSAGE_TEXT: "<green>Enabled worlds:</green> {SETTING}"
