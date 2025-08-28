@@ -41,15 +41,6 @@ public class DataStore
 
 
 	/**
-	 * Close datastore connection
-	 */
-	public void close()
-	{
-		connectionProvider.close();
-	}
-
-
-	/**
 	 * Create new data store from bootstrap connection provider. Output error to log and disable plugin on failure.
 	 *
 	 * @param plugin instance of plugin main class
@@ -70,6 +61,15 @@ public class DataStore
 			plugin.getServer().getPluginManager().disablePlugin(plugin);
 			return null;
 		}
+	}
+
+
+	/**
+	 * Close datastore connection
+	 */
+	public void close()
+	{
+		connectionProvider.close();
 	}
 
 

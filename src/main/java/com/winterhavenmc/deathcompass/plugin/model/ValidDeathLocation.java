@@ -50,21 +50,17 @@ public final class ValidDeathLocation implements DeathLocation
 	/**
 	 * Getter for location
 	 *
-	 * @return Location - death compass player death location
+	 * @return {@code Optional} Location containing player death location if valid, else empty optional
 	 */
 	public Optional<Location> location()
 	{
 		// get world from uid
 		final World world = Bukkit.getServer().getWorld(this.worldUid);
 
-		// if world is invalid, return null
-		if (world == null)
-		{
-			return Optional.empty();
-		}
-
-		// return new location object
-		return Optional.of(new Location(world, this.x, this.y, this.z));
+		// if world is not null, return optional location, else return empty optional
+		return (world != null)
+				? Optional.of(new Location(world, this.x, this.y, this.z))
+				: Optional.empty();
 	}
 
 	public UUID playerUid()
