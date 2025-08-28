@@ -19,16 +19,9 @@ package com.winterhavenmc.deathcompass.plugin.messages;
 
 public enum Macro
 {
-	PLAYER,
-	WORLD,
-
+	ITEM,
+	DEATH_LOCATION,
 	PLUGIN,
 	URL,
-	VERSION,
-	LANGUAGE,
-	DESTROY_ON_DROP,
-	TARGET_DELAY,
-	ENABLED_WORLDS,
-	PREVENT_STORAGE,
-	SOUND_EFFECTS,
+	SETTING,
 }
