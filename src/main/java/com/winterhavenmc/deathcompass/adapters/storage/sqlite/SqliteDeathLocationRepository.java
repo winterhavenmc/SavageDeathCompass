@@ -22,8 +22,8 @@ import com.winterhavenmc.deathcompass.plugin.model.DeathLocationReason;
 import com.winterhavenmc.deathcompass.plugin.model.InvalidDeathLocation;
 import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
 import com.winterhavenmc.deathcompass.plugin.ports.storage.DeathLocationRepository;
-
 import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
+
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
