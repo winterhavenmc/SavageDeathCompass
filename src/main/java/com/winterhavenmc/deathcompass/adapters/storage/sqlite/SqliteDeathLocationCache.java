@@ -82,23 +82,11 @@ final class SqliteDeathLocationCache implements Listener
 	 */
 	DeathLocation get(final UUID playerUid, final UUID worldUid)
 	{
-		if (playerUid == null) { return new InvalidDeathLocation(DeathLocationReason.PLAYER_UUID_NULL); }
-		if (worldUid == null) { return new InvalidDeathLocation(DeathLocationReason.WORLD_UUID_NULL); }
-
-		// if map for player does not exist, return invalid death location
-		if (deathLocationMap.get(playerUid) == null)
-		{
-			return new InvalidDeathLocation(DeathLocationReason.PLAYER_UUID_NULL);
-		}
-
-		// if location in map is null, return invalid death location
-		if (deathLocationMap.get(playerUid).get(worldUid) == null)
-		{
-			return new InvalidDeathLocation(DeathLocationReason.WORLD_UUID_NULL);
-		}
-
-		// return record fetched from cache
-		return deathLocationMap.get(playerUid).get(worldUid);
+		if (playerUid == null) return new InvalidDeathLocation(DeathLocationReason.PARAMETER_PLAYER_UUID_NULL);
+		else if (worldUid == null) return new InvalidDeathLocation(DeathLocationReason.PARAMETER_WORLD_UUID_NULL);
+		else if (deathLocationMap.get(playerUid) == null) return new InvalidDeathLocation(DeathLocationReason.PLAYER_UUID_NULL);
+		else if (deathLocationMap.get(playerUid).get(worldUid) == null) return new InvalidDeathLocation(DeathLocationReason.WORLD_UUID_NULL);
+		else return deathLocationMap.get(playerUid).get(worldUid);
 	}
 
 
