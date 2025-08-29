@@ -29,18 +29,18 @@ public enum DeathLocationReason
 	SQL_EXCEPTION_THROWN("An SQL exception was thrown."),
 	;
 
-	private final String reason;
+	private final String defaultMessage;
 
 
-	DeathLocationReason(final String reason)
+	DeathLocationReason(final String defaultMessage)
 	{
-		this.reason = reason;
+		this.defaultMessage = defaultMessage;
 	}
 
 
-	public String reason()
+	public String getDefaultMessage()
 	{
-		return reason;
+		return defaultMessage;
 	}
 
 }
