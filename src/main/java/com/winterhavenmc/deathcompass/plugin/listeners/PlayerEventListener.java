@@ -18,6 +18,7 @@
 package com.winterhavenmc.deathcompass.plugin.listeners;
 
 import com.winterhavenmc.deathcompass.plugin.PluginMain;
+import com.winterhavenmc.deathcompass.plugin.model.InvalidDeathLocation;
 import com.winterhavenmc.deathcompass.plugin.tasks.SetCompassTargetTask;
 import com.winterhavenmc.deathcompass.plugin.util.Macro;
 import com.winterhavenmc.deathcompass.plugin.util.MessageId;
@@ -25,6 +26,7 @@ import com.winterhavenmc.deathcompass.plugin.model.DeathLocation;
 import com.winterhavenmc.deathcompass.plugin.model.ValidDeathLocation;
 import com.winterhavenmc.deathcompass.plugin.util.SoundId;
 
+import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -44,8 +46,8 @@ import java.util.*;
  */
 public final class PlayerEventListener implements Listener
 {
-	// reference to main class
 	private final PluginMain plugin;
+	private final LocaleProvider localeProvider;
 
 	// player death respawn hash set, used to prevent giving compass on non-death respawn events
 	private final Set<UUID> deathTriggeredRespawn = new HashSet<>();
@@ -58,8 +60,8 @@ public final class PlayerEventListener implements Listener
 	 */
 	public PlayerEventListener(final PluginMain plugin)
 	{
-		// set reference to main class
 		this.plugin = plugin;
+		this.localeProvider = LocaleProvider.create(plugin);
 
 		// register event handlers in this class
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -122,6 +124,12 @@ public final class PlayerEventListener implements Listener
 
 			// put player uuid in deathTriggeredRespawn set
 			deathTriggeredRespawn.add(player.getUniqueId());
+		}
+		else
+		{
+			// log invalid reason
+			plugin.getLogger().warning("Error: " + ((InvalidDeathLocation) deathLocation).reason()
+					.getLocalizedMessage(localeProvider.getLocale()));
 		}
 	}
 
@@ -405,7 +413,7 @@ public final class PlayerEventListener implements Listener
 		// fetch death record from datastore
 		final DeathLocation deathLocation = plugin.dataStore.deathLocations().getDeathLocation(player.getUniqueId(), worldUid);
 
-		// if fetched record is not empty set location, else use player world spawn location
+		// if fetched record is valid, return location; else use player world spawn location
 		return (deathLocation instanceof ValidDeathLocation validDeathLocation && validDeathLocation.location().isPresent())
 				? validDeathLocation.location().get()
 				: plugin.worldManager.getSpawnLocation(player.getWorld());
