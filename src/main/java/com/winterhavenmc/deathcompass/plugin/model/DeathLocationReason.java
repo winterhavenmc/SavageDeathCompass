@@ -17,6 +17,10 @@
 
 package com.winterhavenmc.deathcompass.plugin.model;
 
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
 public enum DeathLocationReason
 {
 	PARAMETER_PLAYER_UUID_NULL("The parameter 'playerUid' was null."),
@@ -38,9 +42,24 @@ public enum DeathLocationReason
 	}
 
 
-	public String getDefaultMessage()
+	@Override
+	public String toString()
 	{
 		return defaultMessage;
+	}
+
+
+	public String getLocalizedMessage(final Locale locale)
+	{
+		try
+		{
+			ResourceBundle bundle = ResourceBundle.getBundle(getClass().getSimpleName(), locale);
+			return bundle.getString(name());
+		}
+		catch (MissingResourceException exception)
+		{
+			return this.defaultMessage;
+		}
 	}
 
 }

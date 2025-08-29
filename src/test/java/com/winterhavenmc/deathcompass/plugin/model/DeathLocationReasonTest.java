@@ -18,16 +18,29 @@
 package com.winterhavenmc.deathcompass.plugin.model;
 
 import org.junit.jupiter.api.Test;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 class DeathLocationReasonTest
 {
+	@Test
+	void getLocalizedMessage_with_locale_US()
+	{
+		assertEquals("The player was null.", DeathLocationReason.PLAYER_NULL.getLocalizedMessage(Locale.US));
+	}
 
 	@Test
-	void getDefaultMessage()
+	void getLocalizedMessage_with_locale_GERMAN()
 	{
-		assertEquals("The player was null.", DeathLocationReason.PLAYER_NULL.getDefaultMessage());
+		assertEquals("Der Spieler war null.", DeathLocationReason.PLAYER_NULL.getLocalizedMessage(Locale.GERMAN));
+	}
+
+	@Test
+	void getLocalizedMessage_with_non_existant_locale()
+	{
+		assertEquals("The player was null.", DeathLocationReason.PLAYER_NULL.getLocalizedMessage(Locale.of("ru")));
 	}
 
 }

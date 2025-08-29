@@ -4,3 +4,4 @@ language/de-DE.yml
 language/fr-FR.yml
 language/es-ES.yml
 language/nl-NL.yml
+language/no-NO.yml

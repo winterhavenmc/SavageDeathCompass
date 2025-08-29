@@ -61,10 +61,10 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 		if (worldUid == null) { return new InvalidDeathLocation(DeathLocationReason.WORLD_UUID_NULL); }
 
 		// try cache first
-		DeathLocation optionalDeathLocation = sqliteDeathLocationCache.get(playerUid, worldUid);
+		DeathLocation cachedDeathLocation = sqliteDeathLocationCache.get(playerUid, worldUid);
 
 		// if a record was returned from cache, return the record; otherwise try datastore
-		if (optionalDeathLocation instanceof ValidDeathLocation validDeathLocation)
+		if (cachedDeathLocation instanceof ValidDeathLocation validDeathLocation)
 		{
 			return validDeathLocation;
 		}
