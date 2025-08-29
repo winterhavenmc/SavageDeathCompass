@@ -47,6 +47,7 @@ public final class ValidDeathLocation implements DeathLocation
 		this.z = z;
 	}
 
+
 	/**
 	 * Getter for location
 	 *
@@ -63,30 +64,36 @@ public final class ValidDeathLocation implements DeathLocation
 				: Optional.empty();
 	}
 
+
 	public UUID playerUid()
 	{
 		return playerUid;
 	}
+
 
 	public UUID worldUid()
 	{
 		return worldUid;
 	}
 
+
 	public double x()
 	{
 		return x;
 	}
+
 
 	public double y()
 	{
 		return y;
 	}
 
+
 	public double z()
 	{
 		return z;
 	}
+
 
 	@Override
 	public boolean equals(Object obj)
@@ -107,11 +114,13 @@ public final class ValidDeathLocation implements DeathLocation
 				Double.doubleToLongBits(this.z) == Double.doubleToLongBits(that.z);
 	}
 
+
 	@Override
 	public int hashCode()
 	{
 		return Objects.hash(playerUid, worldUid, x, y, z);
 	}
+
 
 	@Override
 	public String toString()

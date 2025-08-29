@@ -35,7 +35,7 @@ public sealed interface DeathLocation permits ValidDeathLocation, InvalidDeathLo
 	static DeathLocation of(final Player player)
 	{
 		if (player == null) return new InvalidDeathLocation(DeathLocationReason.PLAYER_NULL);
-		else return DeathLocation.of(player.getUniqueId(), player.getWorld().getUID(),
+		else return new ValidDeathLocation(player.getUniqueId(), player.getWorld().getUID(),
 				player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
 	}
 
