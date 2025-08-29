@@ -100,15 +100,11 @@ public final class ValidDeathLocation implements DeathLocation
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
-		{
-			return true;
-		}
-		if (obj == null || obj.getClass() != this.getClass())
-		{
-			return false;
-		}
+		if (obj == this) return true;
+		if (obj == null || obj.getClass() != this.getClass()) return false;
+
 		var that = (ValidDeathLocation) obj;
+
 		return Objects.equals(this.playerUid, that.playerUid) &&
 				Objects.equals(this.worldUid, that.worldUid) &&
 				Double.doubleToLongBits(this.x) == Double.doubleToLongBits(that.x) &&
