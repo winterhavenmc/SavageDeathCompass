@@ -17,30 +17,17 @@
 
 package com.winterhavenmc.deathcompass.plugin.model;
 
-public enum DeathLocationReason
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class DeathLocationReasonTest
 {
-	PARAMETER_PLAYER_UUID_NULL("The parameter 'playerUid' was null."),
-	PARAMETER_WORLD_UUID_NULL("The parameter 'worldUid' was null."),
-	PLAYER_UUID_NULL("The player UUID was null."),
-	WORLD_UUID_NULL("The world UUID was null."),
-	PLAYER_NULL("The player was null."),
-	WORLD_UNAVAILABLE("The world was not available."),
-	RECORD_NOT_FOUND("A death location record was not found in the datastore."),
-	SQL_EXCEPTION_THROWN("An SQL exception was thrown."),
-	;
 
-	private final String defaultMessage;
-
-
-	DeathLocationReason(final String defaultMessage)
+	@Test
+	void getDefaultMessage()
 	{
-		this.defaultMessage = defaultMessage;
-	}
-
-
-	public String getDefaultMessage()
-	{
-		return defaultMessage;
+		assertEquals("The player was null.", DeathLocationReason.PLAYER_NULL.getDefaultMessage());
 	}
 
 }
