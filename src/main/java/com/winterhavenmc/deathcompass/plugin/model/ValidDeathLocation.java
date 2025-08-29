@@ -49,7 +49,9 @@ public final class ValidDeathLocation implements DeathLocation
 
 
 	/**
-	 * Getter for location
+	 * Getter for location. Returns an Optional Location that is created from the location components
+	 * stored as instance fields of this class. If the World referenced by the worldUid field is not available
+	 * at the time this method is called, an empty Optional will be returned.
 	 *
 	 * @return {@code Optional} Location containing player death location if valid, else empty optional
 	 */
