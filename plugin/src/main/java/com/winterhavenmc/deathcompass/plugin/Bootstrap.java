@@ -20,14 +20,13 @@ package com.winterhavenmc.deathcompass.plugin;
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteConnectionProvider;
 import com.winterhavenmc.deathcompass.core.PluginController;
 import com.winterhavenmc.deathcompass.core.ports.storage.ConnectionProvider;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public final class Bootstrap extends JavaPlugin
 {
 	PluginController pluginController;
-	SqliteConnectionProvider connectionProvider;
+	ConnectionProvider connectionProvider;
 
 
 	@Override
@@ -43,12 +42,6 @@ public final class Bootstrap extends JavaPlugin
 	public void onDisable()
 	{
 		pluginController.shutDown();
-	}
-
-
-	public static ConnectionProvider getConnectionProvider(Plugin plugin)
-	{
-		return new SqliteConnectionProvider(plugin);
 	}
 
 }
