@@ -18,7 +18,7 @@
 package com.winterhavenmc.deathcompass.core.commands;
 
 import com.winterhavenmc.deathcompass.core.PluginController;
-import org.bukkit.plugin.Plugin;
+
 
 /**
  * Enumeration of subcommands to be instantiated
