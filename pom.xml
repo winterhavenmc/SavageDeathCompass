@@ -33,34 +33,30 @@
 
 	<modules>
 		<module>adapters</module>
-		<module>plugin</module>
-		<module>models</module>
 		<module>core</module>
+		<module>coverage</module>
+		<module>models</module>
+		<module>plugin</module>
 	</modules>
 
 	<packaging>pom</packaging>
 
-	<profiles>
-		<profile>
+	<distributionManagement>
+		<repository>
 			<id>repsy</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<distributionManagement>
-				<repository>
-					<id>repsy</id>
-					<name>Repsy.io winterhavenmc Maven Packages</name>
-					<url>https://repo.repsy.io/mvn/winterhavenmc/public/</url>
-				</repository>
-			</distributionManagement>
-		</profile>
-	</profiles>
+			<name>Repsy.io winterhavenmc Maven Packages</name>
+			<url>https://repo.repsy.io/mvn/winterhavenmc/public/</url>
+		</repository>
+	</distributionManagement>
 
 	<repositories>
+		<!-- spigot repo -->
 		<repository>
 			<id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
+
+		<!-- repsy repo -->
 		<repository>
 			<id>repsy-repo</id>
 			<url>https://repo.repsy.io/mvn/winterhavenmc/public/</url>
@@ -125,7 +121,7 @@
 				<scope>provided</scope>
 			</dependency>
 
-			<!-- JUnit frameworkd -->
+			<!-- JUnit framework -->
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-api</artifactId>
@@ -214,6 +210,15 @@
 
 		<!-- JUnit Testing Dependencies -->
 		<dependency>
+			<groupId>org.junit</groupId>
+			<artifactId>junit-bom</artifactId>
+			<version>5.12.2</version>
+			<type>pom</type>
+			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>5.11.3</version>
@@ -301,14 +306,14 @@
 					</executions>
 				</plugin>
 
-				<!-- Maven compile plugin -->
+				<!-- maven compile plugin -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.13.0</version>
 				</plugin>
 
-				<!-- Create Javadoc jar -->
+				<!-- maven Javadoc jar -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
@@ -326,7 +331,7 @@
 					</executions>
 				</plugin>
 
-				<!-- Maven source plugin -->
+				<!-- maven source plugin -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
@@ -341,7 +346,7 @@
 					</executions>
 				</plugin>
 
-				<!-- Maven SureFire plugin for unit testing -->
+				<!-- maven SureFire plugin for unit testing -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
@@ -352,6 +357,8 @@
 						<systemPropertyVariables>
 							<bstats.relocatecheck>false</bstats.relocatecheck>
 						</systemPropertyVariables>
+						<!-- Needed for JUnit 5 in multi-module setups -->
+						<useModulePath>false</useModulePath>
 					</configuration>
 				</plugin>
 
@@ -360,39 +367,17 @@
 					<groupId>org.jetbrains.kotlinx</groupId>
 					<artifactId>kover-maven-plugin</artifactId>
 					<version>0.9.1</version>
-					<executions>
-						<!-- instrument test tasks -->
-						<execution>
-							<id>instr</id>
-							<goals>
-								<goal>instrumentation</goal>
-							</goals>
-						</execution>
+				</plugin>
 
-						<!-- generate XML report in verify phase -->
-						<execution>
-							<id>kover-xml</id>
-							<goals>
-								<goal>report-xml</goal>
-							</goals>
-						</execution>
-
-						<!-- generate HTML report in verify phase -->
-						<execution>
-							<id>kover-html</id>
-							<goals>
-								<goal>report-html</goal>
-							</goals>
-						</execution>
-
-						<!-- check coverage rules in verify phase -->
-						<execution>
-							<id>kover-verify</id>
-							<goals>
-								<goal>verify</goal>
-							</goals>
-						</execution>
-					</executions>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.13</version>
+					<configuration>
+						<excludes>
+							<exclude>**/test/*</exclude>
+						</excludes>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -433,6 +418,11 @@
 			<plugin>
 				<groupId>org.jetbrains.kotlinx</groupId>
 				<artifactId>kover-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
 			</plugin>
 
 		</plugins>
