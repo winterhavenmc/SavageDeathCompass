@@ -1,0 +1,37 @@
+name: ${project.name}
+version: ${project.version}
+author: ${project.author}
+main: com.winterhavenmc.deathcompass.plugin.Bootstrap
+api-version: 1.21
+softdepend: [ Iris, Multiverse-Core, My_Worlds ]
+
+commands:
+  deathcompass:
+    description: show DeathCompass settings or reload configuration file
+    usage: /deathcompass [command]
+    permission-message: You don't have the required <command> permission.
+
+permissions:
+  deathcompass.use:
+    description: Give player a compass on death and set compass target to last death location
+    default: true
+        
+  deathcompass.help:
+    description: View DeathCompass help
+    default: op
+
+  deathcompass.reload:
+    description: Reload DeathCompass config file
+    default: op
+
+  deathcompass.status:
+    description: View DeathCompass settings
+    default: op
+
+  deathcompass.admin:
+    description: DeathCompass admin commands
+    default: op
+    children:
+      deathcompass.help: true
+      deathcompass.status: true
+      deathcompass.reload: true
