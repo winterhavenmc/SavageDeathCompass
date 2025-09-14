@@ -126,14 +126,12 @@ public final class InventoryEventListener implements Listener
 			case SWAP_WITH_CURSOR ->
 			{
 				// check if cursor item or current item is death compass
-				if (ctx.deathCompassUtility().isDeathCompass(event.getCursor())
+				// check if slot is in container inventory
+				if ((ctx.deathCompassUtility().isDeathCompass(event.getCursor())
 						|| ctx.deathCompassUtility().isDeathCompass(event.getCurrentItem()))
+						&& event.getRawSlot() < event.getInventory().getSize())
 				{
-					// check if slot is in container inventory
-					if (event.getRawSlot() < event.getInventory().getSize())
-					{
-						cancelInventoryTransfer(event, event.getWhoClicked(), event.getCurrentItem());
-					}
+					cancelInventoryTransfer(event, event.getWhoClicked(), event.getCurrentItem());
 				}
 			}
 

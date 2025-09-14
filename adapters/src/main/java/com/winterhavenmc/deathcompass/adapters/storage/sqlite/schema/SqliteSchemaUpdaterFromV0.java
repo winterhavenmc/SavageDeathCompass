@@ -58,12 +58,9 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 	public void update()
 	{
 		schemaVersion = SqliteSchemaUpdater.getSchemaVersion(connection, plugin.getLogger());
-		if (schemaVersion == 0)
+		if (schemaVersion == 0 && tableExists(connection, "deathlocations"))
 		{
-			if (tableExists(connection, "deathlocations"))
-			{
-				updateDeathLocationTableSchema(connection, schemaVersion);
-			}
+			updateDeathLocationTableSchema(connection, schemaVersion);
 		}
 	}
 
