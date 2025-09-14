@@ -137,15 +137,11 @@ public final class InventoryEventListener implements Listener
 
 			case PLACE_ONE, PLACE_SOME, PLACE_ALL ->
 			{
-				// check if cursor item is a death compass
-				if (ctx.deathCompassUtility().isDeathCompass(event.getCursor()))
+				// check if cursor item is a death compass and slot is in container inventory
+				if (ctx.deathCompassUtility().isDeathCompass(event.getCursor())
+						&& event.getRawSlot() < event.getInventory().getSize())
 				{
-
-					// check if slot is in container inventory
-					if (event.getRawSlot() < event.getInventory().getSize())
-					{
-						cancelInventoryTransfer(event, event.getWhoClicked(), event.getCursor());
-					}
+					cancelInventoryTransfer(event, event.getWhoClicked(), event.getCursor());
 				}
 			}
 		}
