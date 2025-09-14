@@ -107,19 +107,11 @@ public final class InventoryEventListener implements Listener
 		{
 			case MOVE_TO_OTHER_INVENTORY ->
 			{
-				ItemStack item = event.getCurrentItem();
-
-				// check if current item is death compass
-				if (ctx.deathCompassUtility().isDeathCompass(item))
+				// check if current item is death compass and inventory type is not in set, cancel event and send player message
+				if (ctx.deathCompassUtility().isDeathCompass(event.getCurrentItem())
+						&& !SHIFT_CLICK_ALLOWED_TYPES.contains(event.getInventory().getType()))
 				{
-					// if inventory type is in set, do nothing and return (allow transfer between player inventory and hot bar)
-					if (SHIFT_CLICK_ALLOWED_TYPES.contains(event.getInventory().getType()))
-					{
-						return;
-					}
-
-					// cancel event and send player message
-					cancelInventoryTransfer(event, event.getWhoClicked(), item);
+					cancelInventoryTransfer(event, event.getWhoClicked(), event.getCurrentItem());
 				}
 			}
 
@@ -137,15 +129,11 @@ public final class InventoryEventListener implements Listener
 
 			case PLACE_ONE, PLACE_SOME, PLACE_ALL ->
 			{
-				// check if cursor item is a death compass
-				if (ctx.deathCompassUtility().isDeathCompass(event.getCursor()))
+				// check if cursor item is a death compass and slot is in container inventory
+				if (ctx.deathCompassUtility().isDeathCompass(event.getCursor())
+						&& event.getRawSlot() < event.getInventory().getSize())
 				{
-
-					// check if slot is in container inventory
-					if (event.getRawSlot() < event.getInventory().getSize())
-					{
-						cancelInventoryTransfer(event, event.getWhoClicked(), event.getCursor());
-					}
+					cancelInventoryTransfer(event, event.getWhoClicked(), event.getCursor());
 				}
 			}
 		}
