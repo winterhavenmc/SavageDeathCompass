@@ -41,6 +41,9 @@
 			<plugin>
 				<groupId>org.jetbrains.kotlinx</groupId>
 				<artifactId>kover-maven-plugin</artifactId>
+				<configuration>
+					<xmlFile>${project.parent.build.directory}/site/kover/report.xml</xmlFile>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
