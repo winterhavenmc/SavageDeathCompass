@@ -41,26 +41,8 @@
 			<plugin>
 				<groupId>org.jetbrains.kotlinx</groupId>
 				<artifactId>kover-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>kover-html</id>
-						<goals>
-							<goal>report-html</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>kover-xml</id>
-						<goals>
-							<goal>report-xml</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<aggregate>true</aggregate>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>
