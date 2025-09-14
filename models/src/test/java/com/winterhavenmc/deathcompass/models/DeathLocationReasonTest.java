@@ -43,4 +43,10 @@ class DeathLocationReasonTest
 		assertEquals("The player was null.", DeathLocationReason.PLAYER_NULL.getLocalizedMessage(Locale.of("ru")));
 	}
 
+	@Test
+	void testToString()
+	{
+		assertEquals("The player was null.", DeathLocationReason.PLAYER_NULL.toString());
+	}
+
 }
