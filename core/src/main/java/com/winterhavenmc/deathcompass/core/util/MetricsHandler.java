@@ -21,16 +21,17 @@ import com.winterhavenmc.deathcompass.core.PluginController;
 
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
+import org.bukkit.plugin.Plugin;
 
 
 public class MetricsHandler
 {
-	public MetricsHandler(final PluginController.ContextContainer ctx)
+	public MetricsHandler(final Plugin plugin)
 	{
-		Metrics metrics = new Metrics(ctx.plugin(), 13925);
+		Metrics metrics = new Metrics(plugin, 13925);
 
 		// pie chart of configured language
-		metrics.addCustomChart(new SimplePie("language", () -> ctx.plugin().getConfig().getString("language")));
+		metrics.addCustomChart(new SimplePie("language", () -> plugin.getConfig().getString("language")));
 	}
 
 }
