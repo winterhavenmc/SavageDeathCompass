@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Tim Savage.
+ * Copyright (c) 2022-2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,9 +15,9 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.core.commands;
+package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
 
-import com.winterhavenmc.deathcompass.core.PluginController;
+import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
 import com.winterhavenmc.deathcompass.core.util.Macro;
 import com.winterhavenmc.deathcompass.core.util.MessageId;
 import com.winterhavenmc.deathcompass.core.util.SoundId;
@@ -34,14 +34,14 @@ import java.util.List;
  */
 final class StatusSubcommand extends AbstractSubcommand
 {
-	private final PluginController.CommandContextContainer ctx;
+	private final DeathCompassPluginController.CommandContextContainer ctx;
 	private final LocaleProvider localeProvider;
 
 
 	/**
 	 * Class constructor
 	 */
-	StatusSubcommand(final PluginController.CommandContextContainer ctx)
+	StatusSubcommand(final DeathCompassPluginController.CommandContextContainer ctx)
 	{
 		this.ctx = ctx;
 		this.name = "status";

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Tim Savage.
+ * Copyright (c) 2022-2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,9 +15,9 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.core.commands;
+package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
 
-import com.winterhavenmc.deathcompass.core.PluginController;
+import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
 
 
 /**
@@ -28,7 +28,7 @@ enum SubcommandType
 	RELOAD()
 			{
 				@Override
-				Subcommand create(final PluginController.CommandContextContainer ctx)
+				Subcommand create(final DeathCompassPluginController.CommandContextContainer ctx)
 				{
 					return new ReloadSubcommand(ctx);
 				}
@@ -37,12 +37,12 @@ enum SubcommandType
 	STATUS()
 			{
 				@Override
-				Subcommand create(final PluginController.CommandContextContainer ctx)
+				Subcommand create(final DeathCompassPluginController.CommandContextContainer ctx)
 				{
 					return new StatusSubcommand(ctx);
 				}
 			};
 
-	abstract Subcommand create(final PluginController.CommandContextContainer ctx);
+	abstract Subcommand create(final DeathCompassPluginController.CommandContextContainer ctx);
 
 }
