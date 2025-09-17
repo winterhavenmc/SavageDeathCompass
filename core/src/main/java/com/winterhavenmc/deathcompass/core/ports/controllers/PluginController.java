@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.core;
+package com.winterhavenmc.deathcompass.core.ports.controllers;
 
 import com.winterhavenmc.deathcompass.core.ports.commands.CommandDispatcher;
 import com.winterhavenmc.deathcompass.core.ports.listeners.InventoryEventListener;

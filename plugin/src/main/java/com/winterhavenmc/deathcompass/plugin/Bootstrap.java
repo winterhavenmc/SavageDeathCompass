@@ -22,7 +22,7 @@ import com.winterhavenmc.deathcompass.adapters.listeners.bukkit.BukkitInventoryE
 import com.winterhavenmc.deathcompass.adapters.listeners.bukkit.BukkitPlayerEventListener;
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteConnectionProvider;
 import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
-import com.winterhavenmc.deathcompass.core.PluginController;
+import com.winterhavenmc.deathcompass.core.ports.controllers.PluginController;
 import com.winterhavenmc.deathcompass.core.ports.commands.CommandDispatcher;
 import com.winterhavenmc.deathcompass.core.ports.listeners.InventoryEventListener;
 import com.winterhavenmc.deathcompass.core.ports.listeners.PlayerEventListener;
