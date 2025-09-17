@@ -42,7 +42,7 @@ public final class PluginController
 	public MessageBuilder messageBuilder;
 	public SoundConfiguration soundConfig;
 	public WorldManager worldManager;
-	public DataStore dataStore;
+	public ConnectionProvider datastore;
 	public DeathCompassUtility deathCompassUtility;
 
 
@@ -61,28 +61,30 @@ public final class PluginController
 		worldManager = new WorldManager(plugin);
 
 		// instantiate datastore
-		dataStore = DataStore.connect(plugin, connectionProvider);
+		datastore = connectionProvider.connect();
 
 		// instantiate death compass utility
 		deathCompassUtility = new DeathCompassUtility(this);
 
 		// instantiate context container
-		ContextContainer ctx = new ContextContainer(plugin, messageBuilder, soundConfig, worldManager, dataStore, deathCompassUtility);
+		ListenerContextContainer listenerCtx = new ListenerContextContainer(plugin, messageBuilder, soundConfig, worldManager, datastore, deathCompassUtility);
+		CommandContextContainer commandCtx = new CommandContextContainer(plugin, messageBuilder, soundConfig, worldManager);
 
 		// instantiate command handler
-		new CommandManager(ctx);
+		new CommandManager(commandCtx);
 
 		// instantiate event listeners
-		new PlayerEventListener(ctx);
-		new InventoryEventListener(ctx);
+		new PlayerEventListener(listenerCtx);
+		new InventoryEventListener(listenerCtx);
 
 		// instantiate metrics handler
-		new MetricsHandler(ctx);
+		new MetricsHandler(plugin);
 	}
+
 
 	public void shutDown()
 	{
-		dataStore.close();
+		datastore.close();
 	}
 
 
