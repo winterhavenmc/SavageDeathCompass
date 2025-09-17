@@ -268,6 +268,7 @@
 		<!-- jar filename -->
 		<finalName>${project.name}-${project.version}</finalName>
 
+		<!-- resource directories -->
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
