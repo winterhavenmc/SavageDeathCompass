@@ -87,8 +87,9 @@ public final class PluginController
 	}
 
 
-	public record ContextContainer(JavaPlugin plugin, MessageBuilder messageBuilder, SoundConfiguration soundConfig,
-	                               WorldManager worldManager, DataStore datastore, DeathCompassUtility deathCompassUtility) { }
+	public record ListenerContextContainer(JavaPlugin plugin, MessageBuilder messageBuilder,
+	                                       SoundConfiguration soundConfig, WorldManager worldManager,
+	                                       ConnectionProvider datastore, DeathCompassUtility deathCompassUtility) { }
 
 
 	public record CommandContextContainer(JavaPlugin plugin, MessageBuilder messageBuilder,
