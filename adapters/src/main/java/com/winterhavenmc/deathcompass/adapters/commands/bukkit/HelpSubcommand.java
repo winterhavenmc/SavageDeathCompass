@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Tim Savage.
+ * Copyright (c) 2022-2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,9 +15,9 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.core.commands;
+package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
 
-import com.winterhavenmc.deathcompass.core.PluginController;
+import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
 
 import com.winterhavenmc.deathcompass.core.util.MessageId;
 import com.winterhavenmc.deathcompass.core.util.SoundId;
@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  */
 final class HelpSubcommand extends AbstractSubcommand
 {
-	private final PluginController.CommandContextContainer ctx;
+	private final DeathCompassPluginController.CommandContextContainer ctx;
 	private final SubcommandRegistry subcommandRegistry;
 
 
@@ -45,7 +45,7 @@ final class HelpSubcommand extends AbstractSubcommand
 	 *
 	 * @param subcommandRegistry reference to subcommand registry instance
 	 */
-	HelpSubcommand(final PluginController.CommandContextContainer ctx, final SubcommandRegistry subcommandRegistry)
+	HelpSubcommand(final DeathCompassPluginController.CommandContextContainer ctx, final SubcommandRegistry subcommandRegistry)
 	{
 		this.ctx = ctx;
 		this.subcommandRegistry = Objects.requireNonNull(subcommandRegistry);

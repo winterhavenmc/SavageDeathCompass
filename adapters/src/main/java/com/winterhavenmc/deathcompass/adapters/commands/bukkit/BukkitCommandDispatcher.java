@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Tim Savage.
+ * Copyright (c) 2022-2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,14 +15,14 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.core.commands;
+package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
 
-import com.winterhavenmc.deathcompass.core.PluginController;
+import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
+import com.winterhavenmc.deathcompass.core.ports.commands.CommandDispatcher;
 import com.winterhavenmc.deathcompass.core.util.MessageId;
 import com.winterhavenmc.deathcompass.core.util.SoundId;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -32,16 +32,22 @@ import java.util.stream.Collectors;
 /**
  * A class that implements subcommands for the plugin
  */
-public final class CommandManager implements TabExecutor
+public final class BukkitCommandDispatcher implements CommandDispatcher
 {
-	private final PluginController.CommandContextContainer ctx;
+	private final DeathCompassPluginController.CommandContextContainer ctx;
 	private final SubcommandRegistry subcommandRegistry = new SubcommandRegistry();
+
+
+	public BukkitCommandDispatcher()
+	{
+		this.ctx = null;
+	}
 
 
 	/**
 	 * Class constructor
 	 */
-	public CommandManager(final PluginController.CommandContextContainer ctx)
+	public BukkitCommandDispatcher(final DeathCompassPluginController.CommandContextContainer ctx)
 	{
 		this.ctx = ctx;
 		Objects.requireNonNull(ctx.plugin().getCommand("deathcompass")).setExecutor(this);
@@ -54,6 +60,12 @@ public final class CommandManager implements TabExecutor
 
 		// register help subcommand
 		subcommandRegistry.register(new HelpSubcommand(ctx, subcommandRegistry));
+	}
+
+
+	public CommandDispatcher init(final DeathCompassPluginController.CommandContextContainer ctx)
+	{
+		return new BukkitCommandDispatcher(ctx);
 	}
 
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Tim Savage.
+ * Copyright (c) 2022-2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,10 +15,13 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.core.listeners;
+package com.winterhavenmc.deathcompass.adapters.listeners.bukkit;
 
+import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
+import com.winterhavenmc.deathcompass.core.ports.listeners.PlayerEventListener;
+import com.winterhavenmc.library.messagebuilder.keys.ItemKey;
+import com.winterhavenmc.library.messagebuilder.keys.ValidItemKey;
 import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
-import com.winterhavenmc.deathcompass.core.PluginController;
 import com.winterhavenmc.deathcompass.core.tasks.SetCompassTargetTask;
 import com.winterhavenmc.deathcompass.core.util.Macro;
 import com.winterhavenmc.deathcompass.core.util.MessageId;
@@ -32,7 +35,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
@@ -44,9 +46,10 @@ import java.util.*;
 /**
  * Implements event handlers for player events
  */
-public final class PlayerEventListener implements Listener
+public final class BukkitPlayerEventListener implements PlayerEventListener
 {
-	private final PluginController.ListenerContextContainer ctx;
+	private final static String ITEM_KEY = "DEATH_COMPASS";
+	private final DeathCompassPluginController.ListenerContextContainer ctx;
 	private final LocaleProvider localeProvider;
 
 	// player death respawn hash set, used to prevent giving compass on non-death respawn events
@@ -56,7 +59,17 @@ public final class PlayerEventListener implements Listener
 	/**
 	 * Class constructor
 	 */
-	public PlayerEventListener(final PluginController.ListenerContextContainer ctx)
+	public BukkitPlayerEventListener()
+	{
+		this.ctx = null;
+		this.localeProvider = null;
+	}
+
+
+	/**
+	 * Class constructor
+	 */
+	private BukkitPlayerEventListener(final DeathCompassPluginController.ListenerContextContainer ctx)
 	{
 		this.ctx = ctx;
 		this.localeProvider = LocaleProvider.create(ctx.plugin());
@@ -66,12 +79,31 @@ public final class PlayerEventListener implements Listener
 	}
 
 
+	public PlayerEventListener init(final DeathCompassPluginController.ListenerContextContainer ctx)
+	{
+		return new BukkitPlayerEventListener(ctx);
+	}
+
+
+	/**
+	 * Create a DeathCompass item stack with custom display name and lore
+	 *
+	 * @return ItemStack of DeathCompass
+	 */
+	public ItemStack createItem()
+	{
+		ValidItemKey validItemKey = ItemKey.of(ITEM_KEY).isValid().orElseThrow();
+		return ctx.messageBuilder().itemForge().createItem(validItemKey).orElseThrow();
+	}
+
+
 	/**
 	 * Player death event handler
 	 *
 	 * @param event the event handled by this method
 	 */
 	@EventHandler(priority = EventPriority.LOW)
+	@Override
 	public void onPlayerDeath(final PlayerDeathEvent event)
 	{
 		// if destroy-on-drop is enabled in configuration, remove any death compasses from player drops on death
@@ -85,7 +117,7 @@ public final class PlayerEventListener implements Listener
 			ListIterator<ItemStack> iterator = drops.listIterator();
 
 			// create death compass stack for comparison
-			ItemStack deathCompass = ctx.deathCompassUtility().createItem();
+			ItemStack deathCompass = createItem();
 
 			// loop through all dropped items and remove any stacks that are death compasses
 			while (iterator.hasNext())
@@ -138,6 +170,7 @@ public final class PlayerEventListener implements Listener
 	 * @param event the event handled by this method
 	 */
 	@EventHandler
+	@Override
 	public void onPlayerRespawn(final PlayerRespawnEvent event)
 	{
 		Player player = event.getPlayer();
@@ -186,6 +219,7 @@ public final class PlayerEventListener implements Listener
 	 * @param event the event handled by this method
 	 */
 	@EventHandler
+	@Override
 	public void onPlayerJoin(final PlayerJoinEvent event)
 	{
 		Player player = event.getPlayer();
@@ -203,7 +237,7 @@ public final class PlayerEventListener implements Listener
 		}
 
 		// create 1 compass itemstack with configured settings
-		ItemStack deathcompass = ctx.deathCompassUtility().createItem();
+		ItemStack deathcompass = createItem();
 
 		// get player last death location
 		Location lastDeathLocation = getDeathLocation(player);
@@ -227,6 +261,7 @@ public final class PlayerEventListener implements Listener
 	 * @param event the event handled by this method
 	 */
 	@EventHandler
+	@Override
 	public void onChangeWorld(final PlayerChangedWorldEvent event)
 	{
 		// get player for event
@@ -245,7 +280,7 @@ public final class PlayerEventListener implements Listener
 		}
 
 		// create DeathCompass itemstack
-		ItemStack deathcompass = ctx.deathCompassUtility().createItem();
+		ItemStack deathcompass = createItem();
 
 		// if player does not have a death compass in inventory, do nothing and return
 		if (!player.getInventory().containsAtLeast(deathcompass, 1))
@@ -274,6 +309,7 @@ public final class PlayerEventListener implements Listener
 	 * @param event the event handled by this method
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
+	@Override
 	public void onPlayerInteract(final PlayerInteractEvent event)
 	{
 		// get player
@@ -304,6 +340,7 @@ public final class PlayerEventListener implements Listener
 	 * @param event the event handled by this method
 	 */
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	@Override
 	public void onItemDrop(final PlayerDropItemEvent event)
 	{
 		Player player = event.getPlayer();
@@ -312,7 +349,7 @@ public final class PlayerEventListener implements Listener
 		ItemStack droppedItemStack = event.getItemDrop().getItemStack();
 
 		// create death compass itemstack for comparison
-		ItemStack item = ctx.deathCompassUtility().createItem();
+		ItemStack item = createItem();
 
 		// if droppedItemStack is not a DeathCompass or destroy-on-drop config is not true, do nothing and return
 		if (!droppedItemStack.isSimilar(item) || !ctx.plugin().getConfig().getBoolean("destroy-on-drop"))
@@ -347,7 +384,7 @@ public final class PlayerEventListener implements Listener
 	 */
 	private ItemStack giveDeathCompass(final Player player)
 	{
-		ItemStack deathcompass = ctx.deathCompassUtility().createItem();
+		ItemStack deathcompass = createItem();
 		player.getInventory().addItem(deathcompass);
 
 		ctx.plugin().getLogger().info(player.getName() + " was given a death compass in "
@@ -364,7 +401,7 @@ public final class PlayerEventListener implements Listener
 	 */
 	private void removeDeathCompasses(final Inventory inventory)
 	{
-		ItemStack deathcompass = ctx.deathCompassUtility().createItem();
+		ItemStack deathcompass = createItem();
 		inventory.removeItem(deathcompass);
 	}
 

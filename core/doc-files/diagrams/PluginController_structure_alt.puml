@@ -1,0 +1,102 @@
+@startuml
+' === GLOBAL STYLING ===
+skinparam backgroundColor #f9f9f9
+skinparam shadowing true
+skinparam roundCorner 15
+skinparam ArrowColor #444444
+skinparam ArrowThickness 1.2
+skinparam ArrowFontSize 11
+skinparam packageTitleFontSize 14
+skinparam classFontName "Helvetica"
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor white
+  BorderColor #888888
+}
+
+' stereotypes for role-based coloring
+skinparam class {
+  BackgroundColor<<bootstrap>> Lavender
+  BackgroundColor<<controller>> LightBlue
+  BackgroundColor<<manager>> Lavender
+  BackgroundColor<<dispatcher>> #FFF5CC
+  BackgroundColor<<listener>> #FFF5CC
+  BackgroundColor<<utility>> #E6F0FF
+  BackgroundColor<<repository>> #D5E8D4
+}
+
+' === PACKAGES ===
+package "winterhavenmc" #ececec
+{
+  package "deathcompass" #d8d8d8
+  {
+    ' --- Bootstrap  ---
+    class Bootstrap <<bootstrap>>
+    {
+      # commandDispatcher: CommandDispatcher
+      # inventoryEventListener: InventoryEventListener
+      # playerEventListener: PlayerEventListener
+      # connectionProvider: ConnectionProvider
+      # pluginController: PluginController
+      + onEnable()
+      + onDisable()
+    }
+
+    ' --- controller
+    class PluginController <<controller>>
+    {
+      + commandDispatcher: CommandDispatcher
+      + inventoryEventListener: InventoryEventListener
+      + connectionProvider: ConnectionProvider
+      + messageBuilder: MessageBuilder
+      + playerEventListener: PlayerEventListener
+      + soundConfig: SoundConfiguration
+      + worldManager: WorldManager
+      + startUp(plugin: JavaPlugin, connectionProvider: ConnectionProvider)
+      + shutDown()
+    }
+
+    ' --- Commands ---
+    interface CommandDispatcher <<dispatcher>>
+    {
+      + init(ctx: CommandContextContainer): CommandDispatcher
+      + onCommand(sender: CommandSender, command: Command, label: String, args: String[]): boolean
+      + onTabComplete(sender: CommandSender, command: Command, alias: String, args: String[]): List<String>
+    }
+
+    ' --- Listeners ---
+    interface InventoryEventListener <<listener>>
+    {
+      + init(ctx: ListenerContextContainer): InventoryEventListener
+      + onInventoryClick(event: InventoryClickEvent)
+      + onInventoryDrag(event: InventoryDragEvent)
+      + onInventoryMoveItem(event: InventoryMoveItemEvent)
+    }
+
+    interface PlayerEventListener <<listener>> {
+      + init(ctx: ListenerContextContainer): PlayerEventListener
+      + onChangeWorld(event: PlayerChangedWorldEvent)
+      + onItemDrop(event: PlayerDropItemEvent)
+      + onPlayerDeath(event: PlayerDeathEvent)
+      + onPlayerInteract(event: PlayerInteractEvent)
+      + onPlayerJoin(event: PlayerJoinEvent)
+      + onPlayerRespawn(event: PlayerRespawnEvent)
+    }
+
+    ' --- Persistence ---
+    interface ConnectionProvider <<repository>> {
+      + close()
+      + connect(): ConnectionProvider
+      + deathLocations(): DeathLocationRepository
+    }
+  }
+}
+
+' === RELATIONSHIPS ===
+Bootstrap --> PluginController
+PluginController --> CommandDispatcher
+PluginController --> ConnectionProvider
+PluginController --> InventoryEventListener
+PluginController --> PlayerEventListener
+
+@enduml
