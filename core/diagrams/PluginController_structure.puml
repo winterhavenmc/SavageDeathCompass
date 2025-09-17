@@ -1,0 +1,249 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 1,
+    "backwardDepth": 1,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.winterhavenmc.deathcompass.core.PluginController",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1655488073 { 
+   	label=winterhavenmc
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1835756277 { 
+   	label=deathcompass
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Bootstrap1765702431[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Bootstrap</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   connectionProvider: ConnectionProvider [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   pluginController: PluginController [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ onDisable()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onEnable()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CommandManager2056348299[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CommandManager</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   ctx: CommandContextContainer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   subcommandRegistry: SubcommandRegistry [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- getMatchingSubcommandNames(sender: CommandSender, matchString: String): List&lt;String&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onCommand(sender: CommandSender, command: Command, label: String, args: String[]): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onTabComplete(sender: CommandSender, command: Command, alias: String, args: String[]): List&lt;String&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+DeathCompassUtility1758249349[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DeathCompassUtility</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   plugin: PluginController [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createItem(): ItemStack</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isDeathCompass(itemStack: ItemStack): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+InventoryEventListener397706596[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)InventoryEventListener</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   ctx: ListenerContextContainer [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- cancelInventoryTransfer(event: Cancellable, player: HumanEntity, item: ItemStack)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onInventoryClick(event: InventoryClickEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onInventoryDrag(event: InventoryDragEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onInventoryMoveItem(event: InventoryMoveItemEvent)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PlayerEventListener397706596[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)PlayerEventListener</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   ctx: ListenerContextContainer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   deathTriggeredRespawn: Set&lt;UUID&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   localeProvider: LocaleProvider [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- getDeathLocation(player: Player): Location</TD></TR>
+<TR><TD ALIGN="LEFT" >- giveDeathCompass(player: Player): ItemStack</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onChangeWorld(event: PlayerChangedWorldEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onItemDrop(event: PlayerDropItemEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onPlayerDeath(event: PlayerDeathEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onPlayerInteract(event: PlayerInteractEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onPlayerJoin(event: PlayerJoinEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onPlayerRespawn(event: PlayerRespawnEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >- removeDeathCompasses(inventory: Inventory)</TD></TR>
+<TR><TD ALIGN="LEFT" >- resetDeathCompassTarget(player: Player)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PluginController403687051[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)PluginController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   commandManager: CommandManager [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   datastore: ConnectionProvider [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   deathCompassUtility: DeathCompassUtility [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   inventoryEventListener: InventoryEventListener [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   messageBuilder: MessageBuilder [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   playerEventListener: PlayerEventListener [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   soundConfig: SoundConfiguration [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   worldManager: WorldManager [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ shutDown()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ startUp(plugin: JavaPlugin, connectionProvider: ConnectionProvider)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SqliteConnectionProvider77871971[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SqliteConnectionProvider</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   connection: Connection [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   dataFilePath: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   deathLocationRepository: SqliteDeathLocationRepository [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   initialized: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   localeProvider: LocaleProvider [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   plugin: Plugin [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ close()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ connect(): ConnectionProvider</TD></TR>
+<TR><TD ALIGN="LEFT" >- createDeathLocationTable(connection: Connection)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deathLocations(): DeathLocationRepository</TD></TR>
+<TR><TD ALIGN="LEFT" >- initialize()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+Bootstrap1765702431 -> PluginController403687051[label="pluginController
+[0..1]"];
+PluginController403687051 -> CommandManager2056348299[label="commandManager
+[0..1]"];
+PluginController403687051 -> DeathCompassUtility1758249349[label="deathCompassUtility
+[0..1]"];
+PluginController403687051 -> InventoryEventListener397706596[label="inventoryEventListener
+[0..1]"];
+PluginController403687051 -> PlayerEventListener397706596[label="playerEventListener
+[0..1]"];
+PluginController403687051 -> SqliteConnectionProvider77871971[arrowhead=none];
+    
+}
+@enduml
