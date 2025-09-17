@@ -21,7 +21,6 @@ import com.winterhavenmc.deathcompass.core.commands.CommandManager;
 import com.winterhavenmc.deathcompass.core.listeners.InventoryEventListener;
 import com.winterhavenmc.deathcompass.core.listeners.PlayerEventListener;
 import com.winterhavenmc.deathcompass.core.ports.storage.ConnectionProvider;
-import com.winterhavenmc.deathcompass.core.storage.DataStore;
 import com.winterhavenmc.deathcompass.core.util.DeathCompassUtility;
 import com.winterhavenmc.deathcompass.core.util.MetricsHandler;
 import com.winterhavenmc.library.messagebuilder.MessageBuilder;

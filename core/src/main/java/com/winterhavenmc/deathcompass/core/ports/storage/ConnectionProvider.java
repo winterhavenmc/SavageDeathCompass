@@ -17,8 +17,6 @@
 
 package com.winterhavenmc.deathcompass.core.ports.storage;
 
-import java.sql.SQLException;
-
 
 public interface ConnectionProvider
 {
