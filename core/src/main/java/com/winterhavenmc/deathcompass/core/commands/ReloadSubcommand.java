@@ -31,13 +31,13 @@ import java.util.Objects;
  */
 final class ReloadSubcommand extends AbstractSubcommand
 {
-	private final PluginController.ContextContainer ctx;
+	private final PluginController.CommandContextContainer ctx;
 
 
 	/**
 	 * Class constructor
 	 */
-	ReloadSubcommand(final PluginController.ContextContainer ctx)
+	ReloadSubcommand(final PluginController.CommandContextContainer ctx)
 	{
 		this.ctx = ctx;
 		this.name = "reload";
