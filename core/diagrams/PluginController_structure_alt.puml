@@ -57,20 +57,6 @@ package "winterhavenmc" #ececec {
       + onTabComplete(sender: CommandSender, command: Command, alias: String, args: String[]): List<String>
     }
 
-    ' --- Persistence ---
-    interface ConnectionProvider <<repository>> {
-      + close()
-      + connect(): ConnectionProvider
-      + deathLocations(): DeathLocationRepository
-    }
-
-    ' --- Utility ---
-    class DeathCompassUtility <<utility>> {
-      - plugin: PluginController
-      + createItem(): ItemStack
-      + isDeathCompass(itemStack: ItemStack): boolean
-    }
-
     ' --- Listeners ---
     class InventoryEventListener <<listener>> {
       - ctx: ListenerContextContainer
@@ -94,6 +80,20 @@ package "winterhavenmc" #ececec {
       + onPlayerRespawn(event: PlayerRespawnEvent)
       - removeDeathCompasses(inventory: Inventory)
       - resetDeathCompassTarget(player: Player)
+    }
+
+    ' --- Utility ---
+    class DeathCompassUtility <<utility>> {
+      - plugin: PluginController
+      + createItem(): ItemStack
+      + isDeathCompass(itemStack: ItemStack): boolean
+    }
+
+    ' --- Persistence ---
+    interface ConnectionProvider <<repository>> {
+      + close()
+      + connect(): ConnectionProvider
+      + deathLocations(): DeathLocationRepository
     }
   }
 }
