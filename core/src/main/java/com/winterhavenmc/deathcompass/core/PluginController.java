@@ -66,6 +66,9 @@ public final class PluginController
 		// instantiate death compass utility
 		deathCompassUtility = new DeathCompassUtility(this);
 
+		// instantiate metrics handler
+		new MetricsHandler(plugin);
+
 		// instantiate context container
 		ListenerContextContainer listenerCtx = new ListenerContextContainer(plugin, messageBuilder, soundConfig, worldManager, datastore, deathCompassUtility);
 		CommandContextContainer commandCtx = new CommandContextContainer(plugin, messageBuilder, soundConfig, worldManager);
@@ -74,11 +77,8 @@ public final class PluginController
 		new CommandManager(commandCtx);
 
 		// instantiate event listeners
-		new PlayerEventListener(listenerCtx);
-		new InventoryEventListener(listenerCtx);
-
-		// instantiate metrics handler
-		new MetricsHandler(plugin);
+		playerEventListener = new PlayerEventListener(listenerCtx);
+		inventoryEventListener = new InventoryEventListener(listenerCtx);
 	}
 
 
