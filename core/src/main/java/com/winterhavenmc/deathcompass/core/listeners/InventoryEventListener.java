@@ -41,7 +41,7 @@ import java.util.Set;
  */
 public final class InventoryEventListener implements Listener
 {
-	private final PluginController.ContextContainer ctx;
+	private final PluginController.ListenerContextContainer ctx;
 
 	// set of inventory types to allow shift-click transfers from hot bar (item goes into player inventory)
 	private final static Collection<InventoryType> SHIFT_CLICK_ALLOWED_TYPES = Set.of(
@@ -55,7 +55,7 @@ public final class InventoryEventListener implements Listener
 	/**
 	 * class constructor
 	 */
-	public InventoryEventListener(final PluginController.ContextContainer ctx)
+	public InventoryEventListener(final PluginController.ListenerContextContainer ctx)
 	{
 		this.ctx = ctx;
 

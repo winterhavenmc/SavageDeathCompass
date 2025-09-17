@@ -34,14 +34,14 @@ import java.util.List;
  */
 final class StatusSubcommand extends AbstractSubcommand
 {
-	private final PluginController.ContextContainer ctx;
+	private final PluginController.CommandContextContainer ctx;
 	private final LocaleProvider localeProvider;
 
 
 	/**
 	 * Class constructor
 	 */
-	StatusSubcommand(final PluginController.ContextContainer ctx)
+	StatusSubcommand(final PluginController.CommandContextContainer ctx)
 	{
 		this.ctx = ctx;
 		this.name = "status";

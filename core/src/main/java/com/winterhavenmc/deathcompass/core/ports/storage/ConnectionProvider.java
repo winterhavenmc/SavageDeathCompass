@@ -17,15 +17,13 @@
 
 package com.winterhavenmc.deathcompass.core.ports.storage;
 
-import java.sql.SQLException;
-
 
 public interface ConnectionProvider
 {
 	/**
 	 * Initialize datastore
 	 */
-	void connect() throws SQLException, ClassNotFoundException;
+	ConnectionProvider connect();
 
 
 	/**

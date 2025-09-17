@@ -28,7 +28,7 @@ enum SubcommandType
 	RELOAD()
 			{
 				@Override
-				Subcommand create(final PluginController.ContextContainer ctx)
+				Subcommand create(final PluginController.CommandContextContainer ctx)
 				{
 					return new ReloadSubcommand(ctx);
 				}
@@ -37,12 +37,12 @@ enum SubcommandType
 	STATUS()
 			{
 				@Override
-				Subcommand create(final PluginController.ContextContainer ctx)
+				Subcommand create(final PluginController.CommandContextContainer ctx)
 				{
 					return new StatusSubcommand(ctx);
 				}
 			};
 
-	abstract Subcommand create(final PluginController.ContextContainer ctx);
+	abstract Subcommand create(final PluginController.CommandContextContainer ctx);
 
 }

@@ -46,7 +46,7 @@ import java.util.*;
  */
 public final class PlayerEventListener implements Listener
 {
-	private final PluginController.ContextContainer ctx;
+	private final PluginController.ListenerContextContainer ctx;
 	private final LocaleProvider localeProvider;
 
 	// player death respawn hash set, used to prevent giving compass on non-death respawn events
@@ -56,7 +56,7 @@ public final class PlayerEventListener implements Listener
 	/**
 	 * Class constructor
 	 */
-	public PlayerEventListener(final PluginController.ContextContainer ctx)
+	public PlayerEventListener(final PluginController.ListenerContextContainer ctx)
 	{
 		this.ctx = ctx;
 		this.localeProvider = LocaleProvider.create(ctx.plugin());
