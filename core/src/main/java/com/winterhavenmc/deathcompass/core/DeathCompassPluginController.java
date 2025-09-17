@@ -18,6 +18,7 @@
 package com.winterhavenmc.deathcompass.core;
 
 import com.winterhavenmc.deathcompass.core.ports.commands.CommandDispatcher;
+import com.winterhavenmc.deathcompass.core.ports.controllers.PluginController;
 import com.winterhavenmc.deathcompass.core.ports.listeners.InventoryEventListener;
 import com.winterhavenmc.deathcompass.core.ports.listeners.PlayerEventListener;
 import com.winterhavenmc.deathcompass.core.ports.storage.ConnectionProvider;
