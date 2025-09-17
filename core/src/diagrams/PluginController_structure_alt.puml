@@ -1,0 +1,109 @@
+@startuml
+' === GLOBAL STYLING ===
+skinparam backgroundColor #f9f9f9
+skinparam shadowing true
+skinparam roundCorner 15
+skinparam ArrowColor #444444
+skinparam ArrowThickness 1.2
+skinparam ArrowFontSize 11
+skinparam packageTitleFontSize 14
+skinparam classFontName "Helvetica"
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor white
+  BorderColor #888888
+}
+
+' stereotypes for role-based coloring
+skinparam class {
+  BackgroundColor<<controller>> LightBlue
+  BackgroundColor<<manager>> Lavender
+  BackgroundColor<<listener>> #FFF5CC
+  BackgroundColor<<utility>> #E6F0FF
+  BackgroundColor<<repository>> #D5E8D4
+}
+
+' === PACKAGES ===
+package "winterhavenmc" #ececec {
+  package "deathcompass" #d8d8d8 {
+
+    ' --- Bootstrap & controller ---
+    class Bootstrap <<controller>> {
+      - connectionProvider: ConnectionProvider
+      - pluginController: PluginController
+      + onEnable()
+      + onDisable()
+    }
+
+    class PluginController <<controller>> {
+      + commandManager: CommandManager
+      + datastore: ConnectionProvider
+      + deathCompassUtility: DeathCompassUtility
+      + inventoryEventListener: InventoryEventListener
+      + messageBuilder: MessageBuilder
+      + playerEventListener: PlayerEventListener
+      + soundConfig: SoundConfiguration
+      + worldManager: WorldManager
+      + startUp(plugin: JavaPlugin, connectionProvider: ConnectionProvider)
+      + shutDown()
+    }
+
+    ' --- Commands ---
+    class CommandManager <<manager>> {
+      - ctx: CommandContextContainer
+      - subcommandRegistry: SubcommandRegistry
+      - getMatchingSubcommandNames(sender: CommandSender, matchString: String): List<String>
+      + onCommand(sender: CommandSender, command: Command, label: String, args: String[]): boolean
+      + onTabComplete(sender: CommandSender, command: Command, alias: String, args: String[]): List<String>
+    }
+
+    ' --- Persistence ---
+    interface ConnectionProvider <<repository>> {
+      + close()
+      + connect(): ConnectionProvider
+      + deathLocations(): DeathLocationRepository
+    }
+
+    ' --- Utility ---
+    class DeathCompassUtility <<utility>> {
+      - plugin: PluginController
+      + createItem(): ItemStack
+      + isDeathCompass(itemStack: ItemStack): boolean
+    }
+
+    ' --- Listeners ---
+    class InventoryEventListener <<listener>> {
+      - ctx: ListenerContextContainer
+      - cancelInventoryTransfer(event: Cancellable, player: HumanEntity, item: ItemStack)
+      + onInventoryClick(event: InventoryClickEvent)
+      + onInventoryDrag(event: InventoryDragEvent)
+      + onInventoryMoveItem(event: InventoryMoveItemEvent)
+    }
+
+    class PlayerEventListener <<listener>> {
+      - ctx: ListenerContextContainer
+      - deathTriggeredRespawn: Set<UUID>
+      - localeProvider: LocaleProvider
+      - getDeathLocation(player: Player): Location
+      - giveDeathCompass(player: Player): ItemStack
+      + onChangeWorld(event: PlayerChangedWorldEvent)
+      + onItemDrop(event: PlayerDropItemEvent)
+      + onPlayerDeath(event: PlayerDeathEvent)
+      + onPlayerInteract(event: PlayerInteractEvent)
+      + onPlayerJoin(event: PlayerJoinEvent)
+      + onPlayerRespawn(event: PlayerRespawnEvent)
+      - removeDeathCompasses(inventory: Inventory)
+      - resetDeathCompassTarget(player: Player)
+    }
+  }
+}
+
+' === RELATIONSHIPS ===
+Bootstrap --> PluginController
+PluginController --> CommandManager
+PluginController --> ConnectionProvider
+PluginController --> DeathCompassUtility
+PluginController --> InventoryEventListener
+PluginController --> PlayerEventListener
+
+@enduml
