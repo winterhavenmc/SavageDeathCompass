@@ -74,7 +74,7 @@ public final class PluginController
 		CommandContextContainer commandCtx = new CommandContextContainer(plugin, messageBuilder, soundConfig, worldManager);
 
 		// instantiate command handler
-		new CommandManager(commandCtx);
+		commandManager = new CommandManager(commandCtx);
 
 		// instantiate event listeners
 		playerEventListener = new PlayerEventListener(listenerCtx);
