@@ -23,6 +23,7 @@ import com.winterhavenmc.deathcompass.core.listeners.PlayerEventListener;
 import com.winterhavenmc.deathcompass.core.ports.storage.ConnectionProvider;
 import com.winterhavenmc.deathcompass.core.util.DeathCompassUtility;
 import com.winterhavenmc.deathcompass.core.util.MetricsHandler;
+
 import com.winterhavenmc.library.messagebuilder.MessageBuilder;
 import com.winterhavenmc.library.soundconfig.SoundConfiguration;
 import com.winterhavenmc.library.soundconfig.YamlSoundConfiguration;
