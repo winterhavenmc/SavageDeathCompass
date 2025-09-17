@@ -16,30 +16,38 @@ skinparam class {
 
 ' stereotypes for role-based coloring
 skinparam class {
+  BackgroundColor<<bootstrap>> Lavender
   BackgroundColor<<controller>> LightBlue
   BackgroundColor<<manager>> Lavender
+  BackgroundColor<<dispatcher>> #FFF5CC
   BackgroundColor<<listener>> #FFF5CC
   BackgroundColor<<utility>> #E6F0FF
   BackgroundColor<<repository>> #D5E8D4
 }
 
 ' === PACKAGES ===
-package "winterhavenmc" #ececec {
-  package "deathcompass" #d8d8d8 {
-
-    ' --- Bootstrap & controller ---
-    class Bootstrap <<controller>> {
-      - connectionProvider: ConnectionProvider
-      - pluginController: PluginController
+package "winterhavenmc" #ececec
+{
+  package "deathcompass" #d8d8d8
+  {
+    ' --- Bootstrap  ---
+    class Bootstrap <<bootstrap>>
+    {
+      # commandDispatcher: CommandDispatcher
+      # inventoryEventListener: InventoryEventListener
+      # playerEventListener: PlayerEventListener
+      # connectionProvider: ConnectionProvider
+      # pluginController: PluginController
       + onEnable()
       + onDisable()
     }
 
-    class PluginController <<controller>> {
-      + commandManager: CommandManager
-      + datastore: ConnectionProvider
-      + deathCompassUtility: DeathCompassUtility
+    ' --- controller
+    class PluginController <<controller>>
+    {
+      + commandDispatcher: CommandDispatcher
       + inventoryEventListener: InventoryEventListener
+      + connectionProvider: ConnectionProvider
       + messageBuilder: MessageBuilder
       + playerEventListener: PlayerEventListener
       + soundConfig: SoundConfiguration
@@ -49,44 +57,30 @@ package "winterhavenmc" #ececec {
     }
 
     ' --- Commands ---
-    class CommandManager <<manager>> {
-      - ctx: CommandContextContainer
-      - subcommandRegistry: SubcommandRegistry
-      - getMatchingSubcommandNames(sender: CommandSender, matchString: String): List<String>
+    interface CommandDispatcher <<dispatcher>>
+    {
+      + init(ctx: CommandContextContainer): CommandDispatcher
       + onCommand(sender: CommandSender, command: Command, label: String, args: String[]): boolean
       + onTabComplete(sender: CommandSender, command: Command, alias: String, args: String[]): List<String>
     }
 
     ' --- Listeners ---
-    class InventoryEventListener <<listener>> {
-      - ctx: ListenerContextContainer
-      - cancelInventoryTransfer(event: Cancellable, player: HumanEntity, item: ItemStack)
+    interface InventoryEventListener <<listener>>
+    {
+      + init(ctx: ListenerContextContainer): InventoryEventListener
       + onInventoryClick(event: InventoryClickEvent)
       + onInventoryDrag(event: InventoryDragEvent)
       + onInventoryMoveItem(event: InventoryMoveItemEvent)
     }
 
-    class PlayerEventListener <<listener>> {
-      - ctx: ListenerContextContainer
-      - deathTriggeredRespawn: Set<UUID>
-      - localeProvider: LocaleProvider
-      - getDeathLocation(player: Player): Location
-      - giveDeathCompass(player: Player): ItemStack
+    interface PlayerEventListener <<listener>> {
+      + init(ctx: ListenerContextContainer): PlayerEventListener
       + onChangeWorld(event: PlayerChangedWorldEvent)
       + onItemDrop(event: PlayerDropItemEvent)
       + onPlayerDeath(event: PlayerDeathEvent)
       + onPlayerInteract(event: PlayerInteractEvent)
       + onPlayerJoin(event: PlayerJoinEvent)
       + onPlayerRespawn(event: PlayerRespawnEvent)
-      - removeDeathCompasses(inventory: Inventory)
-      - resetDeathCompassTarget(player: Player)
-    }
-
-    ' --- Utility ---
-    class DeathCompassUtility <<utility>> {
-      - plugin: PluginController
-      + createItem(): ItemStack
-      + isDeathCompass(itemStack: ItemStack): boolean
     }
 
     ' --- Persistence ---
@@ -100,9 +94,8 @@ package "winterhavenmc" #ececec {
 
 ' === RELATIONSHIPS ===
 Bootstrap --> PluginController
-PluginController --> CommandManager
+PluginController --> CommandDispatcher
 PluginController --> ConnectionProvider
-PluginController --> DeathCompassUtility
 PluginController --> InventoryEventListener
 PluginController --> PlayerEventListener
 
