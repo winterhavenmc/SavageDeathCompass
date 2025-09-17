@@ -44,6 +44,9 @@ public final class PluginController
 	public WorldManager worldManager;
 	public ConnectionProvider datastore;
 	public DeathCompassUtility deathCompassUtility;
+	public CommandManager commandManager;
+	public PlayerEventListener playerEventListener;
+	public InventoryEventListener inventoryEventListener;
 
 
 	public void startUp(final JavaPlugin plugin, final ConnectionProvider connectionProvider)
