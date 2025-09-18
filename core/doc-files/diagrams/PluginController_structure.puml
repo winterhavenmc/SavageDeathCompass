@@ -299,12 +299,10 @@ SqliteConnectionProvider77871971[
 } 
 
 'edges    
-Bootstrap1765702431 -> PluginController403687051[label="pluginController
-[0..1]"];
+Bootstrap1765702431 -> PluginController403687051[label="pluginController[0..1]"];
 CommandDispatcher1220509017 -> BukkitCommandDispatcher601531782[arrowhead=none, arrowtail=empty, dir=both];
 ConnectionProvider380188036 -> SqliteConnectionProvider77871971[arrowhead=none, arrowtail=empty, dir=both];
-DeathCompassPluginController403687051 -> CommandDispatcher1220509017[label="commandDispatcher
-[0..1]"];
+DeathCompassPluginController403687051 -> CommandDispatcher1220509017[label="commandDispatcher[0..1]"];
 DeathCompassPluginController403687051 -> ConnectionProvider380188036[label="datastore
 [0..1]"];
 DeathCompassPluginController403687051 -> InventoryEventListener1098931712[label="inventoryEventListener

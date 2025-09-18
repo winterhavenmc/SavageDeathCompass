@@ -1,0 +1,1713 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   contentStyleType="text/css"
+   data-diagram-type="CLASS"
+   height="1407px"
+   preserveAspectRatio="none"
+   style="width:2277px;height:1407px;background:#F9F9F9;"
+   version="1.1"
+   viewBox="0 0 2277 1407"
+   width="2277px"
+   zoomAndPan="magnify"
+   id="svg384"
+   sodipodi:docname="PluginController_structure_alt_3.svg"
+   inkscape:version="1.2.2 (b0a8486, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview386"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="2.188845"
+     inkscape:cx="362.29153"
+     inkscape:cy="297.1887"
+     inkscape:window-width="2559"
+     inkscape:window-height="1469"
+     inkscape:window-x="1"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg384" />
+  <defs
+     id="defs11">
+    <filter
+       height="1.1340861"
+       id="fnlgjclvlmjza"
+       width="1.0430033"
+       x="-0.015401892"
+       y="-0.04802375">
+      <feGaussianBlur
+         result="blurOut"
+         stdDeviation="2"
+         id="feGaussianBlur2" />
+      <feColorMatrix
+         in="blurOut"
+         result="blurOut2"
+         type="matrix"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"
+         id="feColorMatrix4" />
+      <feOffset
+         dx="4"
+         dy="4"
+         in="blurOut2"
+         result="blurOut3"
+         id="feOffset6" />
+      <feBlend
+         in="SourceGraphic"
+         in2="blurOut3"
+         mode="normal"
+         id="feBlend8" />
+    </filter>
+  </defs>
+  <g
+     id="g382"
+     transform="translate(-1.2922008)">
+    <rect
+       fill="#f9f9f9"
+       height="1407"
+       style="stroke:none;stroke-width:1"
+       width="2277"
+       x="0"
+       y="0"
+       id="rect13" />
+    <!--cluster winterhavenmc-->
+    <g
+       class="cluster"
+       data-entity="winterhavenmc"
+       data-source-line="31"
+       data-uid="ent0002"
+       id="cluster_winterhavenmc">
+      <path
+         d="m 13.5,6 h 112.6797 a 11.25,11.25 0 0 1 7.5,7.5 l 7,14.7969 H 2255.5 a 7.5,7.5 0 0 1 7.5,7.5 V 1385.62 a 7.5,7.5 0 0 1 -7.5,7.5 H 13.5 A 7.5,7.5 0 0 1 6,1385.62 V 13.5 A 7.5,7.5 0 0 1 13.5,6"
+         fill="#ececec"
+         filter="url(#fnlgjclvlmjza)"
+         style="stroke:#000000;stroke-width:1.5"
+         id="path15" />
+      <line
+         style="stroke:#000000;stroke-width:1.5"
+         x1="6"
+         x2="140.6797"
+         y1="28.2969"
+         y2="28.2969"
+         id="line17" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="121.6797"
+         x="10"
+         y="20.9951"
+         id="text19">winterhavenmc</text>
+    </g>
+    <!--cluster deathcompass-->
+    <g
+       class="cluster"
+       data-entity="deathcompass"
+       data-source-line="32"
+       data-uid="ent0003"
+       id="cluster_deathcompass">
+      <path
+         d="m 37.5,49 h 105.2627 a 11.25,11.25 0 0 1 7.5,7.5 l 7,14.7969 H 2231.5 a 7.5,7.5 0 0 1 7.5,7.5 V 1361.62 a 7.5,7.5 0 0 1 -7.5,7.5 H 37.5 a 7.5,7.5 0 0 1 -7.5,-7.5 V 56.5 A 7.5,7.5 0 0 1 37.5,49"
+         fill="#d8d8d8"
+         filter="url(#fnlgjclvlmjza)"
+         style="stroke:#000000;stroke-width:1.5"
+         id="path22" />
+      <line
+         style="stroke:#000000;stroke-width:1.5"
+         x1="30"
+         x2="157.2627"
+         y1="71.296898"
+         y2="71.296898"
+         id="line24" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="114.2627"
+         x="34"
+         y="63.995098"
+         id="text26">deathcompass</text>
+    </g>
+    <!--cluster bootstrap-->
+    <path
+       d="m 67.5,100 h 68.3486 c 3.5956,1.09068 6.4093,3.90441 7.5,7.5 l 7,14.7969 H 60.4224 2196.5 c 8.8965,0 7.5,3.35786 7.5,7.5 V 313.84 c 0,4.14214 -3.3579,7.5 -7.5,7.5 H 67.5 c -4.1421,0 -7.5,-3.35786 -7.5,-7.5 V 107.5 c 0,-4.14214 3.3579,-7.5 7.5,-7.5"
+       fill="#ffffff"
+       filter="url(#fnlgjclvlmjza)"
+       style="stroke:#000000;stroke-width:1.5"
+       id="path29"
+       sodipodi:nodetypes="cccccsssssssc" />
+    <!--cluster core-->
+    <g
+       class="cluster"
+       data-entity="core"
+       data-source-line="49"
+       data-uid="ent0006"
+       id="cluster_core">
+      <path
+         d="m 69.5,345.34 h 25.3164 a 11.25,11.25 0 0 1 7.5,7.5 l 7,14.7969 H 2199.5 a 7.5,7.5 0 0 1 7.5,7.5 V 1084.28 a 7.5,7.5 0 0 1 -7.5,7.5 H 69.5 a 7.5,7.5 0 0 1 -7.5,-7.5 V 352.84 a 7.5,7.5 0 0 1 7.5,-7.5"
+         fill="#ffffff"
+         filter="url(#fnlgjclvlmjza)"
+         style="stroke:#000000;stroke-width:1.5"
+         id="path36" />
+      <line
+         style="stroke:#000000;stroke-width:1.5"
+         x1="62"
+         x2="109.3164"
+         y1="367.6369"
+         y2="367.6369"
+         id="line38" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="34.316399"
+         x="66"
+         y="360.33511"
+         id="text40">core</text>
+    </g>
+    <!--cluster controllerPort-->
+    <g
+       class="cluster"
+       data-entity="controllerPort"
+       data-source-line="50"
+       data-uid="ent0007"
+       id="cluster_controllerPort">
+      <path
+         d="m 94.5,388.34 h 101.5713 c 3.59559,1.09068 6.40932,3.90441 7.5,7.5 l 7,14.7969 H 2171.5 c 4.1421,0 7.5,3.35786 7.5,7.5 V 569.59 c 0,4.14214 -3.3579,7.5 -7.5,7.5 H 94.5 c -4.142136,0 -7.5,-3.35786 -7.5,-7.5 V 395.84 c 0,-4.14214 3.357864,-7.5 7.5,-7.5"
+         fill="#ffffff"
+         filter="url(#fnlgjclvlmjza)"
+         style="stroke:#000000;stroke-width:1.5;fill:#e8e8e8;fill-opacity:1"
+         id="path43"
+         sodipodi:nodetypes="ccccsssssssc" />
+      <line
+         style="stroke:#000000;stroke-width:1.5"
+         x1="87"
+         x2="210.57129"
+         y1="410.6369"
+         y2="410.6369"
+         id="line45" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="110.5713"
+         x="1101"
+         y="403.33511"
+         id="text47"
+         transform="translate(-1012)">controllerPort</text>
+    </g>
+    <!--cluster domain-->
+    <g
+       class="cluster"
+       data-entity="domain"
+       data-source-line="60"
+       data-uid="ent0009"
+       id="cluster_domain">
+      <path
+         d="m 95.5,601.09 h 49.4404 c 3.5956,1.09068 6.4093,3.90441 7.5,7.5 l 7,14.7969 H 2174.5 c 4.1421,0 7.5,3.35786 7.5,7.5 V 814.93 c 0,4.14214 -3.3579,7.5 -7.5,7.5 H 95.5 c -4.1421,0 -7.5,-3.35786 -7.5,-7.5 V 608.59 c 0,-4.14214 3.3579,-7.5 7.5,-7.5"
+         fill="#ffffff"
+         filter="url(#fnlgjclvlmjza)"
+         style="stroke:#000000;stroke-width:1.5;fill:#c9c9c9;fill-opacity:1"
+         id="path50"
+         sodipodi:nodetypes="ccccsssssssc" />
+      <line
+         style="stroke:#000000;stroke-width:1.5"
+         x1="90.38501"
+         x2="161.82538"
+         y1="623.3869"
+         y2="623.3869"
+         id="line52" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="58.440399"
+         x="1172"
+         y="616.08508"
+         id="text54"
+         transform="translate(-1080)">domain</text>
+    </g>
+    <!--cluster ports-->
+    <g
+       class="cluster"
+       data-entity="ports"
+       data-source-line="72"
+       data-uid="ent0011"
+       id="cluster_ports">
+      <path
+         d="m 93.5,846.43 h 32.5693 a 11.25,11.25 0 0 1 7.5,7.5 l 7,14.7969 H 2175.5 a 7.5,7.5 0 0 1 7.5,7.5 V 1060.28 a 7.5,7.5 0 0 1 -7.5,7.5 H 93.5 a 7.5,7.5 0 0 1 -7.5,-7.5 V 853.93 a 7.5,7.5 0 0 1 7.5,-7.5"
+         fill="#ffffff"
+         filter="url(#fnlgjclvlmjza)"
+         style="stroke:#000000;stroke-width:1.5;fill:#e8e8e8;fill-opacity:1"
+         id="path57" />
+      <line
+         style="stroke:#000000;stroke-width:1.5"
+         x1="86"
+         x2="140.56931"
+         y1="868.72693"
+         y2="868.72693"
+         id="line59" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="41.569302"
+         x="90"
+         y="861.42511"
+         id="text61">ports</text>
+    </g>
+    <!--cluster adapters-->
+    <g
+       class="cluster"
+       data-entity="adapters"
+       data-source-line="105"
+       data-uid="ent0016"
+       id="cluster_adapters">
+      <path
+         d="m 71.5,1115.78 h 61.3623 c 3.59559,1.0907 6.40932,3.9044 7.5,7.5 l 7,14.7969 H 2199.5 c 4.1421,0 7.5,3.3579 7.5,7.5 V 1329.62 c 0,4.1421 -3.3579,7.5 -7.5,7.5 H 71.5 c -4.142136,0 -7.5,-3.3579 -7.5,-7.5 v -206.34 c 0,-4.1421 3.357864,-7.5 7.5,-7.5"
+         fill="#ffffff"
+         filter="url(#fnlgjclvlmjza)"
+         style="stroke:#000000;stroke-width:1.5"
+         id="path64"
+         sodipodi:nodetypes="ccccsssssssc" />
+      <line
+         style="stroke:#000000;stroke-width:1.5"
+         x1="64"
+         x2="147.3623"
+         y1="1138.0769"
+         y2="1138.0769"
+         id="line66" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="70.362297"
+         x="90"
+         y="1130.7751"
+         id="text68"
+         transform="translate(-22)">adapters</text>
+    </g>
+    <!--class Bootstrap-->
+    <g
+       class="entity"
+       data-entity="Bootstrap"
+       data-source-line="37"
+       data-uid="ent0005"
+       id="entity_Bootstrap">
+      <rect
+         fill="#ccccff"
+         filter="url(#fnlgjclvlmjza)"
+         height="170.3438"
+         rx="7.5"
+         ry="7.5"
+         style="stroke:#888888;stroke-width:0.5"
+         width="359.26559"
+         x="1184.37"
+         y="135"
+         id="rect71" />
+      <circle
+         cx="1325.4774"
+         cy="155.1328"
+         fill="#add1b2"
+         style="stroke:#181818;stroke-width:1"
+         id="ellipse73"
+         r="11" />
+      <path
+         d="m 1328.4462,160.7734 q -0.5782,0.2969 -1.2188,0.4375 -0.6406,0.1563 -1.3437,0.1563 -2.5,0 -3.8282,-1.6406 -1.3125,-1.6563 -1.3125,-4.7813 0,-3.125 1.3125,-4.7812 1.3282,-1.6563 3.8282,-1.6563 0.7031,0 1.3437,0.1563 0.6563,0.1562 1.2188,0.4531 v 2.7187 q -0.625,-0.5781 -1.2188,-0.8437 -0.5937,-0.2813 -1.2187,-0.2813 -1.3438,0 -2.0313,1.0782 -0.6875,1.0625 -0.6875,3.1562 0,2.0938 0.6875,3.1719 0.6875,1.0625 2.0313,1.0625 0.625,0 1.2187,-0.2656 0.5938,-0.2813 1.2188,-0.8594 z"
+         fill="#000000"
+         id="path75" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="72.550797"
+         x="1343.9774"
+         y="151.1387"
+         id="text77">«bootstrap»</text>
+      <text
+         fill="#000000"
+         font-family="Helvetica"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="68.2295"
+         x="1346.1381"
+         y="166.9639"
+         id="text79">Bootstrap</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1185.37"
+         x2="1542.6356"
+         y1="175.26559"
+         y2="175.26559"
+         id="line81" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="314.44629"
+         x="1190.37"
+         y="192.2607"
+         id="text83">#commandDispatcher: CommandDispatcher</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="347.26559"
+         x="1190.37"
+         y="208.5576"
+         id="text85">#inventoryEventListener: InventoryEventListener</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="301.3418"
+         x="1190.37"
+         y="224.85451"
+         id="text87">#playerEventListener: PlayerEventListener</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="293.6377"
+         x="1190.37"
+         y="241.1514"
+         id="text89">#connectionProvider: ConnectionProvider</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="245.3965"
+         x="1190.37"
+         y="257.44821"
+         id="text91">#pluginController: PluginController</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1185.37"
+         x2="1542.6356"
+         y1="264.75"
+         y2="264.75"
+         id="line93" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="87.780296"
+         x="1190.37"
+         y="281.74509"
+         id="text95">+onEnable()</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="92.025398"
+         x="1190.37"
+         y="298.04199"
+         id="text97">+onDisable()</text>
+    </g>
+    <!--class PluginController-->
+    <g
+       class="entity"
+       data-entity="PluginController"
+       data-source-line="51"
+       data-uid="ent0008"
+       id="entity_PluginController">
+      <rect
+         fill="#dcf8ff"
+         filter="url(#fnlgjclvlmjza)"
+         height="137.75"
+         rx="7.5"
+         ry="7.5"
+         style="stroke:#888888;stroke-width:0.5"
+         width="501.08401"
+         x="1113.46"
+         y="423.34"
+         id="rect100" />
+      <circle
+         cx="1303.7383"
+         cy="443.47281"
+         fill="#b4a7e5"
+         style="stroke:#181818;stroke-width:1"
+         id="ellipse102"
+         r="11" />
+      <path
+         d="m 1299.6602,439.2384 v -2.1562 h 7.3906 v 2.1562 h -2.4687 v 8.0782 h 2.4687 v 2.1562 h -7.3906 v -2.1562 h 2.4687 v -8.0782 z"
+         fill="#000000"
+         id="path104" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="96.410202"
+         x="1332.0469"
+         y="439.4787"
+         id="text106">«controllerPort»</text>
+      <text
+         fill="#000000"
+         font-family="Helvetica"
+         font-size="14px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="112.0273"
+         x="1324.2383"
+         y="455.30389"
+         id="text108">PluginController</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1114.46"
+         x2="1613.5439"
+         y1="463.60559"
+         y2="463.60559"
+         id="line110" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="318.89651"
+         x="1119.46"
+         y="480.60071"
+         id="text112">+commandDispatcher: CommandDispatcher,</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="351.71579"
+         x="1119.46"
+         y="496.89761"
+         id="text114">+inventoryEventListener: InventoryEventListener,</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1114.46"
+         x2="1613.5439"
+         y1="504.1994"
+         y2="504.1994"
+         id="line116" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="489.08401"
+         x="1119.46"
+         y="521.19452"
+         id="text118">+startUp(plugin: JavaPlugin, connectionProvider: ConnectionProvider,</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="306.80371"
+         x="1119.46"
+         y="537.49139"
+         id="text120">+playerEventListener: PlayerEventListener)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="92.852501"
+         x="1119.46"
+         y="553.78821"
+         id="text122">+shutDown()</text>
+    </g>
+    <!--class DeathCompassPluginController-->
+    <g
+       class="entity"
+       data-entity="DeathCompassPluginController"
+       data-source-line="61"
+       data-uid="ent0010"
+       id="entity_DeathCompassPluginController">
+      <rect
+         fill="#add8e6"
+         filter="url(#fnlgjclvlmjza)"
+         height="170.3438"
+         rx="7.5"
+         ry="7.5"
+         style="stroke:#888888;stroke-width:0.5"
+         width="359.26559"
+         x="1184.37"
+         y="636.09003"
+         id="rect125" />
+      <circle
+         cx="1250.5555"
+         cy="656.22278"
+         fill="#add1b2"
+         style="stroke:#181818;stroke-width:1"
+         id="ellipse127"
+         r="11" />
+      <path
+         d="m 1253.5243,661.8634 q -0.5781,0.2969 -1.2188,0.4375 -0.6406,0.1563 -1.3437,0.1563 -2.5,0 -3.8281,-1.6406 -1.3125,-1.6563 -1.3125,-4.7813 0,-3.125 1.3125,-4.7812 1.3281,-1.6563 3.8281,-1.6563 0.7031,0 1.3437,0.1563 0.6563,0.1562 1.2188,0.4531 v 2.7187 q -0.625,-0.5781 -1.2188,-0.8437 -0.5937,-0.2813 -1.2187,-0.2813 -1.3438,0 -2.0313,1.0782 -0.6875,1.0625 -0.6875,3.1562 0,2.0938 0.6875,3.1719 0.6875,1.0625 2.0313,1.0625 0.625,0 1.2187,-0.2656 0.5938,-0.2813 1.2188,-0.8594 z"
+         fill="#000000"
+         id="path129" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="72.193398"
+         x="1344.1561"
+         y="652.2287"
+         id="text131">«controller»</text>
+      <text
+         fill="#000000"
+         font-family="Helvetica"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="218.3945"
+         x="1271.0555"
+         y="668.05389"
+         id="text133">DeathCompassPluginController</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1185.37"
+         x2="1542.6356"
+         y1="676.35559"
+         y2="676.35559"
+         id="line135" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="314.44629"
+         x="1190.37"
+         y="693.35071"
+         id="text137">+commandDispatcher: CommandDispatcher</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="347.26559"
+         x="1190.37"
+         y="709.64758"
+         id="text139">+inventoryEventListener: InventoryEventListener</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="293.6377"
+         x="1190.37"
+         y="725.94452"
+         id="text141">+connectionProvider: ConnectionProvider</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="244.2002"
+         x="1190.37"
+         y="742.24139"
+         id="text143">+messageBuilder: MessageBuilder</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="301.3418"
+         x="1190.37"
+         y="758.53821"
+         id="text145">+playerEventListener: PlayerEventListener</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="247.33791"
+         x="1190.37"
+         y="774.83508"
+         id="text147">+soundConfig: SoundConfiguration</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="223.11819"
+         x="1190.37"
+         y="791.13202"
+         id="text149">+worldManager: WorldManager</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1185.37"
+         x2="1542.6356"
+         y1="798.43372"
+         y2="798.43372"
+         id="line151" />
+    </g>
+    <!--class CommandDispatcher-->
+    <g
+       class="entity"
+       data-entity="CommandDispatcher"
+       data-source-line="73"
+       data-uid="ent0012"
+       id="entity_CommandDispatcher">
+      <rect
+         fill="#ffe1e1"
+         filter="url(#fnlgjclvlmjza)"
+         height="105.1563"
+         rx="7.5"
+         ry="7.5"
+         style="stroke:#888888;stroke-width:0.5"
+         width="776.51758"
+         x="101.74"
+         y="914.03003"
+         id="rect154" />
+      <circle
+         cx="411.8421"
+         cy="934.16278"
+         fill="#b4a7e5"
+         style="stroke:#181818;stroke-width:1"
+         id="ellipse156"
+         r="11" />
+      <path
+         d="m 407.7639,929.9284 v -2.1562 h 7.3907 v 2.1562 h -2.4688 v 8.0782 h 2.4688 v 2.1562 h -7.3907 v -2.1562 h 2.4688 v -8.0782 z"
+         fill="#000000"
+         id="path158" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="102.2988"
+         x="455.0994"
+         y="930.1687"
+         id="text160">«dispatcherPort»</text>
+      <text
+         fill="#000000"
+         font-family="Helvetica"
+         font-size="14px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="147.81351"
+         x="432.3421"
+         y="945.9939"
+         id="text162">CommandDispatcher</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="102.74"
+         x2="877.25763"
+         y1="954.29559"
+         y2="954.29559"
+         id="line164" />
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="102.74"
+         x2="877.25763"
+         y1="962.29559"
+         y2="962.29559"
+         id="line166" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="427.875"
+         x="107.74"
+         y="979.29071"
+         id="text168">+init(ctx: CommandContextContainer): CommandDispatcher</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="710.86908"
+         x="107.74"
+         y="995.58759"
+         id="text170">+onCommand(sender: CommandSender, command: Command, label: String, args: String[]): boolean</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="764.51758"
+         x="107.74"
+         y="1011.8845"
+         id="text172">+onTabComplete(sender: CommandSender, command: Command, alias: String, args: String[]): List&lt;String&gt;</text>
+    </g>
+    <!--class InventoryEventListener-->
+    <g
+       class="entity"
+       data-entity="InventoryEventListener"
+       data-source-line="79"
+       data-uid="ent0013"
+       id="entity_InventoryEventListener">
+      <rect
+         fill="#fff5cc"
+         filter="url(#fnlgjclvlmjza)"
+         height="121.4531"
+         rx="7.5"
+         ry="7.5"
+         style="stroke:#888888;stroke-width:0.5"
+         width="439.73831"
+         x="913.13"
+         y="905.88"
+         id="rect175" />
+      <circle
+         cx="1047.0973"
+         cy="926.01282"
+         fill="#b4a7e5"
+         style="stroke:#181818;stroke-width:1"
+         id="ellipse177"
+         r="11" />
+      <path
+         d="m 1043.0192,921.7784 v -2.1562 h 7.3906 v 2.1562 h -2.4688 v 8.0782 h 2.4688 v 2.1562 h -7.3906 v -2.1562 h 2.4687 v -8.0782 z"
+         fill="#000000"
+         id="path179" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="83.830101"
+         x="1107.3341"
+         y="922.01868"
+         id="text181">«listenerPort»</text>
+      <text
+         fill="#000000"
+         font-family="Helvetica"
+         font-size="14px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="163.3037"
+         x="1067.5973"
+         y="937.84387"
+         id="text183">InventoryEventListener</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="914.13"
+         x2="1351.8683"
+         y1="946.14563"
+         y2="946.14563"
+         id="line185" />
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="914.13"
+         x2="1351.8683"
+         y1="954.14563"
+         y2="954.14563"
+         id="line187" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="427.73831"
+         x="919.13"
+         y="971.14069"
+         id="text189">+init(ctx: ListenerContextContainer): InventoryEventListener</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="329.6973"
+         x="919.13"
+         y="987.43762"
+         id="text191">+onInventoryClick(event: InventoryClickEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="330.98239"
+         x="919.13"
+         y="1003.7345"
+         id="text193">+onInventoryDrag(event: InventoryDragEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="401.8027"
+         x="919.13"
+         y="1020.0314"
+         id="text195">+onInventoryMoveItem(event: InventoryMoveItemEvent)</text>
+    </g>
+    <!--class PlayerEventListener-->
+    <g
+       class="entity"
+       data-entity="PlayerEventListener"
+       data-source-line="86"
+       data-uid="ent0014"
+       id="entity_PlayerEventListener">
+      <rect
+         fill="#fff5cc"
+         filter="url(#fnlgjclvlmjza)"
+         height="170.3438"
+         rx="7.5"
+         ry="7.5"
+         style="stroke:#888888;stroke-width:0.5"
+         width="416.4346"
+         x="1387.78"
+         y="881.42999"
+         id="rect198" />
+      <circle
+         cx="1521.7473"
+         cy="901.56281"
+         fill="#b4a7e5"
+         style="stroke:#181818;stroke-width:1"
+         id="ellipse200"
+         r="11" />
+      <path
+         d="m 1517.6692,897.3284 v -2.1562 h 7.3906 v 2.1562 h -2.4688 v 8.0782 h 2.4688 v 2.1562 h -7.3906 v -2.1562 h 2.4687 v -8.0782 z"
+         fill="#000000"
+         id="path202" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="83.830101"
+         x="1570.3322"
+         y="897.56873"
+         id="text204">«listenerPort»</text>
+      <text
+         fill="#000000"
+         font-family="Helvetica"
+         font-size="14px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="140"
+         x="1542.2473"
+         y="913.39392"
+         id="text206">PlayerEventListener</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1388.78"
+         x2="1803.2146"
+         y1="921.69562"
+         y2="921.69562"
+         id="line208" />
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1388.78"
+         x2="1803.2146"
+         y1="929.69562"
+         y2="929.69562"
+         id="line210" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="404.4346"
+         x="1393.78"
+         y="946.69067"
+         id="text212">+init(ctx: ListenerContextContainer): PlayerEventListener</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="370.77441"
+         x="1393.78"
+         y="962.98761"
+         id="text214">+onChangeWorld(event: PlayerChangedWorldEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="304.52051"
+         x="1393.78"
+         y="979.28448"
+         id="text216">+onItemDrop(event: PlayerDropItemEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="301.04099"
+         x="1393.78"
+         y="995.58142"
+         id="text218">+onPlayerDeath(event: PlayerDeathEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="325.62299"
+         x="1393.78"
+         y="1011.8782"
+         id="text220">+onPlayerInteract(event: PlayerInteractEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="267.28519"
+         x="1393.78"
+         y="1028.175"
+         id="text222">+onPlayerJoin(event: PlayerJoinEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="343.21881"
+         x="1393.78"
+         y="1044.472"
+         id="text224">+onPlayerRespawn(event: PlayerRespawnEvent)</text>
+    </g>
+    <!--class ConnectionProvider-->
+    <g
+       class="entity"
+       data-entity="ConnectionProvider"
+       data-source-line="96"
+       data-uid="ent0015"
+       id="entity_ConnectionProvider">
+      <rect
+         fill="#ddffdd"
+         filter="url(#fnlgjclvlmjza)"
+         height="105.1563"
+         rx="7.5"
+         ry="7.5"
+         style="stroke:#888888;stroke-width:0.5"
+         width="327.88181"
+         x="1839.0601"
+         y="914.03003"
+         id="rect227" />
+      <circle
+         cx="1930.0463"
+         cy="934.16278"
+         fill="#b4a7e5"
+         style="stroke:#181818;stroke-width:1"
+         id="ellipse229"
+         r="11" />
+      <path
+         d="m 1925.9682,929.9284 v -2.1562 h 7.3906 v 2.1562 h -2.4687 v 8.0782 h 2.4687 v 2.1562 h -7.3906 v -2.1562 h 2.4688 v -8.0782 z"
+         fill="#000000"
+         id="path231" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="99.843803"
+         x="1969.329"
+         y="930.1687"
+         id="text233">«repositoryPort»</text>
+      <text
+         fill="#000000"
+         font-family="Helvetica"
+         font-size="14px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="137.40919"
+         x="1950.5463"
+         y="945.9939"
+         id="text235">ConnectionProvider</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1840.0601"
+         x2="2165.9419"
+         y1="954.29559"
+         y2="954.29559"
+         id="line237" />
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1840.0601"
+         x2="2165.9419"
+         y1="962.29559"
+         y2="962.29559"
+         id="line239" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="58.713902"
+         x="1845.0601"
+         y="979.29071"
+         id="text241">+close()</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="225.03909"
+         x="1845.0601"
+         y="995.58759"
+         id="text243">+connect(): ConnectionProvider</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="315.88181"
+         x="1845.0601"
+         y="1011.8845"
+         id="text245">+deathLocations(): DeathLocationRepository</text>
+    </g>
+    <!--class BukkitCommandDispatcher-->
+    <g
+       class="entity"
+       data-entity="BukkitCommandDispatcher"
+       data-source-line="106"
+       data-uid="ent0017"
+       id="entity_BukkitCommandDispatcher">
+      <rect
+         fill="#ffb0b0"
+         filter="url(#fnlgjclvlmjza)"
+         height="105.1563"
+         rx="7.5"
+         ry="7.5"
+         style="stroke:#888888;stroke-width:0.5"
+         width="776.51758"
+         x="101.74"
+         y="1183.37"
+         id="rect248" />
+      <circle
+         cx="389.8064"
+         cy="1203.5028"
+         fill="#add1b2"
+         style="stroke:#181818;stroke-width:1"
+         id="ellipse250"
+         r="11" />
+      <path
+         d="m 392.7752,1209.1434 q -0.5782,0.2969 -1.2188,0.4375 -0.6406,0.1563 -1.3437,0.1563 -2.5,0 -3.8282,-1.6406 -1.3125,-1.6563 -1.3125,-4.7813 0,-3.125 1.3125,-4.7812 1.3282,-1.6563 3.8282,-1.6563 0.7031,0 1.3437,0.1563 0.6563,0.1562 1.2188,0.4531 v 2.7187 q -0.625,-0.5781 -1.2188,-0.8437 -0.5937,-0.2813 -1.2187,-0.2813 -1.3438,0 -2.0313,1.0782 -0.6875,1.0625 -0.6875,3.1562 0,2.0938 0.6875,3.1719 0.6875,1.0625 2.0313,1.0625 0.625,0 1.2187,-0.2656 0.5938,-0.2813 1.2188,-0.8594 z"
+         fill="#000000"
+         id="path252" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="78.082001"
+         x="467.20779"
+         y="1199.5087"
+         id="text254">«dispatcher»</text>
+      <text
+         fill="#000000"
+         font-family="Helvetica"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="191.8848"
+         x="410.3064"
+         y="1215.3339"
+         id="text256">BukkitCommandDispatcher</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="102.74"
+         x2="877.25763"
+         y1="1223.6356"
+         y2="1223.6356"
+         id="line258" />
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="102.74"
+         x2="877.25763"
+         y1="1231.6356"
+         y2="1231.6356"
+         id="line260" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="427.875"
+         x="107.74"
+         y="1248.6307"
+         id="text262">+init(ctx: CommandContextContainer): CommandDispatcher</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="710.86908"
+         x="107.74"
+         y="1264.9276"
+         id="text264">+onCommand(sender: CommandSender, command: Command, label: String, args: String[]): boolean</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="764.51758"
+         x="107.74"
+         y="1281.2245"
+         id="text266">+onTabComplete(sender: CommandSender, command: Command, alias: String, args: String[]): List&lt;String&gt;</text>
+    </g>
+    <!--class BukkitInventoryEventListener-->
+    <g
+       class="entity"
+       data-entity="BukkitInventoryEventListener"
+       data-source-line="112"
+       data-uid="ent0018"
+       id="entity_BukkitInventoryEventListener">
+      <rect
+         fill="#f0e68c"
+         filter="url(#fnlgjclvlmjza)"
+         height="121.4531"
+         rx="7.5"
+         ry="7.5"
+         style="stroke:#888888;stroke-width:0.5"
+         width="439.73831"
+         x="913.13"
+         y="1175.22"
+         id="rect269" />
+      <circle
+         cx="1025.0616"
+         cy="1195.3528"
+         fill="#add1b2"
+         style="stroke:#181818;stroke-width:1"
+         id="ellipse271"
+         r="11" />
+      <path
+         d="m 1028.0304,1200.9934 q -0.5781,0.2969 -1.2188,0.4375 -0.6406,0.1563 -1.3437,0.1563 -2.5,0 -3.8281,-1.6406 -1.3125,-1.6563 -1.3125,-4.7813 0,-3.125 1.3125,-4.7812 1.3281,-1.6563 3.8281,-1.6563 0.7031,0 1.3437,0.1563 0.6563,0.1562 1.2188,0.4531 v 2.7187 q -0.625,-0.5781 -1.2188,-0.8437 -0.5937,-0.2813 -1.2187,-0.2813 -1.3438,0 -2.0313,1.0782 -0.6875,1.0625 -0.6875,3.1562 0,2.0938 0.6875,3.1719 0.6875,1.0625 2.0313,1.0625 0.625,0 1.2187,-0.2656 0.5938,-0.2813 1.2188,-0.8594 z"
+         fill="#000000"
+         id="path273" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.6133"
+         x="1119.4425"
+         y="1191.3586"
+         id="text275">«listener»</text>
+      <text
+         fill="#000000"
+         font-family="Helvetica"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="207.375"
+         x="1045.5616"
+         y="1207.184"
+         id="text277">BukkitInventoryEventListener</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="914.13"
+         x2="1351.8683"
+         y1="1215.4856"
+         y2="1215.4856"
+         id="line279" />
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="914.13"
+         x2="1351.8683"
+         y1="1223.4856"
+         y2="1223.4856"
+         id="line281" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="427.73831"
+         x="919.13"
+         y="1240.4807"
+         id="text283">+init(ctx: ListenerContextContainer): InventoryEventListener</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="329.6973"
+         x="919.13"
+         y="1256.7776"
+         id="text285">+onInventoryClick(event: InventoryClickEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="330.98239"
+         x="919.13"
+         y="1273.0745"
+         id="text287">+onInventoryDrag(event: InventoryDragEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="401.8027"
+         x="919.13"
+         y="1289.3715"
+         id="text289">+onInventoryMoveItem(event: InventoryMoveItemEvent)</text>
+    </g>
+    <!--class BukkitPlayerEventListener-->
+    <g
+       class="entity"
+       data-entity="BukkitPlayerEventListener"
+       data-source-line="119"
+       data-uid="ent0019"
+       id="entity_BukkitPlayerEventListener">
+      <rect
+         fill="#f0e68c"
+         filter="url(#fnlgjclvlmjza)"
+         height="170.3438"
+         rx="7.5"
+         ry="7.5"
+         style="stroke:#888888;stroke-width:0.5"
+         width="416.4346"
+         x="1387.78"
+         y="1150.78"
+         id="rect292" />
+      <circle
+         cx="1499.7115"
+         cy="1170.9128"
+         fill="#add1b2"
+         style="stroke:#181818;stroke-width:1"
+         id="ellipse294"
+         r="11" />
+      <path
+         d="m 1502.6804,1176.5534 q -0.5781,0.2969 -1.2188,0.4375 -0.6406,0.1563 -1.3437,0.1563 -2.5,0 -3.8281,-1.6406 -1.3125,-1.6563 -1.3125,-4.7813 0,-3.125 1.3125,-4.7812 1.3281,-1.6563 3.8281,-1.6563 0.7031,0 1.3437,0.1563 0.6563,0.1562 1.2188,0.4531 v 2.7187 q -0.625,-0.5781 -1.2188,-0.8437 -0.5937,-0.2813 -1.2187,-0.2813 -1.3438,0 -2.0313,1.0782 -0.6875,1.0625 -0.6875,3.1562 0,2.0938 0.6875,3.1719 0.6875,1.0625 2.0313,1.0625 0.625,0 1.2187,-0.2656 0.5938,-0.2813 1.2188,-0.8594 z"
+         fill="#000000"
+         id="path296" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.6133"
+         x="1582.4406"
+         y="1166.9187"
+         id="text298">«listener»</text>
+      <text
+         fill="#000000"
+         font-family="Helvetica"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="184.0713"
+         x="1520.2115"
+         y="1182.7439"
+         id="text300">BukkitPlayerEventListener</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1388.78"
+         x2="1803.2146"
+         y1="1191.0457"
+         y2="1191.0457"
+         id="line302" />
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1388.78"
+         x2="1803.2146"
+         y1="1199.0457"
+         y2="1199.0457"
+         id="line304" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="404.4346"
+         x="1393.78"
+         y="1216.0406"
+         id="text306">+init(ctx: ListenerContextContainer): PlayerEventListener</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="370.77441"
+         x="1393.78"
+         y="1232.3376"
+         id="text308">+onChangeWorld(event: PlayerChangedWorldEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="304.52051"
+         x="1393.78"
+         y="1248.6345"
+         id="text310">+onItemDrop(event: PlayerDropItemEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="301.04099"
+         x="1393.78"
+         y="1264.9314"
+         id="text312">+onPlayerDeath(event: PlayerDeathEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="325.62299"
+         x="1393.78"
+         y="1281.2281"
+         id="text314">+onPlayerInteract(event: PlayerInteractEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="267.28519"
+         x="1393.78"
+         y="1297.5251"
+         id="text316">+onPlayerJoin(event: PlayerJoinEvent)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="343.21881"
+         x="1393.78"
+         y="1313.822"
+         id="text318">+onPlayerRespawn(event: PlayerRespawnEvent)</text>
+    </g>
+    <!--class SqliteConnectionProvider-->
+    <g
+       class="entity"
+       data-entity="SqliteConnectionProvider"
+       data-source-line="129"
+       data-uid="ent0020"
+       id="entity_SqliteConnectionProvider">
+      <rect
+         fill="#a7ffa4"
+         filter="url(#fnlgjclvlmjza)"
+         height="105.1563"
+         rx="7.5"
+         ry="7.5"
+         style="stroke:#888888;stroke-width:0.5"
+         width="327.88181"
+         x="1839.0601"
+         y="1183.37"
+         id="rect321" />
+      <circle
+         cx="1910.2188"
+         cy="1203.5028"
+         fill="#add1b2"
+         style="stroke:#181818;stroke-width:1"
+         id="ellipse323"
+         r="11" />
+      <path
+         d="m 1913.1874,1209.1434 q -0.5781,0.2969 -1.2187,0.4375 -0.6406,0.1563 -1.3438,0.1563 -2.5,0 -3.8281,-1.6406 -1.3125,-1.6563 -1.3125,-4.7813 0,-3.125 1.3125,-4.7812 1.3281,-1.6563 3.8281,-1.6563 0.7032,0 1.3438,0.1563 0.6562,0.1562 1.2187,0.4531 v 2.7187 q -0.625,-0.5781 -1.2187,-0.8437 -0.5938,-0.2813 -1.2188,-0.2813 -1.3437,0 -2.0312,1.0782 -0.6875,1.0625 -0.6875,3.1562 0,2.0938 0.6875,3.1719 0.6875,1.0625 2.0312,1.0625 0.625,0 1.2188,-0.2656 0.5937,-0.2813 1.2187,-0.8594 z"
+         fill="#000000"
+         id="path325" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="75.626999"
+         x="1981.4374"
+         y="1199.5087"
+         id="text327">«repository»</text>
+      <text
+         fill="#000000"
+         font-family="Helvetica"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="177.0645"
+         x="1930.7188"
+         y="1215.3339"
+         id="text329">SqliteConnectionProvider</text>
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1840.0601"
+         x2="2165.9419"
+         y1="1223.6356"
+         y2="1223.6356"
+         id="line331" />
+      <line
+         style="stroke:#888888;stroke-width:0.5"
+         x1="1840.0601"
+         x2="2165.9419"
+         y1="1231.6356"
+         y2="1231.6356"
+         id="line333" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="58.713902"
+         x="1845.0601"
+         y="1248.6307"
+         id="text335">+close()</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="225.03909"
+         x="1845.0601"
+         y="1264.9276"
+         id="text337">+connect(): ConnectionProvider</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="315.88181"
+         x="1845.0601"
+         y="1281.2245"
+         id="text339">+deathLocations(): DeathLocationRepository</text>
+    </g>
+    <!--link Bootstrap to PluginController-->
+    <g
+       class="link"
+       data-entity-1="Bootstrap"
+       data-entity-2="PluginController"
+       data-source-line="154"
+       data-uid="lnk21"
+       id="link_Bootstrap_PluginController">
+      <path
+         codeLine="154"
+         d="m 1364,305.5 c 0,37.76 0,75.71 0,111.37"
+         fill="none"
+         id="Bootstrap-to-PluginController"
+         style="stroke:#444444;stroke-width:1.2" />
+      <polygon
+         fill="#444444"
+         points="1368,413.87 1364,417.87 1360,413.87 1364,422.87 "
+         style="stroke:#444444;stroke-width:1.2"
+         id="polygon343" />
+    </g>
+    <!--reverse link PluginController to DeathCompassPluginController-->
+    <g
+       class="link"
+       data-entity-1="PluginController"
+       data-entity-2="DeathCompassPluginController"
+       data-source-line="156"
+       data-uid="lnk22"
+       id="link_PluginController_DeathCompassPluginController">
+      <path
+         codeLine="156"
+         d="m 1364,567.34 c 0,23.38 0,43.83 0,68.36"
+         fill="none"
+         id="PluginController-backto-DeathCompassPluginController"
+         style="stroke:#444444;stroke-width:1.2" />
+      <polygon
+         fill="#444444"
+         points="1360,570.34 1364,566.34 1368,570.34 1364,561.34 "
+         style="stroke:#444444;stroke-width:1.2"
+         id="polygon347" />
+    </g>
+    <!--reverse link CommandDispatcher to BukkitCommandDispatcher-->
+    <g
+       class="link"
+       data-entity-1="CommandDispatcher"
+       data-entity-2="BukkitCommandDispatcher"
+       data-source-line="157"
+       data-uid="lnk23"
+       id="link_CommandDispatcher_BukkitCommandDispatcher">
+      <path
+         codeLine="157"
+         d="m 490,1025.47 c 0,47.22 0,110.58 0,157.76"
+         fill="none"
+         id="CommandDispatcher-backto-BukkitCommandDispatcher"
+         style="stroke:#444444;stroke-width:1.2" />
+      <polygon
+         fill="#444444"
+         points="486,1028.47 490,1024.47 494,1028.47 490,1019.47 "
+         style="stroke:#444444;stroke-width:1.2"
+         id="polygon351" />
+    </g>
+    <!--reverse link ConnectionProvider to SqliteConnectionProvider-->
+    <g
+       class="link"
+       data-entity-1="ConnectionProvider"
+       data-entity-2="SqliteConnectionProvider"
+       data-source-line="158"
+       data-uid="lnk24"
+       id="link_ConnectionProvider_SqliteConnectionProvider">
+      <path
+         codeLine="158"
+         d="m 2003,1025.47 c 0,47.22 0,110.58 0,157.76"
+         fill="none"
+         id="ConnectionProvider-backto-SqliteConnectionProvider"
+         style="stroke:#444444;stroke-width:1.2" />
+      <polygon
+         fill="#444444"
+         points="1999,1028.47 2003,1024.47 2007,1028.47 2003,1019.47 "
+         style="stroke:#444444;stroke-width:1.2"
+         id="polygon355" />
+    </g>
+    <!--link DeathCompassPluginController to CommandDispatcher-->
+    <g
+       class="link"
+       data-entity-1="DeathCompassPluginController"
+       data-entity-2="CommandDispatcher"
+       data-source-line="159"
+       data-uid="lnk25"
+       id="link_DeathCompassPluginController_CommandDispatcher">
+      <path
+         codeLine="159"
+         d="M 1183.88,764.29 C 1096.62,785.33 990.51,811.93 896,838.43 813.86,861.47 728.9043,887.7806 654.1243,911.7206"
+         fill="none"
+         id="DeathCompassPluginController-to-CommandDispatcher"
+         style="stroke:#444444;stroke-width:1.2" />
+      <polygon
+         fill="#444444"
+         points="658.2011,914.6155 653.1719,912.0255 655.7619,906.9964 648.41,913.55 "
+         style="stroke:#444444;stroke-width:1.2"
+         id="polygon359" />
+    </g>
+    <!--link DeathCompassPluginController to ConnectionProvider-->
+    <g
+       class="link"
+       data-entity-1="DeathCompassPluginController"
+       data-entity-2="ConnectionProvider"
+       data-source-line="160"
+       data-uid="lnk26"
+       id="link_DeathCompassPluginController_ConnectionProvider">
+      <path
+         codeLine="160"
+         d="m 1543.92,752.1 c 86.59,18.28 190.39,46.07 278.08,86.33 42.58,19.55 80.9312,45.6827 114.3912,71.5227"
+         fill="none"
+         id="DeathCompassPluginController-to-ConnectionProvider"
+         style="stroke:#444444;stroke-width:1.2" />
+      <polygon
+         fill="#444444"
+         points="1936.4617,904.9532 1937.1827,910.5639 1931.572,911.2849 1941.14,913.62 "
+         style="stroke:#444444;stroke-width:1.2"
+         id="polygon363" />
+    </g>
+    <!--link DeathCompassPluginController to InventoryEventListener-->
+    <g
+       class="link"
+       data-entity-1="DeathCompassPluginController"
+       data-entity-2="InventoryEventListener"
+       data-source-line="161"
+       data-uid="lnk27"
+       id="link_DeathCompassPluginController_InventoryEventListener">
+      <path
+         codeLine="161"
+         d="m 1283.86,806.69 c -30.89,32.53 -61.3683,64.6492 -89.6483,94.4292"
+         fill="none"
+         id="DeathCompassPluginController-to-InventoryEventListener"
+         style="stroke:#444444;stroke-width:1.2" />
+      <polygon
+         fill="#444444"
+         points="1199.178,901.6982 1193.523,901.8443 1193.3769,896.1894 1190.08,905.47 "
+         style="stroke:#444444;stroke-width:1.2"
+         id="polygon367" />
+    </g>
+    <!--link DeathCompassPluginController to PlayerEventListener-->
+    <g
+       class="link"
+       data-entity-1="DeathCompassPluginController"
+       data-entity-2="PlayerEventListener"
+       data-source-line="162"
+       data-uid="lnk28"
+       id="link_DeathCompassPluginController_PlayerEventListener">
+      <path
+         codeLine="162"
+         d="m 1444.49,806.69 c 23.03,24.16 44.0002,46.147 67.0202,70.297"
+         fill="none"
+         id="DeathCompassPluginController-to-PlayerEventListener"
+         style="stroke:#444444;stroke-width:1.2" />
+      <polygon
+         fill="#444444"
+         points="1512.3356,872.0556 1512.2002,877.7108 1506.5449,877.5753 1515.65,881.33 "
+         style="stroke:#444444;stroke-width:1.2"
+         id="polygon371" />
+    </g>
+    <!--reverse link InventoryEventListener to BukkitInventoryEventListener-->
+    <g
+       class="link"
+       data-entity-1="InventoryEventListener"
+       data-entity-2="BukkitInventoryEventListener"
+       data-source-line="163"
+       data-uid="lnk29"
+       id="link_InventoryEventListener_BukkitInventoryEventListener">
+      <path
+         codeLine="163"
+         d="m 1133,1033.6 c 0,44.03 0,97.57 0,141.55"
+         fill="none"
+         id="InventoryEventListener-backto-BukkitInventoryEventListener"
+         style="stroke:#444444;stroke-width:1.2" />
+      <polygon
+         fill="#444444"
+         points="1129,1036.6 1133,1032.6 1137,1036.6 1133,1027.6 "
+         style="stroke:#444444;stroke-width:1.2"
+         id="polygon375" />
+    </g>
+    <!--reverse link PlayerEventListener to BukkitPlayerEventListener-->
+    <g
+       class="link"
+       data-entity-1="PlayerEventListener"
+       data-entity-2="BukkitPlayerEventListener"
+       data-source-line="164"
+       data-uid="lnk30"
+       id="link_PlayerEventListener_BukkitPlayerEventListener">
+      <path
+         codeLine="164"
+         d="m 1596,1058.19 c 0,31.36 0,60.91 0,92.26"
+         fill="none"
+         id="PlayerEventListener-backto-BukkitPlayerEventListener"
+         style="stroke:#444444;stroke-width:1.2" />
+      <polygon
+         fill="#444444"
+         points="1592,1061.19 1596,1057.19 1600,1061.19 1596,1052.19 "
+         style="stroke:#444444;stroke-width:1.2"
+         id="polygon379" />
+    </g>
+    <!--SRC=[xLZVR-8u47xdhnYr3r0jL6MlrVMgjXA5jiik_Q72tUbqkWUJE60HxAnZO7kh_T_FTa9m72TGLhgzXmErAEFliptppKoSrE7gwWhk1qytdG4CHtyC-e_tobIBPuH6YACvZ94tct2se7wNXOp3OV2B-Xg8U8fyjY9q0e8li36GiZZ57Dfdna27SxPAfplL7tjmD2NUZE8uXlRnUtlmZb4n97zZQBUDeKXk54tmY8WGRn3cp5w8ubWDFQ8vXeCFE5nYGJnqO6CwGd0oNWZSznZLyvpO4FXQ0xYnOhEQ4e6LdN4VyzJ1S_sfVQlLwX0Bp34Jhn6E8P23d8MuDKOnzi5JQ1d4NHQwl1mp9cB1KNHz3GzFe_vldL7_wT65b1u8kKo8kOGEo6GgRi85haO-Coua-j3tWlCWS67dYCfOwodH4bFfhGlbapX2mfjgu64GZ4_69zMuzSf1WDkuxSA6H0QHwXa_JT6CL67MiztTtPrrkouann6BYM3yLU7Gpq60JgjnMMpy8F1z9Ij0NPVHSwVxgND_EzG51EjyX0DP6bBsgOhJt3k0G-ofhzRLGFaOYQd7vf7KN8ByS_ML88qIR8A534zAKYksMYsPPsaMG8XUvQYqfUFPj5cY7AYWgays1wG9jfabdrSR7C2XpC-v5DtlPL9TGDSsvGY4IeTLn6xLxo2Lv0BwJdkE6cbtBDvpqMXja5Bi2SBeCsTBuYSxj6tMEei9eTqixzKYUOi1VmUCtb8q3d7Zo3BB25ZsRxNrRqumsGnnebKCZVVDdvgdHoxHF0bpwMK0p59rGG5qrWN8mmMdm57h9bCv5Gl4nQzH8mdH1Nn4IvJCqzmnqarhnbqIoEQyBOTizgvfT6JxFbs87bjHXvw6ecRjiZaYr2r3KcCzLTtTfBehvN18ySRAUtlS2kkziP0KQIxlrJ8MDmiIQi93xdfFOMnTaePC0pAvWE7cOi6Hsfc5NZ4U-W_9VUe2VZUk362rhf6iZTWbwwQs2ag0utRsjPONXuY69xvaCgfKm5-4-f5f9FEnMc3LSTBnHgpllHb-g2-RwvJ9x4tPTCOub54JwepH1CGdyVhgpx_aWhBnXnXHQvaH6gka3R70ko-5GeBYYgMKkfV9zRKh_9lWkjCL2ZVuilYk6Ou0Rwq4vNu6weRoEDh0wigWQglc7vKHUnnD2ZnbhAOzi2Nk2pmlKDS35ZsBdjdq2-LK5RWTmrPLf3elfuXEi2wszTuJIZBWwn5hyzfpwLEFioXFKXQ7jugG0bHRjJZAL4heg_WWJ-GvQsifxICZD4zHbbBu2vPbkx8OgJ57SkXMxBJWE7wQmdaXYyspHzR16qULZViTw3FdW7cwVSOAtZCjBzcgDVjKOsm-ETbqV1G9TQn9JgADiyt19ckdACLK74KNinaHrJtLSOVytexwh_NK7zPLpV1kxQhxD8Oj_NJFRhfNB_sEJkgCLtKd_R-B_dUwQABQy7D81DxIHtzm3rN_ap-v-Lho_k3bTg3VuWm_z9-JbmZrxD7yUFEGtcfTw-V8uyApQjrfXilqmVEuwY4a9JjQhz7SZqlwSqOkXjnabmcJqilwKd439SrcxR-ZN8jpk6gmNlcObWI-uFeEdAB3MqbbBcubklmgpp38vrKnAvpPbBqbgZc7A_FCdM5bYLMIKgMPj8U0- -YthtnxgLTH5vNbK5O8fVd_3m00]-->
+    <line
+       style="display:inline;stroke:#000000;stroke-width:1.5"
+       x1="1168"
+       x2="1258.3486"
+       y1="122.2969"
+       y2="122.2969"
+       id="line31" />
+  </g>
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="14px"
+     font-weight="bold"
+     lengthAdjust="spacing"
+     textLength="77.348602"
+     x="1172"
+     y="114.9951"
+     id="text33"
+     transform="translate(-1108.3752)"
+     style="white-space:pre;inline-size:78.3124;display:inline"
+     xml:space="preserve"><tspan
+       x="1172"
+       y="114.9951"
+       id="tspan5817"><tspan
+         dx="0 0.16534042 0.16534042 0.16534042 0.16534042 0.16534042 0.16534042 0.16534042 0.16534042"
+         id="tspan5815">bootstrap</tspan></tspan></text>
+</svg>
