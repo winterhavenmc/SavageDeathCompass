@@ -17,11 +17,12 @@
 
 package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
 
-import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
+import com.winterhavenmc.deathcompass.core.context.CommandCtx;
 import com.winterhavenmc.deathcompass.core.util.Macro;
 import com.winterhavenmc.deathcompass.core.util.MessageId;
-import com.winterhavenmc.deathcompass.core.util.SoundId;
-import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
+
+import com.winterhavenmc.library.messagebuilder.adapters.resources.configuration.BukkitConfigRepository;
+import com.winterhavenmc.library.messagebuilder.models.configuration.ConfigRepository;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -34,21 +35,21 @@ import java.util.List;
  */
 final class StatusSubcommand extends AbstractSubcommand
 {
-	private final DeathCompassPluginController.CommandContextContainer ctx;
-	private final LocaleProvider localeProvider;
+	private final CommandCtx ctx;
+	private final ConfigRepository configRepository;
 
 
 	/**
 	 * Class constructor
 	 */
-	StatusSubcommand(final DeathCompassPluginController.CommandContextContainer ctx)
+	StatusSubcommand(final CommandCtx ctx)
 	{
 		this.ctx = ctx;
 		this.name = "status";
 		this.usageString = "/deathcompass status";
 		this.description = MessageId.COMMAND_HELP_STATUS;
 		this.permissionNode = "deathcompass.status";
-		this.localeProvider = LocaleProvider.create(ctx.plugin());
+		this.configRepository = BukkitConfigRepository.create(ctx.plugin());
 	}
 
 
@@ -58,7 +59,6 @@ final class StatusSubcommand extends AbstractSubcommand
 		if (!sender.hasPermission(permissionNode))
 		{
 			ctx.messageBuilder().compose(sender, MessageId.COMMAND_FAIL_STATUS_PERMISSION).send();
-			ctx.soundConfig().playSound(sender, SoundId.COMMAND_FAIL);
 		}
 
 		displayHeader(sender);
@@ -118,7 +118,7 @@ final class StatusSubcommand extends AbstractSubcommand
 	private void displayLocaleSetting(final CommandSender sender)
 	{
 		ctx.messageBuilder().compose(sender, MessageId.COMMAND_STATUS_LOCALE)
-				.setMacro(Macro.SETTING, localeProvider.getLocale().toLanguageTag())
+				.setMacro(Macro.SETTING, configRepository.locale().toLanguageTag())
 				.send();
 	}
 
@@ -163,7 +163,7 @@ final class StatusSubcommand extends AbstractSubcommand
 	private void displayEnabledWorldsSetting(final CommandSender sender)
 	{
 		ctx.messageBuilder().compose(sender, MessageId.COMMAND_STATUS_ENABLED_WORLDS)
-				.setMacro(Macro.SETTING, ctx.worldManager().getEnabledWorldNames().toString())
+				.setMacro(Macro.SETTING, ctx.messageBuilder().worlds().enabledNames().toString())
 				.send();
 	}
 

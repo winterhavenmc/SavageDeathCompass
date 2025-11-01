@@ -17,7 +17,7 @@
 
 package com.winterhavenmc.deathcompass.core.ports.listeners;
 
-import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
+import com.winterhavenmc.deathcompass.core.context.ListenerCtx;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -26,7 +26,7 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 
 public interface InventoryEventListener extends Listener
 {
-	InventoryEventListener init(DeathCompassPluginController.ListenerContextContainer ctx);
+	InventoryEventListener init(ListenerCtx ctx);
 
 	/**
 	 * Prevent hoppers from inserting DeathCompass items into containers

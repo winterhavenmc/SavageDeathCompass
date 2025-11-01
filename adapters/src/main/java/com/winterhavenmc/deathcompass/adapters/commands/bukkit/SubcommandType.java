@@ -17,7 +17,7 @@
 
 package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
 
-import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
+import com.winterhavenmc.deathcompass.core.context.CommandCtx;
 
 
 /**
@@ -28,7 +28,7 @@ enum SubcommandType
 	RELOAD()
 			{
 				@Override
-				Subcommand create(final DeathCompassPluginController.CommandContextContainer ctx)
+				Subcommand create(final CommandCtx ctx)
 				{
 					return new ReloadSubcommand(ctx);
 				}
@@ -37,12 +37,12 @@ enum SubcommandType
 	STATUS()
 			{
 				@Override
-				Subcommand create(final DeathCompassPluginController.CommandContextContainer ctx)
+				Subcommand create(final CommandCtx ctx)
 				{
 					return new StatusSubcommand(ctx);
 				}
 			};
 
-	abstract Subcommand create(final DeathCompassPluginController.CommandContextContainer ctx);
+	abstract Subcommand create(final CommandCtx ctx);
 
 }

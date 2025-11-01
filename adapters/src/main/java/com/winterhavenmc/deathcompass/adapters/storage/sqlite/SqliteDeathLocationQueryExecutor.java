@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.UUID;
 
-public class SqliteDeathLocationQueryExecutor
+public final class SqliteDeathLocationQueryExecutor
 {
 	ResultSet selectDeathLocation(final UUID playerUid,
 	                              final UUID worldUid,

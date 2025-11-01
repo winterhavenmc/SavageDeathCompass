@@ -22,7 +22,8 @@ import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteQueries;
 import com.winterhavenmc.deathcompass.models.DeathLocation;
 import com.winterhavenmc.deathcompass.models.ValidDeathLocation;
 import com.winterhavenmc.deathcompass.core.ports.storage.DeathLocationRepository;
-import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
+
+import com.winterhavenmc.library.messagebuilder.models.configuration.ConfigRepository;
 
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
@@ -37,19 +38,19 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 {
 	private final Plugin plugin;
 	private final Connection connection;
-	private final LocaleProvider localeProvider;
+	private final ConfigRepository configRepository;
 	private final DeathLocationRepository deathLocationRepository;
 	private int schemaVersion;
 
 
 	SqliteSchemaUpdaterFromV0(final Plugin plugin,
 	                          final Connection connection,
-	                          final LocaleProvider localeProvider,
+	                          final ConfigRepository configRepository,
 	                          final DeathLocationRepository deathLocationRepository)
 	{
 		this.plugin = plugin;
 		this.connection = connection;
-		this.localeProvider = localeProvider;
+		this.configRepository = configRepository;
 		this.deathLocationRepository = deathLocationRepository;
 	}
 
@@ -76,13 +77,13 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 		}
 		catch (SQLException sqlException)
 		{
-			plugin.getLogger().warning(SqliteMessage.SCHEMA_UPDATE_ERROR.getLocalizedMessage(localeProvider.getLocale()));
+			plugin.getLogger().warning(SqliteMessage.SCHEMA_UPDATE_ERROR.getLocalizedMessage(configRepository.locale()));
 			plugin.getLogger().warning(sqlException.getLocalizedMessage());
 		}
 
 		int count = deathLocationRepository.saveDeathLocations(existingDeathLocations);
 		plugin.getLogger().info(SqliteMessage.SCHEMA_DEATH_LOCATIONS_MIGRATED_NOTICE
-				.getLocalizedMessage(localeProvider.getLocale(), count, schemaVersion));
+				.getLocalizedMessage(configRepository.locale(), count, schemaVersion));
 	}
 
 
@@ -113,7 +114,7 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 					catch (IllegalArgumentException argumentException)
 					{
 						plugin.getLogger().warning(SqliteMessage.SCHEMA_UPDATE_PLAYER_UUID_INVALID
-								.getLocalizedMessage(localeProvider.getLocale()));
+								.getLocalizedMessage(configRepository.locale()));
 						plugin.getLogger().warning(argumentException.getLocalizedMessage());
 					}
 
@@ -126,14 +127,14 @@ public final class SqliteSchemaUpdaterFromV0 implements SqliteSchemaUpdater
 				else
 				{
 					plugin.getLogger().warning(SqliteMessage.SCHEMA_UPDATE_WORLD_INVALID
-							.getLocalizedMessage(localeProvider.getLocale(), worldName));
+							.getLocalizedMessage(configRepository.locale(), worldName));
 				}
 			}
 		}
 		catch (SQLException sqlException)
 		{
 			plugin.getLogger().warning(SqliteMessage.SCHEMA_UPDATE_SELECT_ALL_ERROR
-					.getLocalizedMessage(localeProvider.getLocale()));
+					.getLocalizedMessage(configRepository.locale()));
 		}
 
 		return returnSet;
