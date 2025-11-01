@@ -23,8 +23,5 @@ package com.winterhavenmc.deathcompass.core.util;
  */
 public enum SoundId
 {
-	COMMAND_FAIL,
-	COMMAND_INVALID,
-
 	PLAYER_DROP_COMPASS,
 }
