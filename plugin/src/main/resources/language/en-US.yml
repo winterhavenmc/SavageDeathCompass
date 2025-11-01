@@ -63,7 +63,7 @@ MESSAGES:
   COMMAND_HELP_STATUS:
     MESSAGE_TEXT: "<yellow>Displays plugin configuration settings.</yellow>"
 
-  COMMAND_HELP_INVALID:
+  COMMAND_INVALID_HELP:
     MESSAGE_TEXT: "<yellow>That is not a valid command.</yellow>"
 
   COMMAND_HELP_USAGE:
