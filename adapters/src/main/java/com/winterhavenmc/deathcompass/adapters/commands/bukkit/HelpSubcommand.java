@@ -17,10 +17,9 @@
 
 package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
 
-import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
-
+import com.winterhavenmc.deathcompass.core.context.CommandCtx;
 import com.winterhavenmc.deathcompass.core.util.MessageId;
-import com.winterhavenmc.deathcompass.core.util.SoundId;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -36,7 +35,7 @@ import java.util.stream.Collectors;
  */
 final class HelpSubcommand extends AbstractSubcommand
 {
-	private final DeathCompassPluginController.CommandContextContainer ctx;
+	private final CommandCtx ctx;
 	private final SubcommandRegistry subcommandRegistry;
 
 
@@ -45,7 +44,7 @@ final class HelpSubcommand extends AbstractSubcommand
 	 *
 	 * @param subcommandRegistry reference to subcommand registry instance
 	 */
-	HelpSubcommand(final DeathCompassPluginController.CommandContextContainer ctx, final SubcommandRegistry subcommandRegistry)
+	HelpSubcommand(final CommandCtx ctx, final SubcommandRegistry subcommandRegistry)
 	{
 		this.ctx = ctx;
 		this.subcommandRegistry = Objects.requireNonNull(subcommandRegistry);
@@ -82,7 +81,6 @@ final class HelpSubcommand extends AbstractSubcommand
 		if (!sender.hasPermission(permissionNode))
 		{
 			ctx.messageBuilder().compose(sender, MessageId.COMMAND_FAIL_HELP_PERMISSION).send();
-			ctx.soundConfig().playSound(sender, SoundId.COMMAND_FAIL);
 		}
 
 		// if no arguments, display usage for all commands
@@ -119,8 +117,7 @@ final class HelpSubcommand extends AbstractSubcommand
 	 */
 	private void sendCommandInvalidMessage(final CommandSender sender)
 	{
-		ctx.messageBuilder().compose(sender, MessageId.COMMAND_HELP_INVALID).send();
-		ctx.soundConfig().playSound(sender, SoundId.COMMAND_INVALID);
+		ctx.messageBuilder().compose(sender, MessageId.COMMAND_INVALID_HELP).send();
 		displayUsageAll(sender);
 	}
 

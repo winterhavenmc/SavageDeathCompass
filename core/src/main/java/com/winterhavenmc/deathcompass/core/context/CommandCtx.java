@@ -15,20 +15,9 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.core.ports.controllers;
+package com.winterhavenmc.deathcompass.core.context;
 
-import com.winterhavenmc.deathcompass.core.ports.commands.CommandDispatcher;
-import com.winterhavenmc.deathcompass.core.ports.listeners.InventoryEventListener;
-import com.winterhavenmc.deathcompass.core.ports.listeners.PlayerEventListener;
-import com.winterhavenmc.deathcompass.core.ports.storage.ConnectionProvider;
+import com.winterhavenmc.library.messagebuilder.MessageBuilder;
 import org.bukkit.plugin.java.JavaPlugin;
 
-
-public interface PluginController
-{
-	void startUp(JavaPlugin plugin, CommandDispatcher commandDispatcher,
-	             InventoryEventListener inventoryEventListener, PlayerEventListener playerEventListener,
-	             ConnectionProvider connectionProvider);
-
-	void shutDown();
-}
+public record CommandCtx(JavaPlugin plugin, MessageBuilder messageBuilder) { }

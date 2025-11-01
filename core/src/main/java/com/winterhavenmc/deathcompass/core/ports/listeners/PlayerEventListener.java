@@ -17,7 +17,7 @@
 
 package com.winterhavenmc.deathcompass.core.ports.listeners;
 
-import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
+import com.winterhavenmc.deathcompass.core.context.ListenerCtx;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -26,7 +26,7 @@ import org.bukkit.event.player.*;
 
 public interface PlayerEventListener extends Listener
 {
-	PlayerEventListener init(DeathCompassPluginController.ListenerContextContainer ctx);
+	PlayerEventListener init(ListenerCtx ctx);
 
 	/**
 	 * Player death event handler

@@ -1,0 +1,185 @@
+@startuml
+' === GLOBAL STYLING ===
+skinparam backgroundColor #f9f9f9
+skinparam shadowing true
+skinparam roundCorner 15
+skinparam ArrowColor #444444
+skinparam ArrowThickness 1.2
+skinparam ArrowFontSize 11
+skinparam packageTitleFontSize 14
+skinparam classFontName "Helvetica"
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor white
+  BorderColor #888888
+}
+
+' stereotypes for role-based coloring
+skinparam class {
+  BackgroundColor<<bootstrap>> MOTIVATION
+  BackgroundColor<<controller>> LightBlue
+  BackgroundColor<<controllerPort>> #dcf8ff
+  BackgroundColor<<manager>> Lavender
+  BackgroundColor<<dispatcher>> #ffb0b0
+  BackgroundColor<<commandLogic>> #ffb0b0
+  BackgroundColor<<eventLogic>> Khaki
+  BackgroundColor<<dispatcherPort>> #ffe1e1
+  BackgroundColor<<listener>> Khaki
+  BackgroundColor<<listenerPort>> #FFF5CC
+  BackgroundColor<<repository>> #a7ffa4
+  BackgroundColor<<repositoryPort>> #ddffdd
+  BackgroundColor<<DeathLocationRepository>> #a7ffa4
+}
+
+  ' === PACKAGES ===
+  package "winterhavenmc" #ececec {
+    package "deathcompass" #d8d8d8 {
+
+        together {
+          ' --- Bootstrap layer ---
+          package "bootstrap" #ffffff {
+            class Bootstrap <<bootstrap>> {
+              # commandDispatcher: CommandDispatcher
+              # inventoryEventListener: InventoryEventListener
+              # playerEventListener: PlayerEventListener
+              # connectionProvider: ConnectionProvider
+              # pluginController: PluginController
+              + onEnable()
+              + onDisable()
+            }
+          }
+
+        ' --- Core layers (2,3,4) ---
+        package "core" #ffffff {
+            package "infrastructure" #ffffff {
+                interface PluginController <<controllerPort>> {
+                    + startUp(plugin: JavaPlugin, connectionProvider: ConnectionProvider,
+                    + commandDispatcher: CommandDispatcher,
+                    + inventoryEventListener: InventoryEventListener,
+                    + playerEventListener: PlayerEventListener)
+                    + shutDown()
+                }
+                class DeathCompassPluginController <<controller>> {
+                    + commandDispatcher: CommandDispatcher
+                    + inventoryEventListener: InventoryEventListener
+                    + connectionProvider: ConnectionProvider
+                    + messageBuilder: MessageBuilder
+                    + playerEventListener: PlayerEventListener
+                    + soundConfig: SoundConfiguration
+                    + worldManager: WorldManager
+                }
+            }
+
+            package "domain" #ffffff {
+                package "commands" {
+                    class CommandLogic <<commandLogic>> {
+                    }
+                }
+                package "events" {
+                    class EventLogic <<eventLogic>> {
+                    }
+                }
+                package "persistence" {
+                    class DeathLocationRepository <<repository>> {
+                    }
+                }
+            }
+
+            package "ports" #ffffff {
+            interface CommandDispatcher <<dispatcherPort>> {
+                + init(ctx: CommandContextContainer): CommandDispatcher
+                + onCommand(sender: CommandSender, command: Command, label: String, args: String[]): boolean
+                + onTabComplete(sender: CommandSender, command: Command, alias: String, args: String[]): List<String>
+            }
+
+            interface InventoryEventListener <<listenerPort>> {
+                + init(ctx: ListenerContextContainer): InventoryEventListener
+                + onInventoryClick(event: InventoryClickEvent)
+                + onInventoryDrag(event: InventoryDragEvent)
+                + onInventoryMoveItem(event: InventoryMoveItemEvent)
+            }
+
+            interface PlayerEventListener <<listenerPort>> {
+                + init(ctx: ListenerContextContainer): PlayerEventListener
+                + onChangeWorld(event: PlayerChangedWorldEvent)
+                + onItemDrop(event: PlayerDropItemEvent)
+                + onPlayerDeath(event: PlayerDeathEvent)
+                + onPlayerInteract(event: PlayerInteractEvent)
+                + onPlayerJoin(event: PlayerJoinEvent)
+                + onPlayerRespawn(event: PlayerRespawnEvent)
+            }
+
+            interface ConnectionProvider <<repositoryPort>> {
+                + close()
+                + connect(): ConnectionProvider
+                + deathLocations(): DeathLocationRepository
+            }
+        }
+    }
+
+    ' --- Adapters layer (5) ---
+    package "adapters" #ffffff {
+        class BukkitCommandDispatcher <<dispatcher>> {
+            + init(ctx: CommandContextContainer): CommandDispatcher
+            + onCommand(sender: CommandSender, command: Command, label: String, args: String[]): boolean
+            + onTabComplete(sender: CommandSender, command: Command, alias: String, args: String[]): List<String>
+        }
+
+      class BukkitInventoryEventListener <<listener>> {
+        + init(ctx: ListenerContextContainer): InventoryEventListener
+        + onInventoryClick(event: InventoryClickEvent)
+        + onInventoryDrag(event: InventoryDragEvent)
+        + onInventoryMoveItem(event: InventoryMoveItemEvent)
+      }
+
+      class BukkitPlayerEventListener <<listener>> {
+        + init(ctx: ListenerContextContainer): PlayerEventListener
+        + onChangeWorld(event: PlayerChangedWorldEvent)
+        + onItemDrop(event: PlayerDropItemEvent)
+        + onPlayerDeath(event: PlayerDeathEvent)
+        + onPlayerInteract(event: PlayerInteractEvent)
+        + onPlayerJoin(event: PlayerJoinEvent)
+        + onPlayerRespawn(event: PlayerRespawnEvent)
+      }
+
+      class SqliteConnectionProvider <<repository>> {
+        + close()
+        + connect(): ConnectionProvider
+        + deathLocations(): DeathLocationRepository
+      }
+    }
+  }
+  }
+}
+
+
+' === RELATIONSHIPS ===
+'Bootstrap.Bootstrap --> Core.PluginController
+'Core.PluginController <-- Core.DeathCompassPluginController
+'Core.CommandDispatcher <-- Adapters.BukkitCommandDispatcher
+'Core.ConnectionProvider <-- Adapters.SqliteConnectionProvider
+'Core.InventoryEventListener <-- Adapters.BukkitInventoryEventListener
+'Core.PlayerEventListener <-- Adapters.BukkitPlayerEventListener
+'DeathCompassPluginController --> CommandDispatcher
+'DeathCompassPluginController --> ConnectionProvider
+'DeathCompassPluginController --> InventoryEventListener
+'DeathCompassPluginController --> PlayerEventListener
+
+
+' === RELATIONSHIPS ===
+ Bootstrap --> PluginController
+'PluginController <-- bootstrap
+EventLogic --> PlayerEventListener
+EventLogic --> InventoryEventListener
+CommandLogic --> CommandDispatcher
+PluginController <-- DeathCompassPluginController
+DeathCompassPluginController --> CommandLogic
+DeathCompassPluginController --> EventLogic
+DeathCompassPluginController --> DeathLocationRepository
+CommandDispatcher <-- BukkitCommandDispatcher
+ConnectionProvider <-- SqliteConnectionProvider
+DeathLocationRepository --> ConnectionProvider
+PlayerEventListener <-- BukkitPlayerEventListener
+InventoryEventListener <-- BukkitInventoryEventListener
+
+@enduml

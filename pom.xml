@@ -74,29 +74,16 @@
 			<dependency>
 				<groupId>org.spigotmc</groupId>
 				<artifactId>spigot-api</artifactId>
-				<version>1.21.8-R0.1-SNAPSHOT</version>
+				<version>1.21.10-R0.1-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<!-- MessageBuilderLib -->
 			<dependency>
-				<groupId>com.winterhaven-mc</groupId>
-				<artifactId>message-builder-lib</artifactId>
+				<groupId>com.winterhavenmc.messagebuilder</groupId>
+				<artifactId>bootstrap</artifactId>
 				<version>2.0.0-SNAPSHOT</version>
-			</dependency>
-
-			<!-- SoundConfigLib -->
-			<dependency>
-				<groupId>com.winterhaven-mc</groupId>
-				<artifactId>sound-config-lib</artifactId>
-				<version>1.21.0-SNAPSHOT</version>
-			</dependency>
-
-			<!-- WorldManagerLib -->
-			<dependency>
-				<groupId>com.winterhaven-mc</groupId>
-				<artifactId>world-manager-lib</artifactId>
-				<version>1.21.0-SNAPSHOT</version>
+				<scope>compile</scope>
 			</dependency>
 
 			<!-- bStats -->
@@ -104,6 +91,7 @@
 				<groupId>org.bstats</groupId>
 				<artifactId>bstats-bukkit</artifactId>
 				<version>3.1.0</version>
+				<scope>compile</scope>
 			</dependency>
 
 			<!-- SQLite jdbc driver -->
@@ -111,7 +99,7 @@
 				<groupId>org.xerial</groupId>
 				<artifactId>sqlite-jdbc</artifactId>
 				<version>3.50.3.0</version>
-				<scope>compile</scope>
+				<scope>provided</scope>
 			</dependency>
 
 			<!-- JetBrains Annotations -->
@@ -122,7 +110,7 @@
 				<scope>provided</scope>
 			</dependency>
 
-			<!-- JUnit framework -->
+			<!-- junit-jupiter-api -->
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-api</artifactId>
@@ -130,7 +118,7 @@
 				<scope>test</scope>
 			</dependency>
 
-			<!-- JUnit parameters -->
+			<!-- junit-params -->
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-params</artifactId>
@@ -161,6 +149,14 @@
 				<version>5.2.0</version>
 				<scope>test</scope>
 			</dependency>
+
+			<!-- kover coverage reporting -->
+			<dependency>
+				<groupId>org.jetbrains.kotlinx</groupId>
+				<artifactId>kover-maven-plugin</artifactId>
+				<version>0.9.2</version>
+				<scope>test</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -169,98 +165,52 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.21.8-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- bStats -->
-		<dependency>
-			<groupId>org.bstats</groupId>
-			<artifactId>bstats-bukkit</artifactId>
-			<version>3.1.0</version>
 		</dependency>
 
 		<!-- MessageBuilder -->
 		<dependency>
-			<groupId>com.winterhaven-mc</groupId>
-			<artifactId>message-builder-lib</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
-		</dependency>
-
-		<!-- SoundConfigLib -->
-		<dependency>
-			<groupId>com.winterhaven-mc</groupId>
-			<artifactId>sound-config-lib</artifactId>
-			<version>1.21.0-SNAPSHOT</version>
-		</dependency>
-
-		<!-- WorldManagerLib -->
-		<dependency>
-			<groupId>com.winterhaven-mc</groupId>
-			<artifactId>world-manager-lib</artifactId>
-			<version>1.21.0-SNAPSHOT</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
-		<dependency>
-			<groupId>org.xerial</groupId>
-			<artifactId>sqlite-jdbc</artifactId>
-			<version>3.46.1.2</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- JUnit Testing Dependencies -->
-		<dependency>
-			<groupId>org.junit</groupId>
-			<artifactId>junit-bom</artifactId>
-			<version>5.12.2</version>
-			<type>pom</type>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.11.3</version>
-			<scope>test</scope>
+			<groupId>com.winterhavenmc.messagebuilder</groupId>
+			<artifactId>bootstrap</artifactId>
 		</dependency>
 
 		<!-- JUnit parameters -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-params</artifactId>
-			<version>5.11.3</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- Mockito Framework -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>5.14.2</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- Mockito/JUnit Integration Module -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
-			<version>5.14.2</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- Mockito Inline Module -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-inline</artifactId>
-			<version>5.2.0</version>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.jetbrains.kotlinx</groupId>
 			<artifactId>kover-maven-plugin</artifactId>
-			<version>0.9.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+		</dependency>
+
+		<!-- junit-jupiter -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -286,11 +236,46 @@
 		<!-- available Maven plugins, must be declared in module pom -->
 		<pluginManagement>
 			<plugins>
-				<!-- Maven Shade Plugin (version and executions defined here) -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-shade-plugin</artifactId>
-					<version>3.6.0</version>
+
+					<configuration>
+						<!-- Final shaded JAR name -->
+						<finalName>SavageDeathCompass-${project.version}</finalName>
+
+						<!-- Minimize to remove unused classes (optional, test carefully) -->
+						<minimizeJar>true</minimizeJar>
+
+						<!-- Do not generate a dependency-reduced POM -->
+						<createDependencyReducedPom>false</createDependencyReducedPom>
+
+						<filters>
+							<filter>
+								<!-- Apply only to dependencies (not the plugin module itself) -->
+								<artifact>*:*</artifact>
+								<excludes>
+									<exclude>META-INF/*.SF</exclude>
+									<exclude>META-INF/*.DSA</exclude>
+									<exclude>META-INF/*.RSA</exclude>
+									<!-- optionally exclude MANIFEST.MF from dependencies if not needed -->
+									<exclude>META-INF/MANIFEST.MF</exclude>
+								</excludes>
+							</filter>
+						</filters>
+
+						<!-- relocate these packages on the class path to avoid conflicts with other plugins -->
+						<relocations>
+							<relocation>
+								<pattern>com.winterhavenmc.library</pattern>
+								<shadedPattern>com.winterhavenmc.deathcompass.shaded</shadedPattern>
+							</relocation>
+							<relocation>
+								<pattern>org.bstats</pattern>
+								<shadedPattern>com.winterhavenmc.deathcompass.shaded</shadedPattern>
+							</relocation>
+						</relocations>
+					</configuration>
 					<executions>
 						<execution>
 							<phase>package</phase>

@@ -17,11 +17,12 @@
 
 package com.winterhavenmc.deathcompass.adapters.listeners.bukkit;
 
-import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
+import com.winterhavenmc.deathcompass.core.context.ListenerCtx;
 import com.winterhavenmc.deathcompass.core.ports.listeners.PlayerEventListener;
-import com.winterhavenmc.library.messagebuilder.keys.ItemKey;
-import com.winterhavenmc.library.messagebuilder.keys.ValidItemKey;
-import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
+import com.winterhavenmc.library.messagebuilder.adapters.resources.configuration.BukkitConfigRepository;
+import com.winterhavenmc.library.messagebuilder.models.configuration.ConfigRepository;
+import com.winterhavenmc.library.messagebuilder.models.keys.ItemKey;
+import com.winterhavenmc.library.messagebuilder.models.keys.ValidItemKey;
 import com.winterhavenmc.deathcompass.core.tasks.SetCompassTargetTask;
 import com.winterhavenmc.deathcompass.core.util.Macro;
 import com.winterhavenmc.deathcompass.core.util.MessageId;
@@ -49,8 +50,8 @@ import java.util.*;
 public final class BukkitPlayerEventListener implements PlayerEventListener
 {
 	private final static String ITEM_KEY = "DEATH_COMPASS";
-	private final DeathCompassPluginController.ListenerContextContainer ctx;
-	private final LocaleProvider localeProvider;
+	private final ListenerCtx ctx;
+	private final ConfigRepository configRepository;
 
 	// player death respawn hash set, used to prevent giving compass on non-death respawn events
 	private final Set<UUID> deathTriggeredRespawn = new HashSet<>();
@@ -62,24 +63,24 @@ public final class BukkitPlayerEventListener implements PlayerEventListener
 	public BukkitPlayerEventListener()
 	{
 		this.ctx = null;
-		this.localeProvider = null;
+		this.configRepository = null;
 	}
 
 
 	/**
 	 * Class constructor
 	 */
-	private BukkitPlayerEventListener(final DeathCompassPluginController.ListenerContextContainer ctx)
+	private BukkitPlayerEventListener(final ListenerCtx ctx)
 	{
 		this.ctx = ctx;
-		this.localeProvider = LocaleProvider.create(ctx.plugin());
+		this.configRepository = BukkitConfigRepository.create(ctx.plugin());
 
 		// register event handlers in this class
 		ctx.plugin().getServer().getPluginManager().registerEvents(this, ctx.plugin());
 	}
 
 
-	public PlayerEventListener init(final DeathCompassPluginController.ListenerContextContainer ctx)
+	public PlayerEventListener init(final ListenerCtx ctx)
 	{
 		return new BukkitPlayerEventListener(ctx);
 	}
@@ -93,7 +94,7 @@ public final class BukkitPlayerEventListener implements PlayerEventListener
 	public ItemStack createItem()
 	{
 		ValidItemKey validItemKey = ItemKey.of(ITEM_KEY).isValid().orElseThrow();
-		return ctx.messageBuilder().itemForge().createItem(validItemKey).orElseThrow();
+		return ctx.messageBuilder().items().createItem(validItemKey).orElseThrow();
 	}
 
 
@@ -133,7 +134,7 @@ public final class BukkitPlayerEventListener implements PlayerEventListener
 		Player player = event.getEntity();
 
 		// if player world is not enabled in config, do nothing and return
-		if (!ctx.worldManager().isEnabled(player.getWorld()))
+		if (!ctx.messageBuilder().worlds().isEnabled(player.getWorld().getUID()))
 		{
 			return;
 		}
@@ -159,7 +160,7 @@ public final class BukkitPlayerEventListener implements PlayerEventListener
 		{
 			// log invalid reason
 			ctx.plugin().getLogger().warning("Error: " + ((InvalidDeathLocation) deathLocation).reason()
-					.getLocalizedMessage(localeProvider.getLocale()));
+					.getLocalizedMessage(configRepository.locale()));
 		}
 	}
 
@@ -176,7 +177,7 @@ public final class BukkitPlayerEventListener implements PlayerEventListener
 		Player player = event.getPlayer();
 
 		// if player world is not enabled, do nothing and return
-		if (!ctx.worldManager().isEnabled(player.getWorld()))
+		if (!ctx.messageBuilder().worlds().isEnabled(player.getWorld().getUID()))
 		{
 			return;
 		}
@@ -225,7 +226,7 @@ public final class BukkitPlayerEventListener implements PlayerEventListener
 		Player player = event.getPlayer();
 
 		// if player world is not enabled, do nothing and return
-		if (!ctx.worldManager().isEnabled(player.getWorld()))
+		if (!ctx.messageBuilder().worlds().isEnabled(player.getWorld().getUID()))
 		{
 			return;
 		}
@@ -268,7 +269,7 @@ public final class BukkitPlayerEventListener implements PlayerEventListener
 		Player player = Objects.requireNonNull(event.getPlayer());
 
 		// if player world is not enabled in config, do nothing and return
-		if (!ctx.worldManager().isEnabled(player.getWorld()))
+		if (!ctx.messageBuilder().worlds().isEnabled(player.getWorld().getUID()))
 		{
 			return;
 		}
@@ -361,7 +362,7 @@ public final class BukkitPlayerEventListener implements PlayerEventListener
 		event.getItemDrop().remove();
 
 		// play item_break sound to player if sound effects enabled in config
-		ctx.soundConfig().playSound(player, SoundId.PLAYER_DROP_COMPASS);
+		ctx.messageBuilder().sounds().play(player, SoundId.PLAYER_DROP_COMPASS);
 
 		// if inventory does not contain at least 1 death compass, reset compass target
 		if (!player.getInventory().containsAtLeast(item, 1))
@@ -388,7 +389,7 @@ public final class BukkitPlayerEventListener implements PlayerEventListener
 		player.getInventory().addItem(deathcompass);
 
 		ctx.plugin().getLogger().info(player.getName() + " was given a death compass in "
-				+ ctx.worldManager().getWorldName(player.getWorld()) + ".");
+				+ ctx.messageBuilder().worlds().aliasOrName(player.getWorld().getUID()) + "."); // TODO: implement aliasOrName in MessageBuilderLib
 
 		return deathcompass;
 	}
@@ -451,7 +452,7 @@ public final class BukkitPlayerEventListener implements PlayerEventListener
 		// if fetched record is valid, return location; else use player world spawn location
 		return (deathLocation instanceof ValidDeathLocation validDeathLocation && validDeathLocation.location().isPresent())
 				? validDeathLocation.location().get()
-				: ctx.worldManager().getSpawnLocation(player.getWorld());
+				: ctx.messageBuilder().worlds().spawnLocation(player.getWorld().getUID()).orElseThrow(); // TODO: replace orElseThrow
 	}
 
 }

@@ -63,7 +63,7 @@ MESSAGES:
   COMMAND_HELP_STATUS:
     MESSAGE_TEXT: '&eMuestra los ajustes de configuración del complemento.'
 
-  COMMAND_HELP_INVALID:
+  COMMAND_INVALID_HELP:
     MESSAGE_TEXT: '&eEse no es un comando válido.'
 
   COMMAND_HELP_USAGE:

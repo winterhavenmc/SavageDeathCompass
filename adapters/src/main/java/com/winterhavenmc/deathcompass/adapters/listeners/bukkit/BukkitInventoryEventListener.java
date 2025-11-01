@@ -17,13 +17,11 @@
 
 package com.winterhavenmc.deathcompass.adapters.listeners.bukkit;
 
-import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
+import com.winterhavenmc.deathcompass.core.context.ListenerCtx;
 import com.winterhavenmc.deathcompass.core.ports.listeners.InventoryEventListener;
 import com.winterhavenmc.deathcompass.core.util.Macro;
 import com.winterhavenmc.deathcompass.core.util.MessageId;
-import com.winterhavenmc.deathcompass.core.util.SoundId;
 
-import com.winterhavenmc.library.messagebuilder.ItemForge;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
@@ -42,7 +40,7 @@ import java.util.Set;
  */
 public final class BukkitInventoryEventListener implements InventoryEventListener
 {
-	private final DeathCompassPluginController.ListenerContextContainer ctx;
+	private final ListenerCtx ctx;
 
 	// set of inventory types to allow shift-click transfers from hot bar (item goes into player inventory)
 	private final static Collection<InventoryType> SHIFT_CLICK_ALLOWED_TYPES = Set.of(
@@ -61,7 +59,7 @@ public final class BukkitInventoryEventListener implements InventoryEventListene
 	/**
 	 * class constructor
 	 */
-	private BukkitInventoryEventListener(final DeathCompassPluginController.ListenerContextContainer ctx)
+	private BukkitInventoryEventListener(final ListenerCtx ctx)
 	{
 		this.ctx = ctx;
 
@@ -71,7 +69,7 @@ public final class BukkitInventoryEventListener implements InventoryEventListene
 
 
 	@Override
-	public InventoryEventListener init(final DeathCompassPluginController.ListenerContextContainer ctx)
+	public InventoryEventListener init(final ListenerCtx ctx)
 	{
 		return new BukkitInventoryEventListener(ctx);
 	}
@@ -197,7 +195,6 @@ public final class BukkitInventoryEventListener implements InventoryEventListene
 	private void cancelInventoryTransfer(final Cancellable event, final HumanEntity player, final ItemStack item)
 	{
 		event.setCancelled(true);
-		ctx.soundConfig().playSound(player, SoundId.INVENTORY_DENY_TRANSFER);
 		ctx.messageBuilder().compose(player, MessageId.EVENT_INVENTORY_DENY_TRANSFER)
 				.setMacro(Macro.DEATH_LOCATION, player.getLastDeathLocation())
 				.setMacro(Macro.ITEM, item)
@@ -213,7 +210,7 @@ public final class BukkitInventoryEventListener implements InventoryEventListene
 	 */
 	private boolean isDeathCompass(final ItemStack itemStack)
 	{
-		return ItemForge.isCustomItem(itemStack);
+		return ctx.messageBuilder().items().isItem(itemStack);
 	}
 
 }

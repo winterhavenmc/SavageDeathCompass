@@ -21,32 +21,30 @@ import com.winterhavenmc.deathcompass.adapters.commands.bukkit.BukkitCommandDisp
 import com.winterhavenmc.deathcompass.adapters.listeners.bukkit.BukkitInventoryEventListener;
 import com.winterhavenmc.deathcompass.adapters.listeners.bukkit.BukkitPlayerEventListener;
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteConnectionProvider;
-import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
-import com.winterhavenmc.deathcompass.core.ports.controllers.PluginController;
+import com.winterhavenmc.deathcompass.core.controller.DeathCompassPluginController;
+import com.winterhavenmc.deathcompass.core.controller.PluginController;
 import com.winterhavenmc.deathcompass.core.ports.commands.CommandDispatcher;
 import com.winterhavenmc.deathcompass.core.ports.listeners.InventoryEventListener;
 import com.winterhavenmc.deathcompass.core.ports.listeners.PlayerEventListener;
 import com.winterhavenmc.deathcompass.core.ports.storage.ConnectionProvider;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public final class Bootstrap extends JavaPlugin
 {
-	CommandDispatcher commandDispatcher;
-	InventoryEventListener inventoryEventListener;
-	PlayerEventListener playerEventListener;
 	PluginController pluginController;
-	ConnectionProvider connectionProvider;
 
 
 	@Override
 	public void onEnable()
 	{
-		commandDispatcher = new BukkitCommandDispatcher();
-		inventoryEventListener = new BukkitInventoryEventListener();
-		playerEventListener = new BukkitPlayerEventListener();
+		ConnectionProvider connectionProvider = new SqliteConnectionProvider(this);
+		CommandDispatcher commandDispatcher = new BukkitCommandDispatcher();
+		InventoryEventListener inventoryEventListener = new BukkitInventoryEventListener();
+		PlayerEventListener playerEventListener = new BukkitPlayerEventListener();
 		pluginController = new DeathCompassPluginController();
-		connectionProvider = new SqliteConnectionProvider(this);
+
 		pluginController.startUp(this, commandDispatcher, inventoryEventListener, playerEventListener, connectionProvider);
 	}
 

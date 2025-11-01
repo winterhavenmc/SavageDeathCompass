@@ -17,7 +17,7 @@
 
 package com.winterhavenmc.deathcompass.core.ports.commands;
 
-import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
+import com.winterhavenmc.deathcompass.core.context.CommandCtx;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -27,7 +27,7 @@ import java.util.List;
 
 public interface CommandDispatcher extends TabExecutor
 {
-	CommandDispatcher init(DeathCompassPluginController.CommandContextContainer ctx);
+	CommandDispatcher init(CommandCtx ctx);
 
 
 	/**

@@ -17,10 +17,10 @@
 
 package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
 
-import com.winterhavenmc.deathcompass.core.DeathCompassPluginController;
+import com.winterhavenmc.deathcompass.core.context.CommandCtx;
 import com.winterhavenmc.deathcompass.core.ports.commands.CommandDispatcher;
 import com.winterhavenmc.deathcompass.core.util.MessageId;
-import com.winterhavenmc.deathcompass.core.util.SoundId;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  */
 public final class BukkitCommandDispatcher implements CommandDispatcher
 {
-	private final DeathCompassPluginController.CommandContextContainer ctx;
+	private final CommandCtx ctx;
 	private final SubcommandRegistry subcommandRegistry = new SubcommandRegistry();
 
 
@@ -47,7 +47,7 @@ public final class BukkitCommandDispatcher implements CommandDispatcher
 	/**
 	 * Class constructor
 	 */
-	public BukkitCommandDispatcher(final DeathCompassPluginController.CommandContextContainer ctx)
+	public BukkitCommandDispatcher(final CommandCtx ctx)
 	{
 		this.ctx = ctx;
 		Objects.requireNonNull(ctx.plugin().getCommand("deathcompass")).setExecutor(this);
@@ -63,7 +63,7 @@ public final class BukkitCommandDispatcher implements CommandDispatcher
 	}
 
 
-	public CommandDispatcher init(final DeathCompassPluginController.CommandContextContainer ctx)
+	public CommandDispatcher init(final CommandCtx ctx)
 	{
 		return new BukkitCommandDispatcher(ctx);
 	}
@@ -143,8 +143,7 @@ public final class BukkitCommandDispatcher implements CommandDispatcher
 		if (optionalSubcommand.isEmpty())
 		{
 			optionalSubcommand = subcommandRegistry.getSubcommand("help");
-			ctx.messageBuilder().compose(sender, MessageId.COMMAND_FAIL_INVALID_COMMAND).send();
-			ctx.soundConfig().playSound(sender, SoundId.COMMAND_INVALID);
+			ctx.messageBuilder().compose(sender, MessageId.COMMAND_INVALID).send();
 		}
 
 		// execute subcommand

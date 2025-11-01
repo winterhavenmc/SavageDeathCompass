@@ -15,19 +15,17 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.core;
+package com.winterhavenmc.deathcompass.core.controller;
 
+import com.winterhavenmc.deathcompass.core.context.CommandCtx;
+import com.winterhavenmc.deathcompass.core.context.ListenerCtx;
 import com.winterhavenmc.deathcompass.core.ports.commands.CommandDispatcher;
-import com.winterhavenmc.deathcompass.core.ports.controllers.PluginController;
 import com.winterhavenmc.deathcompass.core.ports.listeners.InventoryEventListener;
 import com.winterhavenmc.deathcompass.core.ports.listeners.PlayerEventListener;
 import com.winterhavenmc.deathcompass.core.ports.storage.ConnectionProvider;
 import com.winterhavenmc.deathcompass.core.util.MetricsHandler;
 
 import com.winterhavenmc.library.messagebuilder.MessageBuilder;
-import com.winterhavenmc.library.soundconfig.SoundConfiguration;
-import com.winterhavenmc.library.soundconfig.YamlSoundConfiguration;
-import com.winterhavenmc.library.worldmanager.WorldManager;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -41,8 +39,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class DeathCompassPluginController implements PluginController
 {
 	public MessageBuilder messageBuilder;
-	public SoundConfiguration soundConfig;
-	public WorldManager worldManager;
 	public ConnectionProvider datastore;
 	public CommandDispatcher commandDispatcher;
 	public InventoryEventListener inventoryEventListener;
@@ -62,12 +58,6 @@ public final class DeathCompassPluginController implements PluginController
 		// initialize message builder
 		messageBuilder = MessageBuilder.create(plugin);
 
-		// instantiate sound config
-		soundConfig = new YamlSoundConfiguration(plugin);
-
-		// instantiate world manager
-		worldManager = new WorldManager(plugin);
-
 		// instantiate datastore
 		datastore = connectionProvider.connect();
 
@@ -75,8 +65,8 @@ public final class DeathCompassPluginController implements PluginController
 		new MetricsHandler(plugin);
 
 		// instantiate context containers
-		ListenerContextContainer listenerCtx = new ListenerContextContainer(plugin, messageBuilder, soundConfig, worldManager, datastore);
-		CommandContextContainer commandCtx = new CommandContextContainer(plugin, messageBuilder, soundConfig, worldManager);
+		ListenerCtx listenerCtx = new ListenerCtx(plugin, messageBuilder, datastore);
+		CommandCtx commandCtx = new CommandCtx(plugin, messageBuilder);
 
 		// initialize command dispatcher
 		this.commandDispatcher = commandDispatcher.init(commandCtx);
@@ -93,13 +83,5 @@ public final class DeathCompassPluginController implements PluginController
 		datastore.close();
 	}
 
-
-	public record ListenerContextContainer(JavaPlugin plugin, MessageBuilder messageBuilder,
-	                                SoundConfiguration soundConfig, WorldManager worldManager,
-	                                ConnectionProvider datastore) { }
-
-
-	public record CommandContextContainer(JavaPlugin plugin, MessageBuilder messageBuilder,
-	                               SoundConfiguration soundConfig, WorldManager worldManager) { }
 
 }

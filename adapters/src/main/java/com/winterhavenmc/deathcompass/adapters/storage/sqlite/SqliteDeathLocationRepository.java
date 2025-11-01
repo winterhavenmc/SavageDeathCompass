@@ -22,7 +22,8 @@ import com.winterhavenmc.deathcompass.models.DeathLocationReason;
 import com.winterhavenmc.deathcompass.models.InvalidDeathLocation;
 import com.winterhavenmc.deathcompass.models.ValidDeathLocation;
 import com.winterhavenmc.deathcompass.core.ports.storage.DeathLocationRepository;
-import com.winterhavenmc.library.messagebuilder.resources.configuration.LocaleProvider;
+
+import com.winterhavenmc.library.messagebuilder.models.configuration.ConfigRepository;
 
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
@@ -34,22 +35,24 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.IntStream;
 
+import static com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteConnectionProvider.DATASTORE_NAME;
 
-public class SqliteDeathLocationRepository implements DeathLocationRepository
+
+public final class SqliteDeathLocationRepository implements DeathLocationRepository
 {
 	private final Plugin plugin;
 	private final Connection connection;
-	private final LocaleProvider localeProvider;
+	private final ConfigRepository configRepository;
 	private final SqliteDeathLocationCache sqliteDeathLocationCache;
 	private final SqliteDeathLocationQueryExecutor queryExecutor = new SqliteDeathLocationQueryExecutor();
 	private final SqliteDeathLocationRowMapper rowMapper = new SqliteDeathLocationRowMapper();
 
 
-	public SqliteDeathLocationRepository(final Plugin plugin, final Connection connection, final LocaleProvider localeProvider)
+	public SqliteDeathLocationRepository(final Plugin plugin, final Connection connection, final ConfigRepository configRepository)
 	{
 		this.plugin = plugin;
 		this.connection = connection;
-		this.localeProvider = localeProvider;
+		this.configRepository = configRepository;
 		this.sqliteDeathLocationCache = new SqliteDeathLocationCache(plugin);
 	}
 
@@ -83,14 +86,14 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 				else
 				{
 					plugin.getLogger().warning(SqliteMessage.SELECT_RECORD_WORLD_INVALID_ERROR
-							.getLocalizedMessage(localeProvider.getLocale(), resultSet.getString("WorldName")));
+							.getLocalizedMessage(configRepository.locale(), resultSet.getString("WorldName")));
 				}
 			}
 			return new InvalidDeathLocation(DeathLocationReason.RECORD_NOT_FOUND);
 		}
 		catch (SQLException sqlException)
 		{
-			plugin.getLogger().warning(SqliteMessage.SELECT_RECORD_ERROR.getLocalizedMessage(localeProvider.getLocale()));
+			plugin.getLogger().warning(SqliteMessage.SELECT_RECORD_ERROR.getLocalizedMessage(configRepository.locale(), DATASTORE_NAME));
 			plugin.getLogger().warning(sqlException.getLocalizedMessage());
 			return new InvalidDeathLocation(DeathLocationReason.SQL_EXCEPTION_THROWN);
 		}
@@ -115,13 +118,13 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 			}
 			catch (SQLException sqlException)
 			{
-				plugin.getLogger().warning(SqliteMessage.INSERT_RECORD_ERROR.getLocalizedMessage(localeProvider.getLocale()));
+				plugin.getLogger().warning(SqliteMessage.INSERT_RECORD_ERROR.getLocalizedMessage(configRepository.locale(), DATASTORE_NAME));
 				plugin.getLogger().warning(sqlException.getLocalizedMessage());
 			}
 		}
 		else
 		{
-			plugin.getLogger().warning(SqliteMessage.INSERT_RECORD_WORLD_INVALID_ERROR.getLocalizedMessage(localeProvider.getLocale()));
+			plugin.getLogger().warning(SqliteMessage.INSERT_RECORD_WORLD_INVALID_ERROR.getLocalizedMessage(configRepository.locale(), DATASTORE_NAME));
 		}
 
 		return count;
@@ -142,7 +145,7 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 		}
 		catch (SQLException sqlException)
 		{
-			plugin.getLogger().warning(SqliteMessage.INSERT_RECORD_ERROR.getLocalizedMessage(localeProvider.getLocale()));
+			plugin.getLogger().warning(SqliteMessage.INSERT_RECORD_ERROR.getLocalizedMessage(configRepository.locale(), DATASTORE_NAME));
 			plugin.getLogger().warning(sqlException.getLocalizedMessage());
 		}
 
@@ -169,7 +172,7 @@ public class SqliteDeathLocationRepository implements DeathLocationRepository
 		catch (SQLException sqlException)
 		{
 			// output simple error message
-			plugin.getLogger().warning(SqliteMessage.DELETE_RECORD_ERROR.getLocalizedMessage(localeProvider.getLocale()));
+			plugin.getLogger().warning(SqliteMessage.DELETE_RECORD_ERROR.getLocalizedMessage(configRepository.locale(), DATASTORE_NAME));
 			plugin.getLogger().warning(sqlException.getLocalizedMessage());
 		}
 

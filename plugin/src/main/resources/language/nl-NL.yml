@@ -63,7 +63,7 @@ MESSAGES:
   COMMAND_HELP_STATUS:
     MESSAGE_TEXT: "<yellow>Geeft configuratie-instellingen voor plug-ins weer.</yellow>"
 
-  COMMAND_HELP_INVALID:
+  COMMAND_INVALID_HELP:
     MESSAGE_TEXT: "<yellow>Dat is geen geldig bevel.</yellow>"
 
   COMMAND_HELP_USAGE:

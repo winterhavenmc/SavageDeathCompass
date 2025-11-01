@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2025 Tim Savage.
+ * Copyright (c) 2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,13 +15,10 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.core.util;
+package com.winterhavenmc.deathcompass.core.context;
 
+import com.winterhavenmc.deathcompass.core.ports.storage.ConnectionProvider;
+import com.winterhavenmc.library.messagebuilder.MessageBuilder;
+import org.bukkit.plugin.java.JavaPlugin;
 
-/**
- * Provides constant identifiers for configurable sounds
- */
-public enum SoundId
-{
-	PLAYER_DROP_COMPASS,
-}
+public record ListenerCtx(JavaPlugin plugin, MessageBuilder messageBuilder, ConnectionProvider datastore) { }
