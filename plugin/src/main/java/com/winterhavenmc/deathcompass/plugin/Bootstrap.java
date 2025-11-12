@@ -45,7 +45,7 @@ public final class Bootstrap extends JavaPlugin
 		PlayerEventListener playerEventListener = new BukkitPlayerEventListener();
 		pluginController = new DeathCompassPluginController();
 
-		pluginController.startUp(this, commandDispatcher, inventoryEventListener, playerEventListener, connectionProvider);
+		pluginController.startUp(this, connectionProvider, commandDispatcher, inventoryEventListener, playerEventListener);
 	}
 
 
