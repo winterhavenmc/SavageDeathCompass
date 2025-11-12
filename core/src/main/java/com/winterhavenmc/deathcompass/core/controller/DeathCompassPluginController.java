@@ -47,10 +47,10 @@ public final class DeathCompassPluginController implements PluginController
 
 	@Override
 	public void startUp(final JavaPlugin plugin,
+	                    final ConnectionProvider connectionProvider,
 	                    final CommandDispatcher commandDispatcher,
 	                    final InventoryEventListener inventoryEventListener,
-	                    final PlayerEventListener playerEventListener,
-	                    final ConnectionProvider connectionProvider)
+	                    final PlayerEventListener playerEventListener)
 	{
 		// install default config.yml if not present
 		plugin.saveDefaultConfig();
