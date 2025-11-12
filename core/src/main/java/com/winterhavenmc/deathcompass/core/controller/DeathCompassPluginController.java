@@ -61,9 +61,6 @@ public final class DeathCompassPluginController implements PluginController
 		// instantiate datastore
 		datastore = connectionProvider.connect();
 
-		// instantiate metrics handler
-		new MetricsHandler(plugin);
-
 		// instantiate context containers
 		ListenerCtx listenerCtx = new ListenerCtx(plugin, messageBuilder, datastore);
 		CommandCtx commandCtx = new CommandCtx(plugin, messageBuilder);
@@ -74,6 +71,9 @@ public final class DeathCompassPluginController implements PluginController
 		// initialize event listeners
 		this.playerEventListener = playerEventListener.init(listenerCtx);
 		this.inventoryEventListener = inventoryEventListener.init(listenerCtx);
+
+		// instantiate metrics handler
+		new MetricsHandler(plugin);
 	}
 
 
