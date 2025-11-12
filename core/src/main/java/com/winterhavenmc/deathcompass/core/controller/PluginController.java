@@ -26,9 +26,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public interface PluginController
 {
-	void startUp(JavaPlugin plugin, CommandDispatcher commandDispatcher,
-	             InventoryEventListener inventoryEventListener, PlayerEventListener playerEventListener,
-	             ConnectionProvider connectionProvider);
+	void startUp(JavaPlugin plugin, ConnectionProvider connectionProvider, CommandDispatcher commandDispatcher,
+	             InventoryEventListener inventoryEventListener, PlayerEventListener playerEventListener);
 
 	void shutDown();
 }
