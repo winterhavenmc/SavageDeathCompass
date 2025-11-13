@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2025 Tim Savage.
+ * Copyright (c) 2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,34 +15,6 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
+package com.winterhavenmc.deathcompass.adapters.models;
 
-import com.winterhavenmc.deathcompass.adapters.context.CommandCtx;
-
-
-/**
- * Enumeration of subcommands to be instantiated
- */
-enum SubcommandType
-{
-	RELOAD()
-			{
-				@Override
-				Subcommand create(final CommandCtx ctx)
-				{
-					return new ReloadSubcommand(ctx);
-				}
-			},
-
-	STATUS()
-			{
-				@Override
-				Subcommand create(final CommandCtx ctx)
-				{
-					return new StatusSubcommand(ctx);
-				}
-			};
-
-	abstract Subcommand create(final CommandCtx ctx);
-
-}
+public record InvalidDeathLocation(DeathLocationReason reason) implements DeathLocation { }

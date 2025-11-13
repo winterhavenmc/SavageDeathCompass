@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2025 Tim Savage.
+ * Copyright (c) 2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,34 +15,19 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
+package com.winterhavenmc.deathcompass.adapters.ports.storage;
 
-import com.winterhavenmc.deathcompass.adapters.context.CommandCtx;
+import com.winterhavenmc.deathcompass.adapters.models.DeathLocation;
+import com.winterhavenmc.deathcompass.adapters.models.ValidDeathLocation;
+
+import java.util.Collection;
+import java.util.UUID;
 
 
-/**
- * Enumeration of subcommands to be instantiated
- */
-enum SubcommandType
+@SuppressWarnings("UnusedReturnValue")
+public interface DeathLocationRepository
 {
-	RELOAD()
-			{
-				@Override
-				Subcommand create(final CommandCtx ctx)
-				{
-					return new ReloadSubcommand(ctx);
-				}
-			},
-
-	STATUS()
-			{
-				@Override
-				Subcommand create(final CommandCtx ctx)
-				{
-					return new StatusSubcommand(ctx);
-				}
-			};
-
-	abstract Subcommand create(final CommandCtx ctx);
-
+	DeathLocation getDeathLocation(final UUID playerUUID, final UUID worldUID);
+	int saveDeathLocation(final ValidDeathLocation deathLocation);
+	int saveDeathLocations(final Collection<ValidDeathLocation> deathLocations);
 }

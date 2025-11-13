@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2025 Tim Savage.
+ * Copyright (c) 2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,34 +15,10 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
+package com.winterhavenmc.deathcompass.adapters.context;
 
-import com.winterhavenmc.deathcompass.adapters.context.CommandCtx;
+import com.winterhavenmc.deathcompass.adapters.ports.storage.ConnectionProvider;
+import com.winterhavenmc.library.messagebuilder.MessageBuilder;
+import org.bukkit.plugin.java.JavaPlugin;
 
-
-/**
- * Enumeration of subcommands to be instantiated
- */
-enum SubcommandType
-{
-	RELOAD()
-			{
-				@Override
-				Subcommand create(final CommandCtx ctx)
-				{
-					return new ReloadSubcommand(ctx);
-				}
-			},
-
-	STATUS()
-			{
-				@Override
-				Subcommand create(final CommandCtx ctx)
-				{
-					return new StatusSubcommand(ctx);
-				}
-			};
-
-	abstract Subcommand create(final CommandCtx ctx);
-
-}
+public record ListenerCtx(JavaPlugin plugin, MessageBuilder messageBuilder, ConnectionProvider datastore) { }

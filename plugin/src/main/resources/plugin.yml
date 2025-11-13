@@ -1,7 +1,7 @@
 name: SavageDeathCompass
 version: ${project.version}
 author: ${project.author}
-main: com.winterhavenmc.deathcompass.plugin.Bootstrap
+main: com.winterhavenmc.deathcompass.adapters.Bootstrap
 api-version: 1.20
 softdepend: [ Iris, Multiverse-Core, My_Worlds ]
 

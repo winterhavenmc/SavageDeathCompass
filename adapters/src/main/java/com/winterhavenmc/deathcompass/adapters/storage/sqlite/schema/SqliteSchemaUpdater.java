@@ -19,7 +19,7 @@ package com.winterhavenmc.deathcompass.adapters.storage.sqlite.schema;
 
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteMessage;
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.SqliteQueries;
-import com.winterhavenmc.deathcompass.core.ports.storage.DeathLocationRepository;
+import com.winterhavenmc.deathcompass.adapters.ports.storage.DeathLocationRepository;
 
 import com.winterhavenmc.library.messagebuilder.models.configuration.ConfigRepository;
 

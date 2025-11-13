@@ -17,10 +17,10 @@
 
 package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 
-import com.winterhavenmc.deathcompass.models.DeathLocation;
-import com.winterhavenmc.deathcompass.models.DeathLocationReason;
-import com.winterhavenmc.deathcompass.models.InvalidDeathLocation;
-import com.winterhavenmc.deathcompass.models.ValidDeathLocation;
+import com.winterhavenmc.deathcompass.adapters.models.DeathLocation;
+import com.winterhavenmc.deathcompass.adapters.models.DeathLocationReason;
+import com.winterhavenmc.deathcompass.adapters.models.InvalidDeathLocation;
+import com.winterhavenmc.deathcompass.adapters.models.ValidDeathLocation;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

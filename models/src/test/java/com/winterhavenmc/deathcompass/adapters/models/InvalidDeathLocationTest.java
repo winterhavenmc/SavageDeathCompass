@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2025 Tim Savage.
+ * Copyright (c) 2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,34 +15,21 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
+package com.winterhavenmc.deathcompass.adapters.models;
 
-import com.winterhavenmc.deathcompass.adapters.context.CommandCtx;
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Enumeration of subcommands to be instantiated
- */
-enum SubcommandType
+class InvalidDeathLocationTest
 {
-	RELOAD()
-			{
-				@Override
-				Subcommand create(final CommandCtx ctx)
-				{
-					return new ReloadSubcommand(ctx);
-				}
-			},
 
-	STATUS()
-			{
-				@Override
-				Subcommand create(final CommandCtx ctx)
-				{
-					return new StatusSubcommand(ctx);
-				}
-			};
+	@Test
+	void reason_returns_invalid_reason()
+	{
+		InvalidDeathLocation deathLocation = new InvalidDeathLocation(DeathLocationReason.PLAYER_NULL);
 
-	abstract Subcommand create(final CommandCtx ctx);
+		assertEquals(DeathLocationReason.PLAYER_NULL, deathLocation.reason());
+	}
 
 }

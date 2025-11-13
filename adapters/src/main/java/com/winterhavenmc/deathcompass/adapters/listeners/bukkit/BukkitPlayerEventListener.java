@@ -17,19 +17,19 @@
 
 package com.winterhavenmc.deathcompass.adapters.listeners.bukkit;
 
-import com.winterhavenmc.deathcompass.core.context.ListenerCtx;
-import com.winterhavenmc.deathcompass.core.ports.listeners.PlayerEventListener;
+import com.winterhavenmc.deathcompass.adapters.context.ListenerCtx;
+import com.winterhavenmc.deathcompass.adapters.ports.listeners.PlayerEventListener;
 import com.winterhavenmc.library.messagebuilder.adapters.resources.configuration.BukkitConfigRepository;
 import com.winterhavenmc.library.messagebuilder.models.configuration.ConfigRepository;
 import com.winterhavenmc.library.messagebuilder.models.keys.ItemKey;
 import com.winterhavenmc.library.messagebuilder.models.keys.ValidItemKey;
-import com.winterhavenmc.deathcompass.core.tasks.SetCompassTargetTask;
-import com.winterhavenmc.deathcompass.core.util.Macro;
-import com.winterhavenmc.deathcompass.core.util.MessageId;
-import com.winterhavenmc.deathcompass.core.util.SoundId;
-import com.winterhavenmc.deathcompass.models.DeathLocation;
-import com.winterhavenmc.deathcompass.models.ValidDeathLocation;
-import com.winterhavenmc.deathcompass.models.InvalidDeathLocation;
+import com.winterhavenmc.deathcompass.adapters.tasks.SetCompassTargetTask;
+import com.winterhavenmc.deathcompass.adapters.util.Macro;
+import com.winterhavenmc.deathcompass.adapters.util.MessageId;
+import com.winterhavenmc.deathcompass.adapters.util.SoundId;
+import com.winterhavenmc.deathcompass.adapters.models.DeathLocation;
+import com.winterhavenmc.deathcompass.adapters.models.ValidDeathLocation;
+import com.winterhavenmc.deathcompass.adapters.models.InvalidDeathLocation;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;

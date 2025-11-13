@@ -15,23 +15,13 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
+package com.winterhavenmc.deathcompass.adapters.util;
 
-import com.winterhavenmc.deathcompass.adapters.util.MessageId;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-
-import java.util.List;
 
 /**
- * Interface that defines a subcommand
+ * Provides constant identifiers for configurable sounds
  */
-interface Subcommand
+public enum SoundId
 {
-	void onCommand(CommandSender sender, List<String> argsList);
-	List<String> onTabComplete(final CommandSender sender, final Command command, final String alias, final String[] args);
-	String getName();
-	void displayUsage(CommandSender sender);
-	MessageId getDescription();
-	String getPermissionNode();
+	PLAYER_DROP_COMPASS,
 }
