@@ -17,6 +17,7 @@
 
 package com.winterhavenmc.deathcompass.models;
 
+import com.winterhavenmc.library.messagebuilder.core.ports.pipeline.accessors.location.Locatable;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -26,7 +27,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 
-public final class ValidDeathLocation implements DeathLocation
+public final class ValidDeathLocation implements DeathLocation, Locatable
 {
 	private final UUID playerUid;
 	private final UUID worldUid;
@@ -64,6 +65,15 @@ public final class ValidDeathLocation implements DeathLocation
 		return (world != null)
 				? Optional.of(new Location(world, this.x, this.y, this.z))
 				: Optional.empty();
+	}
+
+
+	public Location getLocation()
+	{
+		// get world from uid
+		final World world = Bukkit.getServer().getWorld(this.worldUid);
+
+		return new Location(world, this.x, this.y, this.z);
 	}
 
 
