@@ -35,7 +35,6 @@
 	<modules>
 		<module>adapters</module>
 		<module>core</module>
-		<module>coverage</module>
 		<module>models</module>
 		<module>plugin</module>
 	</modules>
@@ -399,21 +398,9 @@
 <!--						</execution>-->
 					</executions>
 					<configuration>
-						<outputDirectory>${project.build.directory}</outputDirectory>
-						<htmlDirName>${project.build.directory}/site/kover/html</htmlDirName>
 						<aggregate>true</aggregate>
+						<xmlFile>${session.executionRootDirectory}/target/site/kover/report.xml</xmlFile>
 					</configuration>
-				</plugin>
-
-				<plugin>
-					<groupId>org.jacoco</groupId>
-					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>0.8.13</version>
-<!--					<configuration>-->
-<!--						<excludes>-->
-<!--							<exclude>**/test/*</exclude>-->
-<!--						</excludes>-->
-<!--					</configuration>-->
 				</plugin>
 			</plugins>
 		</pluginManagement>

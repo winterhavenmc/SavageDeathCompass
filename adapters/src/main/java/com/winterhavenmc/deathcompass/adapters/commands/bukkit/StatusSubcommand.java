@@ -17,9 +17,9 @@
 
 package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
 
-import com.winterhavenmc.deathcompass.core.context.CommandCtx;
-import com.winterhavenmc.deathcompass.core.util.Macro;
-import com.winterhavenmc.deathcompass.core.util.MessageId;
+import com.winterhavenmc.deathcompass.adapters.context.CommandCtx;
+import com.winterhavenmc.deathcompass.adapters.util.Macro;
+import com.winterhavenmc.deathcompass.adapters.util.MessageId;
 
 import com.winterhavenmc.library.messagebuilder.adapters.resources.configuration.BukkitConfigRepository;
 import com.winterhavenmc.library.messagebuilder.models.configuration.ConfigRepository;

@@ -18,8 +18,8 @@
 package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 
 import com.winterhavenmc.deathcompass.adapters.storage.sqlite.schema.SqliteSchemaUpdater;
-import com.winterhavenmc.deathcompass.core.ports.storage.ConnectionProvider;
-import com.winterhavenmc.deathcompass.core.ports.storage.DeathLocationRepository;
+import com.winterhavenmc.deathcompass.adapters.ports.storage.ConnectionProvider;
+import com.winterhavenmc.deathcompass.adapters.ports.storage.DeathLocationRepository;
 
 import com.winterhavenmc.library.messagebuilder.adapters.resources.configuration.BukkitConfigRepository;
 import com.winterhavenmc.library.messagebuilder.models.configuration.ConfigRepository;

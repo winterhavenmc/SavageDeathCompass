@@ -17,7 +17,7 @@
 
 package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 
-import com.winterhavenmc.deathcompass.models.ValidDeathLocation;
+import com.winterhavenmc.deathcompass.adapters.models.ValidDeathLocation;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 

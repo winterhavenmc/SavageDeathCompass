@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2025 Tim Savage.
+ * Copyright (c) 2025 Tim Savage.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,34 +15,30 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
+package com.winterhavenmc.deathcompass.adapters.tasks;
 
-import com.winterhavenmc.deathcompass.adapters.context.CommandCtx;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 
-/**
- * Enumeration of subcommands to be instantiated
- */
-enum SubcommandType
+public class SetCompassTargetTask extends BukkitRunnable
 {
-	RELOAD()
-			{
-				@Override
-				Subcommand create(final CommandCtx ctx)
-				{
-					return new ReloadSubcommand(ctx);
-				}
-			},
+	private final Player player;
+	private final Location location;
 
-	STATUS()
-			{
-				@Override
-				Subcommand create(final CommandCtx ctx)
-				{
-					return new StatusSubcommand(ctx);
-				}
-			};
+	public SetCompassTargetTask(final Player player, final Location location)
+	{
+		this.player = player;
+		this.location = location;
+	}
 
-	abstract Subcommand create(final CommandCtx ctx);
-
+	public void run()
+	{
+		if (location.getWorld() != player.getWorld())
+		{
+			return;
+		}
+		player.setCompassTarget(location);
+	}
 }

@@ -17,8 +17,8 @@
 
 package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
 
-import com.winterhavenmc.deathcompass.core.context.CommandCtx;
-import com.winterhavenmc.deathcompass.core.util.MessageId;
+import com.winterhavenmc.deathcompass.adapters.context.CommandCtx;
+import com.winterhavenmc.deathcompass.adapters.util.MessageId;
 
 import org.bukkit.command.CommandSender;
 

@@ -15,23 +15,13 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
+package com.winterhavenmc.deathcompass.adapters.util;
 
-import com.winterhavenmc.deathcompass.adapters.util.MessageId;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-
-import java.util.List;
-
-/**
- * Interface that defines a subcommand
- */
-interface Subcommand
+public enum Macro
 {
-	void onCommand(CommandSender sender, List<String> argsList);
-	List<String> onTabComplete(final CommandSender sender, final Command command, final String alias, final String[] args);
-	String getName();
-	void displayUsage(CommandSender sender);
-	MessageId getDescription();
-	String getPermissionNode();
+	ITEM,
+	DEATH_LOCATION,
+	PLUGIN,
+	URL,
+	SETTING,
 }

@@ -17,10 +17,10 @@
 
 package com.winterhavenmc.deathcompass.adapters.listeners.bukkit;
 
-import com.winterhavenmc.deathcompass.core.context.ListenerCtx;
-import com.winterhavenmc.deathcompass.core.ports.listeners.InventoryEventListener;
-import com.winterhavenmc.deathcompass.core.util.Macro;
-import com.winterhavenmc.deathcompass.core.util.MessageId;
+import com.winterhavenmc.deathcompass.adapters.context.ListenerCtx;
+import com.winterhavenmc.deathcompass.adapters.ports.listeners.InventoryEventListener;
+import com.winterhavenmc.deathcompass.adapters.util.Macro;
+import com.winterhavenmc.deathcompass.adapters.util.MessageId;
 
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.Cancellable;

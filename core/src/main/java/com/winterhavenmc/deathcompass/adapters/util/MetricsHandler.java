@@ -15,23 +15,21 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.commands.bukkit;
+package com.winterhavenmc.deathcompass.adapters.util;
 
-import com.winterhavenmc.deathcompass.adapters.util.MessageId;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
+import org.bukkit.plugin.Plugin;
 
-import java.util.List;
 
-/**
- * Interface that defines a subcommand
- */
-interface Subcommand
+public class MetricsHandler
 {
-	void onCommand(CommandSender sender, List<String> argsList);
-	List<String> onTabComplete(final CommandSender sender, final Command command, final String alias, final String[] args);
-	String getName();
-	void displayUsage(CommandSender sender);
-	MessageId getDescription();
-	String getPermissionNode();
+	public MetricsHandler(final Plugin plugin)
+	{
+		Metrics metrics = new Metrics(plugin, 13925);
+
+		// pie chart of configured language
+		metrics.addCustomChart(new SimplePie("language", () -> plugin.getConfig().getString("language")));
+	}
+
 }

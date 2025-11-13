@@ -72,15 +72,15 @@ skinparam class {
 
             package "domain" #ffffff {
                 package "commands" {
-                    class CommandLogic <<commandLogic>> {
+                    interface CommandLogic <<commandLogic>> {
                     }
                 }
                 package "events" {
-                    class EventLogic <<eventLogic>> {
+                    interface EventLogic <<eventLogic>> {
                     }
                 }
                 package "persistence" {
-                    class DeathLocationRepository <<repository>> {
+                    interface DeathLocationRepository <<repository>> {
                     }
                 }
             }
