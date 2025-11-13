@@ -73,6 +73,7 @@ public final class ValidDeathLocation implements DeathLocation, Locatable
 		// get world from uid
 		final World world = Bukkit.getServer().getWorld(this.worldUid);
 
+		// return location with nullable world
 		return new Location(world, this.x, this.y, this.z);
 	}
 
