@@ -3,26 +3,33 @@
 # localized language support
 language: en-US
 
-# Locale (used for time and number formatting)
-locale: en-US
+# NOTE: UNCOMMENT ONLY ONE OF THE FOLLOWING LOCALE SETTINGS
+# Global locale for all context types (number, date, time, log)
+#locale: en-US
 
-# Timezone (uses system default if not set. valid tz identifiers listed here: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
+# locale settings for individual types; uses system default if unset or invalid
+#locale:
+#  number: en-US
+#  date: en-US
+#  time: en-US
+#  log: en-US
+
+# Time zone (for displaying localized time/date)
+# List of valid values: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
+# If not set or invalid, the system default time zone will be used. (Uncomment to override system default)
 #timezone: America/Chicago
 
-# enabled worlds list
-# if this list is empty, all worlds will be added to the enabled worlds list
-# otherwise, only listed worlds will be added to the enabled worlds list
-
-enabled-worlds: []
+# Note: use only one enabled/disabled list, and comment out or remove the other
+# enabled worlds list (use this list for a default-deny world policy)
+# Note: declare explicit empty list for testing
+#enabled-worlds:
 #  - enabled_world1
 #  - enabled_world2
 
-# disabled worlds list
-# these worlds will be removed from the enabled worlds list created by the previous setting
-
-disabled-worlds:
-  - disabled_world1
-  - disabled_world2
+# disabled worlds list (use this list for a default-allow world policy)
+#disabled-worlds:
+#  - disabled_world1
+#  - disabled_world2
 
 # Destroy compass when dropped by player
 destroy-on-drop: true
