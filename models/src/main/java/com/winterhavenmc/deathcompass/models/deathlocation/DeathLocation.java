@@ -15,9 +15,11 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.models;
+package com.winterhavenmc.deathcompass.models.deathlocation;
 
 import org.bukkit.entity.Player;
+
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -57,4 +59,13 @@ public sealed interface DeathLocation permits ValidDeathLocation, InvalidDeathLo
 		else if (worldUid.equals(INVALID_UUID)) return new InvalidDeathLocation(DeathLocationReason.WORLD_UNAVAILABLE);
 		else return new ValidDeathLocation(playerUid, worldUid, x, y, z);
 	}
+
+
+	default Optional<ValidDeathLocation> isValid()
+	{
+		return (this instanceof ValidDeathLocation validDeathLocation)
+				? Optional.of(validDeathLocation)
+				: Optional.empty();
+	}
+
 }

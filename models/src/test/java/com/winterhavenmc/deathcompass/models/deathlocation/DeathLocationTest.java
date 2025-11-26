@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.models;
+package com.winterhavenmc.deathcompass.models.deathlocation;
 
 import org.bukkit.Location;
 import org.bukkit.World;

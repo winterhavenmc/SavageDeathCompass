@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.models;
+package com.winterhavenmc.deathcompass.models.deathlocation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -79,7 +79,7 @@ class ValidDeathLocationTest
 	void get_location_returns_invalid_location()
 	{
 		// Arrange
-		ValidDeathLocation deathLocation = new ValidDeathLocation(PLAYER_UID, WORLD_UID, 10, 11, 12);
+		ValidDeathLocation deathLocation = DeathLocation.of(PLAYER_UID, WORLD_UID, 10, 11, 12).isValid().orElseThrow();
 		when(serverMock.getWorld(WORLD_UID)).thenReturn(null);
 		try (MockedStatic<Bukkit> mockedBukkit = mockStatic(Bukkit.class))
 		{
@@ -101,7 +101,7 @@ class ValidDeathLocationTest
 	@Test
 	public void hashcode_returns_same_value_for_same_object()
 	{
-		ValidDeathLocation obj = new ValidDeathLocation(PLAYER_UID, WORLD_UID, 1D, 2D, 3D);
+		ValidDeathLocation obj = DeathLocation.of(PLAYER_UID, WORLD_UID, 1D, 2D, 3D).isValid().orElseThrow();
 		int hashCode1 = obj.hashCode();
 		int hashCode2 = obj.hashCode();
 		assertEquals(hashCode1, hashCode2);
@@ -110,8 +110,8 @@ class ValidDeathLocationTest
 
 	@Test
 	public void hashcode_returns_same_value_for_identical_objects() {
-		ValidDeathLocation obj1 = new ValidDeathLocation(PLAYER_UID, WORLD_UID, 1D, 2D, 3D);
-		ValidDeathLocation obj2 = new ValidDeathLocation(PLAYER_UID, WORLD_UID, 1D, 2D, 3D);
+		ValidDeathLocation obj1 = DeathLocation.of(PLAYER_UID, WORLD_UID, 1D, 2D, 3D).isValid().orElseThrow();
+		ValidDeathLocation obj2 = DeathLocation.of(PLAYER_UID, WORLD_UID, 1D, 2D, 3D).isValid().orElseThrow();
 		assertEquals(obj1.hashCode(), obj2.hashCode());
 	}
 
@@ -120,7 +120,7 @@ class ValidDeathLocationTest
 	void toString_returns_string_representation_ofValidDeathLocation()
 	{
 		// Arrange
-		ValidDeathLocation deathLocation = new ValidDeathLocation(PLAYER_UID, WORLD_UID, 1D, 2D, 3D);
+		ValidDeathLocation deathLocation = DeathLocation.of(PLAYER_UID, WORLD_UID, 1D, 2D, 3D).isValid().orElseThrow();
 
 		// Act
 		String result = deathLocation.toString();
@@ -133,14 +133,16 @@ class ValidDeathLocationTest
 
 	private static ValidDeathLocation baseLocation()
 	{
-		return new ValidDeathLocation(PLAYER_UID, WORLD_UID, 1.0, 2.0, 3.0);
+		return DeathLocation.of(PLAYER_UID, WORLD_UID, 1.0, 2.0, 3.0).isValid().orElseThrow();
 	}
+
 
 	@Test
 	void testEqualsSameObject() {
 		ValidDeathLocation loc = baseLocation();
 		assertEquals(loc, loc, "Object should equal itself");
 	}
+
 
 	@Test
 	void testEqualsEqualObjects() {
@@ -156,11 +158,11 @@ class ValidDeathLocationTest
 	 */
 	static Stream<ValidDeathLocation> unequalLocations() {
 		return Stream.of(
-				new ValidDeathLocation(PLAYER_UID, WORLD_UID, 1.0, 2.0, 4.0),           // different z
-				new ValidDeathLocation(PLAYER_UID, WORLD_UID, 9.0, 2.0, 3.0),           // different x
-				new ValidDeathLocation(PLAYER_UID, WORLD_UID, 1.0, 8.0, 3.0),           // different y
-				new ValidDeathLocation(PLAYER_UID, UUID.randomUUID(), 1.0, 2.0, 3.0),  // different world
-				new ValidDeathLocation(UUID.randomUUID(), WORLD_UID, 1.0, 2.0, 3.0)    // different player
+				DeathLocation.of(PLAYER_UID, WORLD_UID, 1.0, 2.0, 4.0).isValid().orElseThrow(),          // different z
+				DeathLocation.of(PLAYER_UID, WORLD_UID, 9.0, 2.0, 3.0).isValid().orElseThrow(),          // different x
+				DeathLocation.of(PLAYER_UID, WORLD_UID, 1.0, 8.0, 3.0).isValid().orElseThrow(),          // different y
+				DeathLocation.of(PLAYER_UID, UUID.randomUUID(), 1.0, 2.0, 3.0).isValid().orElseThrow(),  // different world
+				DeathLocation.of(UUID.randomUUID(), WORLD_UID, 1.0, 2.0, 3.0).isValid().orElseThrow()    // different player
 		);
 	}
 
