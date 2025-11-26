@@ -17,10 +17,10 @@
 
 package com.winterhavenmc.deathcompass.adapters.storage.sqlite;
 
-import com.winterhavenmc.deathcompass.adapters.models.DeathLocation;
-import com.winterhavenmc.deathcompass.adapters.models.DeathLocationReason;
-import com.winterhavenmc.deathcompass.adapters.models.InvalidDeathLocation;
-import com.winterhavenmc.deathcompass.adapters.models.ValidDeathLocation;
+import com.winterhavenmc.deathcompass.models.deathlocation.DeathLocation;
+import com.winterhavenmc.deathcompass.models.deathlocation.DeathLocationReason;
+import com.winterhavenmc.deathcompass.models.deathlocation.InvalidDeathLocation;
+import com.winterhavenmc.deathcompass.models.deathlocation.ValidDeathLocation;
 import com.winterhavenmc.deathcompass.adapters.ports.storage.DeathLocationRepository;
 
 import com.winterhavenmc.library.messagebuilder.models.configuration.ConfigRepository;

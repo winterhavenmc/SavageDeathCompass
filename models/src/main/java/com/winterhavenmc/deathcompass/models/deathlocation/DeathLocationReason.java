@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.models;
+package com.winterhavenmc.deathcompass.models.deathlocation;
 
 import java.util.Locale;
 import java.util.MissingResourceException;

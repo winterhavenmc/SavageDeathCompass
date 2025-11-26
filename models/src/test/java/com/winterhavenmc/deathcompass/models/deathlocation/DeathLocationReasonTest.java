@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.models;
+package com.winterhavenmc.deathcompass.models.deathlocation;
 
 import org.junit.jupiter.api.Test;
 import java.util.Locale;

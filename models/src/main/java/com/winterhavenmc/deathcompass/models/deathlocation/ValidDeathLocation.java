@@ -15,7 +15,7 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.models;
+package com.winterhavenmc.deathcompass.models.deathlocation;
 
 import com.winterhavenmc.library.messagebuilder.core.ports.pipeline.accessors.location.Locatable;
 import org.bukkit.Bukkit;

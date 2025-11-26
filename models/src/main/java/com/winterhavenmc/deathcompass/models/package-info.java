@@ -15,6 +15,4 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.models;
-
-public record InvalidDeathLocation(DeathLocationReason reason) implements DeathLocation { }
+package com.winterhavenmc.deathcompass.models;

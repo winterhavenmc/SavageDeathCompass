@@ -15,19 +15,6 @@
  *
  */
 
-package com.winterhavenmc.deathcompass.adapters.ports.storage;
+package com.winterhavenmc.deathcompass.models.deathlocation;
 
-import com.winterhavenmc.deathcompass.models.deathlocation.DeathLocation;
-import com.winterhavenmc.deathcompass.models.deathlocation.ValidDeathLocation;
-
-import java.util.Collection;
-import java.util.UUID;
-
-
-@SuppressWarnings("UnusedReturnValue")
-public interface DeathLocationRepository
-{
-	DeathLocation getDeathLocation(final UUID playerUUID, final UUID worldUID);
-	int saveDeathLocation(final ValidDeathLocation deathLocation);
-	int saveDeathLocations(final Collection<ValidDeathLocation> deathLocations);
-}
+public record InvalidDeathLocation(DeathLocationReason reason) implements DeathLocation { }
