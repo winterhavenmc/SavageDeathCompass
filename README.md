@@ -1,7 +1,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/203cd1e762604fdbaecff754b8e48570)](https://app.codacy.com/gh/winterhavenmc/SavageDeathCompass/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/203cd1e762604fdbaecff754b8e48570)](https://app.codacy.com/gh/winterhavenmc/SavageDeathCompass/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Spigot Version](https://img.shields.io/badge/spigot--api-1.21.10-yellow)](https://www.spigotmc.org)
-&thinsp;[![License](https://img.shields.io/badge/license-GPLv3-blue)](https://www.gnu.org/licenses/gpl-3.0)
+&ensp;[![License](https://img.shields.io/badge/license-GPLv3-blue)](https://www.gnu.org/licenses/gpl-3.0)
 
 ### Description:
 
