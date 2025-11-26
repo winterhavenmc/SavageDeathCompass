@@ -1,36 +1,36 @@
 # Sound configuration file for ${name} v${version}
 
 COMMAND_FAIL:
-  enabled: true
-  player-only: true
-  sound: minecraft:entity.villager.no
-  volume: 1
-  pitch: 1
+  ENABLED: true
+  PLAYER_ONLY: true
+  SOUND_NAME: minecraft:entity.villager.no
+  VOLUME: 1
+  PITCH: 1
 
 COMMAND_INVALID:
-  enabled: true
-  player-only: true
-  sound: minecraft:entity.wandering_trader.ambient
-  volume: 1
-  pitch: 1
+  ENABLED: true
+  PLAYER_ONLY: true
+  SOUND_NAME: minecraft:entity.wandering_trader.ambient
+  VOLUME: 1
+  PITCH: 1
 
 COMMAND_SUCCESS_RELOAD:
-  enabled: true
-  player-only: true
-  sound: minecraft:block.note_block.chime
-  volume: 1
-  pitch: 1
+  ENABLED: true
+  PLAYER_ONLY: true
+  SOUND_NAME: minecraft:block.note_block.chime
+  VOLUME: 1
+  PITCH: 1
 
 INVENTORY_DENY_TRANSFER:
-  enabled: true
-  player-only: true
-  sound: minecraft:entity.villager.no
-  volume: 1
-  pitch: 1
+  ENABLED: true
+  PLAYER_ONLY: true
+  SOUND_NAME: minecraft:entity.villager.no
+  VOLUME: 1
+  PITCH: 1
 
 PLAYER_DROP_COMPASS:
-  enabled: true
-  player-only: true
-  sound: minecraft:entity.item.break
-  volume: 1
-  pitch: 1
+  ENABLED: true
+  PLAYER_ONLY: true
+  SOUND_NAME: minecraft:entity.item.break
+  VOLUME: 1
+  PITCH: 1
