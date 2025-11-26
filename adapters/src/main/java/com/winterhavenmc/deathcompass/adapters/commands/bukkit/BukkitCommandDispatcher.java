@@ -53,12 +53,8 @@ public final class BukkitCommandDispatcher implements CommandDispatcher
 		Objects.requireNonNull(ctx.plugin().getCommand("deathcompass")).setExecutor(this);
 
 		// register subcommands
-		for (SubcommandType subcommandType : SubcommandType.values())
-		{
-			subcommandRegistry.register(subcommandType.create(ctx));
-		}
-
-		// register help subcommand
+		subcommandRegistry.register(new ReloadSubcommand(ctx));
+		subcommandRegistry.register(new StatusSubcommand(ctx));
 		subcommandRegistry.register(new HelpSubcommand(ctx, subcommandRegistry));
 	}
 
